@@ -1,8 +1,12 @@
 import contextlib
 import io
+import json
 import unittest
+import urllib.error
+import urllib.request
 
 import main
+import mapa
 
 STORY = main.load_story()
 DEMO_GPS = main.demo_gps(STORY)
@@ -313,8 +317,8 @@ class Location(unittest.TestCase):
                    + ["1", ""] * 2 + ["n"])
         status, out = run_game(STORY, answers, gps=gps)
         self.assertEqual(status, "finished")
-        self.assertIn("Wieże masz po lewej", out)
-        self.assertIn("Do celu zostało ok. 100 m", out)
+        self.assertIn("spójrz w lewo", out)
+        self.assertRegex(out, r"Do celu zostało ok\. \d+ m")
         wieze, rynek = STORY["stops"]["wieze"]["arrive"], STORY["stops"]["rynek"]["arrive"]
         self.assertLess(out.index(wieze), out.index("Decyzja 4/6"))
         self.assertLess(out.index(rynek), out.index("Decyzja 5/6"))
@@ -331,6 +335,80 @@ class Location(unittest.TestCase):
             for name in NAMES:
                 self.assertNotIn(name, game, choices)
                 self.assertIn(name, finale)
+
+
+class RouteWalk(unittest.TestCase):
+    def test_route_is_about_as_long_as_google_says(self):
+        meters = sum(main.path_length_m(leg) for leg in main.route_legs(STORY).values())
+        self.assertTrue(220 <= meters <= 300, meters)  # Google Maps: ok. 260 m
+
+    def test_route_starts_in_a_zone_and_every_leg_ends_at_its_stop(self):
+        start = tuple(STORY["route"]["start"])
+        self.assertTrue(main.locate(STORY, start)["unlocked"])
+        self.assertNotEqual(main.locate(STORY, start)["view"], "ogolny")
+        for name, leg in main.route_legs(STORY).items():
+            stop = STORY["stops"][name]
+            self.assertLessEqual(main.distance_m(*leg[-1], stop["lat"], stop["lon"]), stop["radius_m"])
+
+    def test_densify_keeps_steps_short(self):
+        for leg in main.route_legs(STORY).values():
+            points = main.densify(leg, 20)
+            steps = [main.distance_m(*a, *b) for a, b in zip(points, points[1:])]
+            self.assertLessEqual(max(steps), 20.5)
+            self.assertEqual(points[-1], leg[-1])
+
+    def test_route_gps_plays_the_whole_walk_without_enter(self):
+        status, out = run_game(STORY, script(ALL_LEGEND), gps=main.RouteGps(STORY))
+        self.assertEqual(status, "finished")
+        self.assertNotIn("sprawdź pozycję", out)
+        self.assertEqual(out.count("jesteś na miejscu"), 2)
+        self.assertGreaterEqual(out.count("jeszcze ok."), 6)
+        self.assertIn("spójrz w lewo", out)  # trasa zaczyna się od południa
+        for name in ("wieze", "rynek"):
+            self.assertIn(STORY["stops"][name]["arrive"], out)
+
+    def test_tempo_waits_between_readings(self):
+        waits = []
+        gps = main.RouteGps(STORY, tempo=0.5, sleep=waits.append)
+        run_game(STORY, script(ALL_LEGEND), gps=gps)
+        self.assertTrue(waits)
+        self.assertTrue(all(w == 0.5 for w in waits))
+
+
+class LiveMapTests(unittest.TestCase):
+    def setUp(self):
+        self.live = mapa.LiveMap(port=0)  # wolny port wybrany przez system
+        self.addCleanup(self.live.close)
+
+    def get(self, path):
+        with urllib.request.urlopen(self.live.url.rstrip("/") + path, timeout=5) as r:
+            return r.headers.get("Content-Type"), r.read().decode()
+
+    def test_page_embeds_google_map_and_polls_position(self):
+        kind, body = self.get("/")
+        self.assertIn("text/html", kind)
+        self.assertIn("maps.google.com/maps?q=", body)
+        self.assertIn('fetch("/pos"', body)
+
+    def test_position_endpoint_follows_updates(self):
+        self.assertEqual(json.loads(self.get("/pos")[1])["lat"], None)
+        self.live.update((51.1, 17.03), "test")
+        self.assertEqual(json.loads(self.get("/pos")[1]), {"lat": 51.1, "lon": 17.03, "note": "test"})
+
+    def test_unknown_path_is_404(self):
+        with self.assertRaises(urllib.error.HTTPError):
+            self.get("/nie-ma")
+
+    def test_mapped_gps_reports_every_reading_of_a_walk(self):
+        gps = mapa.MappedGps(main.RouteGps(STORY), self.live, STORY, main.distance_m)
+        self.assertTrue(gps.live)
+        status, _ = run_game(STORY, script(ALL_LEGEND), gps=gps)
+        self.assertEqual(status, "finished")
+        last = self.live.snapshot()
+        stop = STORY["stops"]["rynek"]
+        self.assertLessEqual(main.distance_m(last["lat"], last["lon"], stop["lat"], stop["lon"]),
+                             stop["radius_m"])
+        self.assertIn("jesteś: " + stop["label"], last["note"])
 
 
 class CommandLine(unittest.TestCase):
@@ -353,6 +431,18 @@ class CommandLine(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertNotIn("Symulacja GPS", out)
         self.assertIn("Kronikarz legend", out)
+
+    def test_route_flag_plays_the_walk(self):
+        code, out = self.run_main(["--trasa", "--tempo", "0"], script(ALL_LEGEND))
+        self.assertEqual(code, 0)
+        self.assertNotIn("Symulacja GPS", out)
+        self.assertIn("jesteś na miejscu", out)
+
+    def test_map_flag_prints_local_address(self):
+        code, out = self.run_main(["--trasa", "--tempo", "0", "--mapa", "--port", "0"],
+                                  script(ALL_LEGEND))
+        self.assertEqual(code, 0)
+        self.assertRegex(out, r"Mapa na żywo: http://127\.0\.0\.1:\d+/")
 
     def test_no_gps_flag_locks(self):
         code, out = self.run_main(["--no-gps"])

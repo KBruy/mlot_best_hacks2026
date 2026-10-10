@@ -13,6 +13,7 @@ import os
 import shutil
 import sys
 import textwrap
+import time
 from pathlib import Path
 
 STORY_PATH = Path(__file__).with_name("story.json")
@@ -56,8 +57,36 @@ def format_distance(meters):
     return f"{round(meters / 10) * 10:.0f} m"
 
 
+def path_length_m(points):
+    return sum(distance_m(*a, *b) for a, b in zip(points, points[1:]))
+
+
+def densify(points, step_m):
+    """Dzieli łamaną na odcinki nie dłuższe niż step_m (proste przybliżenie liniowe)."""
+    out = [tuple(points[0])]
+    for a, b in zip(points, points[1:]):
+        parts = max(1, math.ceil(distance_m(*a, *b) / step_m))
+        for i in range(1, parts + 1):
+            t = i / parts
+            out.append((a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t))
+    return out
+
+
+def route_legs(story):
+    """Odcinki trasy spaceru: każdy od poprzedniej pozycji do kolejnego przystanku."""
+    route = story["route"]
+    position, legs = tuple(route["start"]), {}
+    for name, points in route["legs"].items():
+        stop = story["stops"][name]
+        legs[name] = [position] + [tuple(p) for p in points] + [(stop["lat"], stop["lon"])]
+        position = legs[name][-1]
+    return legs
+
+
 def walk_minutes(story):
-    """Szacowany czas samego chodzenia: od kościoła przez kolejne przystanki."""
+    """Szacowany czas samego chodzenia: po prawdziwej trasie, a bez niej w linii prostej."""
+    if "route" in story:
+        return sum(path_length_m(leg) for leg in route_legs(story).values()) / WALK_SPEED_M_PER_MIN
     points = [tuple(story["location"]["center"])]
     for decision in story["decisions"]:
         if decision.get("before"):
@@ -288,6 +317,10 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
         say(f"🚶 {stop['label']}", style="1;35")
         say(stop["walk"])
         output_fn("")
+        if getattr(gps, "live", False) and walk_live(stop):
+            say(stop["arrive"], style="1")
+            output_fn("")
+            return
         while True:
             position = gps(stop)
             if position is not None:
@@ -303,6 +336,27 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
                 break
         say(stop["arrive"], style="1")
         output_fn("")
+
+    def walk_live(stop):
+        """GPS na żywo (np. odtwarzana trasa): pozycja aktualizuje się sama, bez Entera."""
+        total, shown = None, None
+        for _ in range(500):
+            position = gps(stop)
+            if position is None:
+                return False
+            left = distance_m(*position, stop["lat"], stop["lon"])
+            if left <= stop["radius_m"]:
+                say(f"📍 {'▓' * 10} jesteś na miejscu")
+                output_fn("")
+                return True
+            total = total or left
+            span = max(total - stop["radius_m"], 1)
+            done = max(0, min(9, int(10 * (total - left) / span)))
+            line = f"📍 {'▓' * done}{'░' * (10 - done)} jeszcze ok. {format_distance(left)}"
+            if line != shown:
+                say(line)
+                shown = line
+        return False
 
     def play_once():
         view = unlock()
@@ -388,6 +442,33 @@ def demo_gps(story):
     return read
 
 
+class RouteGps:
+    """Odtwarza spacer po trasie z story.json: każdy odczyt to kolejne ok. step_m metrów.
+
+    tempo to przerwa (w sekundach) między odczytami, przydatna na prezentacjach.
+    """
+
+    live = True
+
+    def __init__(self, story, step_m=20, tempo=0.0, sleep=time.sleep):
+        self.story, self.tempo, self.sleep = story, tempo, sleep
+        self.legs = {name: densify(points, step_m) for name, points in route_legs(story).items()}
+        self.position = tuple(story["route"]["start"])
+        self.leg, self.queue = None, []
+
+    def __call__(self, target):
+        if target is None:
+            return self.position
+        name = next(n for n, s in self.story["stops"].items() if s is target)
+        if name != self.leg:
+            self.leg, self.queue = name, list(self.legs[name][1:])
+        if self.queue:
+            if self.tempo:
+                self.sleep(self.tempo)
+            self.position = self.queue.pop(0)
+        return self.position
+
+
 def fixed_gps(position):
     """Stała pozycja (np. z --gps): gracz nigdzie się nie rusza."""
     return lambda target: position
@@ -431,8 +512,15 @@ def main(argv=None, input_fn=input, output_fn=print):
                        help="symulowana pozycja startowa; dalszy spacer przez menu")
     group.add_argument("--demo", action="store_true",
                        help="tryb prezentacji: start pod kościołem, przystanki zaliczane od razu")
+    group.add_argument("--trasa", action="store_true",
+                       help="odtwarza prawdziwy spacer po trasie zapisanej w story.json")
     group.add_argument("--no-gps", action="store_true",
                        help="symuluje brak zgody na lokalizację")
+    parser.add_argument("--tempo", type=float, default=None, metavar="SEKUNDY",
+                        help="przy --trasa: przerwa między odczytami GPS (domyślnie 1 s, 0 = od razu)")
+    parser.add_argument("--mapa", action="store_true",
+                        help="pokazuje spacer na żywo na mapie Google w przeglądarce")
+    parser.add_argument("--port", type=int, default=8765, help="port strony z mapą (domyślnie 8765)")
     args = parser.parse_args(argv)
 
     story = load_story()
@@ -443,10 +531,26 @@ def main(argv=None, input_fn=input, output_fn=print):
         gps = lambda target: None
     elif args.demo:
         gps = demo_gps(story)
+    elif args.trasa:
+        gps = RouteGps(story, tempo=1.0 if args.tempo is None else args.tempo)
     else:
         gps = menu_gps(story, input_fn, output_fn, first=args.gps)
+    live_map = None
+    if args.mapa:
+        import webbrowser
+        from mapa import LiveMap, MappedGps
+        live_map = LiveMap(args.port)
+        gps = MappedGps(gps, live_map, story, distance_m)
+        output_fn(f"🗺️  Mapa na żywo: {live_map.url}")
+        output_fn("")
+        if output_fn is print:
+            webbrowser.open(live_map.url)
     color = output_fn is print and sys.stdout.isatty() and "NO_COLOR" not in os.environ
-    status = play(story, input_fn, output_fn, color=color, gps=gps)
+    try:
+        status = play(story, input_fn, output_fn, color=color, gps=gps)
+    finally:
+        if live_map:
+            live_map.close()
     return 1 if status == "locked" else 0
 
 

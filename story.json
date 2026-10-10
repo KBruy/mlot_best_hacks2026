@@ -1,92 +1,92 @@
 {
   "location": {
     "name": "kościół św. Marii Magdaleny",
-    "_note": "Wszystkie współrzędne są przybliżone i do zmierzenia na miejscu. Kościół jest orientowany: wieże z mostkiem stoją od zachodu.",
+    "_note": "Współrzędne odczytane z Google Maps (prawy klik na zdjęciu satelitarnym, 2026-10-10). Wieże z mostkiem stoją od zachodu, przy ul. Szewskiej; mostek łączy wieżę północną z południową, więc od północy i południa widać go tylko z boku. Warto jeszcze sprawdzić na miejscu.",
     "center": [
-      51.1098,
-      17.0358
+      51.109531,
+      17.035053
     ],
     "unlock_radius_m": 250,
     "default_view": "ogolny",
     "viewpoints": [
       {
         "id": "zachod",
-        "label": "od zachodu, naprzeciw wież",
-        "lat": 51.1098,
-        "lon": 17.0348,
-        "radius_m": 40
+        "label": "od zachodu, z ul. Szewskiej, naprzeciw wież",
+        "lat": 51.109666,
+        "lon": 17.034503,
+        "radius_m": 30
       },
       {
         "id": "poludnie",
-        "label": "od południa, przy bocznej ścianie",
-        "lat": 51.1092,
-        "lon": 17.0358,
-        "radius_m": 40
+        "label": "od południa, z ul. Św. Marii Magdaleny",
+        "lat": 51.109228,
+        "lon": 17.03504,
+        "radius_m": 30
       },
       {
         "id": "polnoc",
-        "label": "od północy, przy bocznej ścianie",
-        "lat": 51.1104,
-        "lon": 17.0358,
-        "radius_m": 40
+        "label": "od północy, z placu przy kościele",
+        "lat": 51.109851,
+        "lon": 17.03508,
+        "radius_m": 30
       },
       {
         "id": "wschod",
-        "label": "od wschodu, za prezbiterium",
-        "lat": 51.1098,
-        "lon": 17.0368,
-        "radius_m": 40
+        "label": "od wschodu, z ul. Łaciarskiej",
+        "lat": 51.109498,
+        "lon": 17.03563,
+        "radius_m": 30
       }
     ]
   },
   "stops": {
     "wieze": {
       "label": "Pod wieżami",
-      "lat": 51.1098,
-      "lon": 17.0348,
-      "radius_m": 40,
-      "walk": "Obejdź kościół i stań od zachodu, pod dwiema wieżami. To ok. minuta spacerem.",
+      "lat": 51.109666,
+      "lon": 17.034503,
+      "radius_m": 30,
+      "walk": "Obejdź kościół i stań od zachodu, na ulicy Szewskiej, naprzeciw dwóch wież. To najwyżej minuta spacerem.",
       "arrive": "Jesteś pod wieżami. Zatrzymaj się na chwilę."
     },
     "rynek": {
       "label": "Rynek, pod pręgierzem",
-      "lat": 51.1096,
-      "lon": 17.0327,
-      "radius_m": 40,
-      "walk": "Idź na Rynek i stań przy pręgierzu, przed Ratuszem. To ok. 3–4 minuty spacerem. Nie czytaj po drodze, patrz pod nogi.",
+      "lat": 51.1094653,
+      "lon": 17.0327099,
+      "radius_m": 30,
+      "walk": "Idź przez Kurzy Targ na Rynek i stań przy pręgierzu przed Ratuszem. To ok. 2 minuty spacerem. Nie czytaj po drodze, patrz pod nogi.",
       "arrive": "Jesteś przy pręgierzu. Rozejrzyj się: tu wszystko się rozstrzygnie."
     }
   },
   "test_points": [
     {
-      "label": "Kościół: naprzeciw wież (zachód)",
-      "lat": 51.1098,
-      "lon": 17.0348
+      "label": "Kościół: naprzeciw wież (zachód, ul. Szewska)",
+      "lat": 51.109666,
+      "lon": 17.034503
     },
     {
       "label": "Kościół: boczna ściana (południe)",
-      "lat": 51.1092,
-      "lon": 17.0358
+      "lat": 51.109228,
+      "lon": 17.03504
     },
     {
-      "label": "Kościół: boczna ściana (północ)",
-      "lat": 51.1104,
-      "lon": 17.0358
+      "label": "Kościół: plac (północ)",
+      "lat": 51.109851,
+      "lon": 17.03508
     },
     {
-      "label": "Kościół: za prezbiterium (wschód)",
-      "lat": 51.1098,
-      "lon": 17.0368
+      "label": "Kościół: za prezbiterium (wschód, ul. Łaciarska)",
+      "lat": 51.109498,
+      "lon": 17.03563
     },
     {
       "label": "W pobliżu kościoła, poza strefami",
-      "lat": 51.1108,
-      "lon": 17.0378
+      "lat": 51.1105,
+      "lon": 17.0365
     },
     {
       "label": "Rynek: pod pręgierzem",
-      "lat": 51.1096,
-      "lon": 17.0327
+      "lat": 51.1094653,
+      "lon": 17.0327099
     },
     {
       "label": "Daleko: Dworzec Główny",
@@ -95,9 +95,74 @@
     }
   ],
   "demo_start": [
-    51.1098,
-    17.0348
+    51.109666,
+    17.034503
   ],
+  "route": {
+    "_note": "Trasa piesza z Google Maps (2026-10-10): ul. Św. Marii Magdaleny → róg Szewskiej → pod wieże → Kurzy Targ → pręgierz, ok. 260 m.",
+    "start": [
+      51.109256,
+      17.035013
+    ],
+    "legs": {
+      "wieze": [
+        [
+          51.10934,
+          17.034651
+        ],
+        [
+          51.109416,
+          17.034297
+        ],
+        [
+          51.109534,
+          17.034351
+        ],
+        [
+          51.109652,
+          17.034396
+        ]
+      ],
+      "rynek": [
+        [
+          51.109534,
+          17.034351
+        ],
+        [
+          51.109416,
+          17.034297
+        ],
+        [
+          51.109475,
+          17.034024
+        ],
+        [
+          51.109551,
+          17.033702
+        ],
+        [
+          51.109626,
+          17.03338
+        ],
+        [
+          51.109694,
+          17.033032
+        ],
+        [
+          51.109626,
+          17.032965
+        ],
+        [
+          51.109497,
+          17.032831
+        ],
+        [
+          51.1094653,
+          17.0327099
+        ]
+      ]
+    }
+  },
   "state": {
     "widok": [
       "zachod",
@@ -155,7 +220,7 @@
               "poludnie"
             ]
           },
-          "text": "Stań twarzą do kościoła. Wieże masz po lewej. Zadrzyj głowę: wysoko między nimi wisi wąski mostek."
+          "text": "Stań twarzą do kościoła i spójrz w lewo, wzdłuż ulicy: tam wznosi się wieża. Wysoko na niej widać skraj wąskiego mostka, który łączy ją z drugą wieżą."
         },
         {
           "if": {
@@ -163,7 +228,7 @@
               "polnoc"
             ]
           },
-          "text": "Stań twarzą do kościoła. Wieże masz po prawej. Zadrzyj głowę: wysoko między nimi wisi wąski mostek."
+          "text": "Stań twarzą do kościoła. Wieże masz po prawej. Wysoko między nimi wisi wąski mostek, choć stąd widać go tylko z boku."
         },
         {
           "if": {
@@ -171,7 +236,7 @@
               "wschod"
             ]
           },
-          "text": "Stań twarzą do kościoła. Przed tobą długie, ceglane prezbiterium, a nad jego dachem wystają dwie wieże połączone wąskim mostkiem."
+          "text": "Stań twarzą do kościoła. Przed tobą długie, ceglane prezbiterium, a nad dachem, w oddali, wystają dwie wieże. Wysoko między nimi wisi wąski mostek."
         },
         {
           "if": {
