@@ -28,6 +28,15 @@ Pełny scope i kontrakt danych w `../CLAUDE.md` i `../SCOPE_V0.md`. Ten plik zaw
 
 Kod uznajemy za gotowy gdy spełnia **wszystkie** poniższe zasady. To nie są preferencje — to warunki odbioru.
 
+### 0. Lintery — obowiązkowe
+Projekt używa **oxlint** (już skonfigurowany w `.oxlintrc.json`). Zasady:
+- Przed każdym commitem uruchom `npm run lint` i napraw **wszystkie** błędy
+- Warningi traktuj jak błędy — nie commituj kodu z warningami
+- Nie wyłączaj reguł przez `// eslint-disable` ani `// oxlint-disable` bez wyraźnego powodu
+- Jeśli reguła przeszkadza — przedyskutuj zmianę w `.oxlintrc.json`, nie obchodź jej inline
+
+W przyszłości można rozważyć dodanie `prettier` do formatowania — decyzja do ustalenia z zespołem.
+
 ### 1. Czytelność
 Każda linia kodu powinna być zrozumiała bez komentarza. Dobre nazwy zmiennych i funkcji zastępują dokumentację.
 Unikaj zagnieżdżonych trójników, długich łańcuchów `.then()` i anonimowych callbacków tam gdzie ma to nazwę.
