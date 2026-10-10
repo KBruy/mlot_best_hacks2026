@@ -12,6 +12,8 @@ package-lock.json
 .idea/
 .vscode/
 
+.claude/
+
 # OS
 .DS_Store
 
