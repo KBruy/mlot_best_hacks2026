@@ -1,0 +1,166 @@
+{
+  "id": "legenda-fixture",
+  "title": "Legenda (fixture)",
+  "intro": "Tekst przykładowy wstępu.",
+  "characters": [
+    {
+      "id": "postac_1",
+      "name": "Postać 1",
+      "description": "Opis przykładowy postaci 1.",
+      "entry_node_id": "n1_postac1"
+    },
+    {
+      "id": "postac_2",
+      "name": "Postać 2",
+      "description": "Opis przykładowy postaci 2.",
+      "entry_node_id": "n1_postac2"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n1_postac1",
+      "type": "decision",
+      "text": "Scena 1 (postać 1): tekst przykładowy.",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Opcja A w scenie 1 (postać 1)",
+          "consequence": "Konsekwencja A w scenie 1 (postać 1).",
+          "next_node_id": "n2"
+        },
+        {
+          "id": "b",
+          "text": "Opcja B w scenie 1 (postać 1)",
+          "consequence": "Konsekwencja B w scenie 1 (postać 1).",
+          "next_node_id": "n2"
+        }
+      ]
+    },
+    {
+      "id": "n1_postac2",
+      "type": "decision",
+      "text": "Scena 1 (postać 2): tekst przykładowy.",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Opcja A w scenie 1 (postać 2)",
+          "consequence": "Konsekwencja A w scenie 1 (postać 2).",
+          "next_node_id": "n2"
+        },
+        {
+          "id": "b",
+          "text": "Opcja B w scenie 1 (postać 2)",
+          "consequence": "Konsekwencja B w scenie 1 (postać 2).",
+          "next_node_id": "n2"
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "type": "decision",
+      "text": "Scena 2: tekst przykładowy.",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Opcja A w scenie 2",
+          "consequence": "Konsekwencja A w scenie 2.",
+          "next_node_id": "n3"
+        },
+        {
+          "id": "b",
+          "text": "Opcja B w scenie 2",
+          "consequence": "Konsekwencja B w scenie 2.",
+          "next_node_id": "n3"
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "type": "decision",
+      "text": "Scena 3: tekst przykładowy.",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Opcja A w scenie 3",
+          "consequence": "Konsekwencja A w scenie 3.",
+          "next_node_id": "n4"
+        },
+        {
+          "id": "b",
+          "text": "Opcja B w scenie 3",
+          "consequence": "Konsekwencja B w scenie 3.",
+          "next_node_id": "n4"
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "type": "decision",
+      "text": "Scena 4: tekst przykładowy.",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Opcja A w scenie 4",
+          "consequence": "Konsekwencja A w scenie 4.",
+          "next_node_id": "n5"
+        },
+        {
+          "id": "b",
+          "text": "Opcja B w scenie 4",
+          "consequence": "Konsekwencja B w scenie 4.",
+          "next_node_id": "n5"
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "type": "decision",
+      "text": "Scena 5: tekst przykładowy.",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Opcja A w scenie 5",
+          "consequence": "Konsekwencja A w scenie 5.",
+          "next_node_id": "n6"
+        },
+        {
+          "id": "b",
+          "text": "Opcja B w scenie 5",
+          "consequence": "Konsekwencja B w scenie 5.",
+          "next_node_id": "n6"
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "type": "decision",
+      "text": "Scena 6: tekst przykładowy.",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Opcja A w scenie 6",
+          "consequence": "Konsekwencja A w scenie 6.",
+          "next_node_id": "ending_1"
+        },
+        {
+          "id": "b",
+          "text": "Opcja B w scenie 6",
+          "consequence": "Konsekwencja B w scenie 6.",
+          "next_node_id": "ending_2"
+        }
+      ]
+    },
+    {
+      "id": "ending_1",
+      "type": "ending",
+      "title": "Zakończenie 1",
+      "text": "Tekst przykładowy zakończenia 1."
+    },
+    {
+      "id": "ending_2",
+      "type": "ending",
+      "title": "Zakończenie 2",
+      "text": "Tekst przykładowy zakończenia 2."
+    }
+  ]
+}

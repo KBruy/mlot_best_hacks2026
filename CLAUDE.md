@@ -4,7 +4,7 @@
 
 Budujemy demo polskojęzycznej PWA: interaktywna adaptacja jednej legendy wrocławskiej, wybór postaci i decyzje fabularne. Zespół: 4 osoby. **V0 ma powstać w maksymalnie 3–4 godziny**, nie w 24 godziny. Optymalizuj pod kompletny przepływ i minimalną liczbę elementów.
 
-To instrukcja dla przyszłego repozytorium, nie opis już istniejącej implementacji. Umieść ten plik w katalogu głównym. Szczegółowy zakres i taski są w `SCOPE_V0.md` oraz `TASKI_V0.md`, jeśli skopiowano je razem z nim. Przed pracą sprawdź rzeczywistą strukturę i istniejące instrukcje.
+Backend (`backend/`) jest już zaimplementowany; jego szczegóły opisuje `backend/README.md`. Szczegółowy zakres i taski są w `SCOPE_V0.md` oraz `TASKI_V0.md`, jeśli skopiowano je razem z nim. Przed pracą sprawdź rzeczywistą strukturę i istniejące instrukcje.
 
 ## Zakres v0
 
@@ -18,27 +18,26 @@ To instrukcja dla przyszłego repozytorium, nie opis już istniejącej implement
 
 **Zero AI w aplikacji i tworzeniu treści.** Nie dodawaj SDK modeli, wywołań LLM, embeddingów ani generowanych ilustracji. Finalne teksty i graf dostarcza zespół ręcznie. Nie generuj finalnej narracji; techniczne fixture mogą zawierać neutralne etykiety typu „Scena 1”.
 
-Poza zakresem: pozostałe dwie legendy, osobne pełne kampanie postaci, konta, zapis/wznowienie, synchronizacja, pełny offline, walka, ekwipunek, statystyki, losowość, mapa/GPS, audio, panel autora, multiplayer, analityka, CI/CD i nowa infrastruktura hostingowa.
+Poza zakresem: pozostałe dwie legendy, osobne pełne kampanie postaci, konta, zapis/wznowienie, synchronizacja, pełny offline, walka, ekwipunek, statystyki, losowość, mapa/GPS, panel autora, multiplayer, analityka, CI/CD i nowa infrastruktura hostingowa.
 
 ## Technologia i prostota
 
 - Vite + React + TypeScript, zwykły CSS, stan React. Bez routera, jeśli nie jest potrzebny do istniejącego kodu.
 - FastAPI, Pydantic, PostgreSQL w Dockerze.
-- Compose dla API i bazy; frontend uruchamiany lokalnie. Nie konteneryzuj frontendu tylko dla symetrii.
-- Jeden endpoint `GET /api/story`: pełna historia z PostgreSQL. Niedostępna baza/brak historii: kontrolowany 503.
-- Jedna tabela `stories(id TEXT PRIMARY KEY, payload JSONB NOT NULL)`.
-- Jeden skrypt tworzący tabelę i importujący `content/legend.json` przez upsert. Bez ORM i frameworka migracji, chyba że są już w używanym szablonie.
-- Frontend pobiera cały dokument raz i wykonuje wszystkie przejścia lokalnie. Nie wysyłaj wyborów do serwera.
+- `backend/` i `frontend/` to osobne podserwisy. Backend ma własny `docker-compose.yaml` (API + baza), `.env.example` i `README.md`; frontend uruchamiany lokalnie. Nie konteneryzuj frontendu tylko dla symetrii.
+- Konfiguracja przez pliki `.env` (kopie `.env.example`), nie przez ręcznie eksportowane zmienne środowiskowe.
+- Baza może trzymać wiele historii: tabela `stories(id TEXT PRIMARY KEY, payload JSONB NOT NULL)`, jeden wiersz na historię.
+- API: `GET /api/stories` (lista `{id, title, intro}`) i `GET /api/stories/{id}` (pełna historia, 404 dla nieznanego id). Niedostępna baza: kontrolowany 503. Kontrakt odpowiedzi opisuje Swagger (`/docs`).
+- Import (`python -m app.import_story`) bierze `content/*.json` (jeden plik = jedna historia), waliduje je i robi upsert po `id` w jednej transakcji. Bez ORM i frameworka migracji.
+- Frontend pobiera wybraną historię raz i wykonuje wszystkie przejścia lokalnie. Nie wysyłaj wyborów do serwera.
 - Proxy `/api` musi działać zarówno w development, jak i podglądzie produkcyjnego buildu. Nie dodawaj niepotrzebnej konfiguracji CORS.
 
-Proponowana struktura, jeśli repo jest puste:
+Struktura:
 
 ```text
 frontend/
-backend/
-content/legend.json
-compose.yaml
-.env.example
+backend/            # FastAPI, docker-compose.yaml, .env.example, tests/
+content/*.json      # historie (jeden plik = jedna historia)
 README.md
 CLAUDE.md
 ```
@@ -47,17 +46,19 @@ Zachowuj zastane konwencje i lockfile. Nie twórz równoległego szkieletu. Nie 
 
 ## Kontrakt danych
 
-Zamroź kontrakt na początku pracy; frontend, backend i autor treści używają jednego fixture.
+Frontend, backend i autor treści używają jednego kontraktu. Źródłem prawdy są modele w `backend/app/models.py` (widoczne też w `/docs`); zmiana kontraktu wymaga koordynacji wszystkich modułów.
 
 ```text
 Story: id, title, intro, characters[], nodes[]
 Character: id, name, description, entry_node_id
-Decision: id, type="decision", text, choices[]
-Choice: id, text, consequence, next_node_id
-Ending: id, type="ending", title, text
+Decision: id, type="decision", text, choices[], audio_url?
+Choice: id, text, consequence, next_node_id, audio_url?
+Ending: id, type="ending", title, text, audio_url?
 ```
 
-ID węzłów są unikalne w historii, postaci również, a ID opcji są unikalne w scenie. Wszystkie wejścia i cele muszą istnieć. Graf jest bez cykli i bez nieosiągalnych węzłów. Każda trasa od wejścia postaci ma dokładnie 6 węzłów decyzyjnych i kończy się finałem. Zakończenia nie mają przejść. Waliduj graf małym skryptem przed importem, nie ręcznie wybierając jedną szczęśliwą ścieżkę.
+ID węzłów są unikalne w historii, postaci również, a ID opcji są unikalne w scenie. Wszystkie wejścia i cele muszą istnieć. Graf jest bez cykli i bez nieosiągalnych węzłów. Każda trasa od wejścia postaci ma dokładnie 6 węzłów decyzyjnych i kończy się finałem. Zakończenia nie mają przejść. Graf waliduje `python -m app.validate` (wszystkie trasy, nie jedna szczęśliwa ścieżka); import uruchamia tę samą walidację.
+
+`audio_url` jest opcjonalne: ścieżka do pre-generowanego nagrania MP3 (scena, finał, konsekwencja opcji) serwowanego statycznie przez frontend, np. `/audio/<id historii>/<plik>.mp3`. Backend nie przechowuje plików audio.
 
 Narracja jest zwykłym tekstem z akapitami; nie renderuj dowolnego HTML. Nie hardkoduj treści ani ID postaci w komponentach. Nie buduj ogólnego silnika RPG ani języka warunków.
 
@@ -98,6 +99,6 @@ Minimalny odbiór:
 6. Mobilny układ, klawiatura, instalacja PWA i zachowanie bez API zostały sprawdzone i opisane.
 7. README pozwala uruchomić demo i opisuje brak zapisu oraz ograniczenia offline.
 
-Nie buduj nowego frameworka E2E ani rozbudowanego CI dla tego demo. Mały walidator i ręczny odbiór krytycznej ścieżki są obowiązkowe. Korzystaj z istniejących testów, jeśli projekt już je ma.
+Nie buduj frameworka E2E ani rozbudowanego CI dla tego demo. Backend ma testy pytest (`uv run pytest` w `backend/`, bez Dockera); utrzymuj je przy zmianach backendu. Walidator i ręczny odbiór krytycznej ścieżki są obowiązkowe.
 
 Po 2 godzinach musi istnieć pełna pierwsza wersja tekstów. Po 3 godzinach nie dodawaj funkcji. Ostatnia godzina jest przeznaczona na błędy blokujące i przekazanie. Przy zagrożeniu terminu skracaj opisy i ozdobniki; nie ukrywaj niespełnionych wymagań. Nie wdrażaj na płatną infrastrukturę ani nie publikuj bez polecenia zespołu.
