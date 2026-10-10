@@ -39,7 +39,7 @@ def main() -> None:
                 conn.execute(
                     "INSERT INTO stories (id, payload) VALUES (%s, %s)"
                     " ON CONFLICT (id) DO UPDATE SET payload = EXCLUDED.payload",
-                    (story_id, Jsonb(story.model_dump(exclude_none=True))),
+                    (story_id, Jsonb(story.model_dump(exclude_unset=True, by_alias=True))),
                 )
     except db.DatabaseUnavailable as e:
         sys.exit(f"Nie można połączyć się z bazą: {e}")

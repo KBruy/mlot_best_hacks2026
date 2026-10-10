@@ -1,102 +1,163 @@
-"""Walidacja historii: kontrakt (Pydantic) i graf (cele, cykle, osiągalność, długość tras).
+"""Walidacja historii: kontrakt (Pydantic) i graf scen (cele, cykle, osiągalność,
+długość ścieżek, warunki i stan, zakończenia).
 
 Użycie (z katalogu backend/, bez bazy):
     uv run python -m app.validate [plik.json ...]   # domyślnie content/*.json
 """
+import itertools
+import json
 import sys
 from pathlib import Path
 
 from pydantic import ValidationError
 
-from .models import Decision, Story
+from .models import Story, Text, Variant
 
 CONTENT_DIR = Path(__file__).resolve().parents[2] / "content"
 DECISIONS_PER_ROUTE = 6
-CHOICES_PER_DECISION = 2
+MIN_OPTIONS, MAX_OPTIONS = 2, 3
+VIEW_FIELD = "widok"  # pole stanu ustawiane przez frontend z GPS (id punktu widokowego)
 
 
 class InvalidStory(Exception):
     pass
 
 
-def _duplicates(ids: list[str]) -> set[str]:
-    seen: set[str] = set()
-    return {i for i in ids if i in seen or seen.add(i)}
+def strip_notes(value):
+    """Usuwa pola zaczynające się od `_` (notatki dla ludzi, np. `_note`)."""
+    if isinstance(value, dict):
+        return {k: strip_notes(v) for k, v in value.items() if not k.startswith("_")}
+    if isinstance(value, list):
+        return [strip_notes(v) for v in value]
+    return value
+
+
+def _variants(text: Text) -> list[Variant]:
+    if isinstance(text, str):
+        return []
+    return [text] if isinstance(text, Variant) else text
 
 
 def check_graph(story: Story) -> list[str]:
-    """Zwraca listę błędów grafu; pusta lista oznacza poprawną historię."""
+    """Zwraca listę błędów; pusta lista oznacza poprawną historię."""
     errors = []
-    nodes = {node.id: node for node in story.nodes}
-    for dup in sorted(_duplicates([n.id for n in story.nodes])):
-        errors.append(f"Powtórzone id węzła {dup!r}")
-    for dup in sorted(_duplicates([c.id for c in story.characters])):
-        errors.append(f"Powtórzone id postaci {dup!r}")
-    for character in story.characters:
-        entry = nodes.get(character.entry_node_id)
-        if not isinstance(entry, Decision):
+    domains = story.state
+    scenes = story.scenes
+
+    def check_text(text: Text, where: str) -> None:
+        for variant in _variants(text):
+            for key, allowed in variant.if_.items():
+                if key not in domains or not set(allowed) <= set(domains[key]):
+                    errors.append(f"{where}: zły warunek {key}={allowed}")
+
+    views = set(domains.get(VIEW_FIELD, []))
+    if story.location.default_view not in views:
+        errors.append(f"location: default_view spoza state.{VIEW_FIELD}")
+    for vp in story.location.viewpoints:
+        if vp.id not in views:
+            errors.append(f"location: punkt widokowy {vp.id!r} spoza state.{VIEW_FIELD}")
+    for stop_id in (story.route.legs if story.route else {}):
+        if stop_id not in story.stops:
+            errors.append(f"route: odcinek do nieznanego przystanku {stop_id!r}")
+    for stop_id in (story.streetview.stops if story.streetview else {}):
+        if stop_id not in story.stops:
+            errors.append(f"streetview: ujęcie nieznanego przystanku {stop_id!r}")
+
+    for item in story.intro.paragraphs:
+        check_text(item, "intro")
+    for item in story.finale.paragraphs:
+        check_text(item, "finale")
+    for item in story.reveal.paragraphs:
+        check_text(item, "reveal")
+
+    if story.start not in scenes:
+        errors.append(f"start: nieznana scena {story.start!r}")
+    for sid, scene in scenes.items():
+        if scene.before is not None and scene.before not in story.stops:
+            errors.append(f"Scena {sid!r}: nieznany przystanek {scene.before!r}")
+        if not MIN_OPTIONS <= len(scene.options) <= MAX_OPTIONS:
             errors.append(
-                f"Postać {character.id!r}: wejście {character.entry_node_id!r}"
-                " nie istnieje albo nie jest decyzją"
+                f"Scena {sid!r} ma {len(scene.options)} opcji"
+                f" zamiast {MIN_OPTIONS}–{MAX_OPTIONS}"
             )
-    for node in story.nodes:
-        if not isinstance(node, Decision):
-            continue
-        if len(node.choices) != CHOICES_PER_DECISION:
-            errors.append(
-                f"Węzeł {node.id!r} ma {len(node.choices)} opcji"
-                f" zamiast {CHOICES_PER_DECISION}"
-            )
-        for dup in sorted(_duplicates([c.id for c in node.choices])):
-            errors.append(f"Węzeł {node.id!r}: powtórzone id opcji {dup!r}")
-        for choice in node.choices:
-            if choice.next_node_id not in nodes:
-                errors.append(
-                    f"Węzeł {node.id!r}, opcja {choice.id!r}:"
-                    f" cel {choice.next_node_id!r} nie istnieje"
-                )
+        for i, item in enumerate(scene.scene, 1):
+            check_text(item, f"Scena {sid!r}, akapit {i}")
+        for i, option in enumerate(scene.options, 1):
+            where = f"Scena {sid!r}, opcja {i}"
+            if option.next is not None and option.next not in scenes:
+                errors.append(f"{where}: cel {option.next!r} nie istnieje")
+            check_text(option.text, where)
+            for item in option.result:
+                check_text(item, f"{where} (skutek)")
+            for key, val in option.set.items():
+                if val not in domains.get(key, []):
+                    errors.append(f"{where}: zły set {key}={val}")
+    for field in story.ending_by:
+        if field not in domains:
+            errors.append(f"ending_by: pole {field!r} spoza state")
+    for key, ending in story.endings.items():
+        for item in ending.paragraphs:
+            check_text(item, f"Zakończenie {key!r}")
+    if not any(r.min == 0 for r in story.ranks):
+        errors.append("ranks: brak progu min=0")
     if errors:
-        return errors  # dalsza analiza wymaga poprawnych odwołań
+        return errors  # analiza ścieżek wymaga poprawnych odwołań
 
-    # Dla każdego węzła: zbiór liczb decyzji na trasach od niego do finału.
-    route_lengths: dict[str, set[int]] = {}
-    on_path: set[str] = set()
+    # Wszystkie ścieżki od startu: (lista scen, stan na końcu). Opcji jest najwyżej 3,
+    # a decyzji 6, więc ścieżek jest najwyżej 3^6.
+    paths: list[tuple[list[str], dict[str, str]]] = []
 
-    def lengths(node_id: str) -> set[int]:
-        if node_id in route_lengths:
-            return route_lengths[node_id]
-        if node_id in on_path:
-            raise InvalidStory(f"Cykl przechodzący przez węzeł {node_id!r}")
-        node = nodes[node_id]
-        on_path.add(node_id)
-        result = (
-            {n + 1 for c in node.choices for n in lengths(c.next_node_id)}
-            if isinstance(node, Decision)
-            else {0}
-        )
-        on_path.discard(node_id)
-        route_lengths[node_id] = result
-        return result
+    def walk(sid: str, visited: list[str], state: dict[str, str]) -> None:
+        if sid in visited:
+            raise InvalidStory(f"Cykl przechodzący przez scenę {sid!r}")
+        visited = visited + [sid]
+        for option in scenes[sid].options:
+            step_state = {**state, **option.set}
+            if option.next is None:
+                paths.append((visited, step_state))
+            else:
+                walk(option.next, visited, step_state)
 
     try:
-        for character in story.characters:
-            found = lengths(character.entry_node_id)
-            if found != {DECISIONS_PER_ROUTE}:
-                errors.append(
-                    f"Postać {character.id!r}: trasy mają {sorted(found)} decyzji"
-                    f" zamiast dokładnie {DECISIONS_PER_ROUTE}"
-                )
+        walk(story.start, [], {})
     except InvalidStory as e:
         return [str(e)]
 
-    for node_id in sorted(nodes.keys() - route_lengths.keys()):
-        errors.append(f"Węzeł {node_id!r} jest nieosiągalny z wejść postaci")
+    reached_endings = set()
+    for visited, state in paths:
+        route = " → ".join(visited)
+        if len(visited) != DECISIONS_PER_ROUTE:
+            errors.append(
+                f"Ścieżka {route}: {len(visited)} decyzji zamiast {DECISIONS_PER_ROUTE}"
+            )
+        if any(field not in state for field in story.ending_by):
+            errors.append(f"Ścieżka {route}: nie ustala pól zakończenia {story.ending_by}")
+        else:
+            reached_endings.add("|".join(state[f] for f in story.ending_by))
+    reachable = {sid for visited, _ in paths for sid in visited}
+    for sid in scenes:
+        if sid not in reachable:
+            errors.append(f"Scena {sid!r} jest nieosiągalna")
+    possible = {"|".join(c) for c in itertools.product(*(domains[f] for f in story.ending_by))}
+    for key in sorted(possible - story.endings.keys()):
+        errors.append(f"Brak zakończenia {key!r}")
+    for key in sorted(story.endings.keys() - possible):
+        errors.append(f"Zakończenie {key!r} nie pasuje do pól {story.ending_by}")
+    for key in sorted((story.endings.keys() & possible) - reached_endings):
+        errors.append(f"Zakończenie {key!r} jest nieosiągalne")
     return errors
+
+
+def parse_story(data: dict) -> Story:
+    """Waliduje kontrakt (bez grafu); pola `_...` są pomijane."""
+    return Story.model_validate(strip_notes(data))
 
 
 def load_story(path: Path) -> Story:
     try:
-        story = Story.model_validate_json(path.read_text(encoding="utf-8"))
+        story = parse_story(json.loads(path.read_text(encoding="utf-8")))
+    except json.JSONDecodeError as e:
+        raise InvalidStory(f"{path}: niepoprawny JSON: {e}") from e
     except ValidationError as e:
         raise InvalidStory(f"{path}: plik nie zgadza się z kontraktem:\n{e}") from e
     errors = check_graph(story)

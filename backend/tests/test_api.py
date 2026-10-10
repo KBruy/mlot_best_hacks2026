@@ -19,7 +19,7 @@ def test_health():
 
 
 def test_list_stories(monkeypatch):
-    summary = {"id": "s1", "title": "T", "intro": "I"}
+    summary = {"id": "s1", "title": "T", "intro": {"title": "T", "paragraphs": ["I"]}}
     monkeypatch.setattr(db, "list_stories", lambda: [summary])
     response = client.get("/api/stories")
     assert response.status_code == 200
@@ -58,7 +58,7 @@ def test_missing_database_url_is_unavailable(monkeypatch):
 
 
 def test_import_rejects_invalid_file_before_touching_db(monkeypatch, story_dict, tmp_path):
-    story_dict["nodes"][0]["choices"][0]["next_node_id"] = "nie_ma"
+    story_dict["scenes"]["s1"]["options"][0]["next"] = "nie_ma"
     file = tmp_path / "zla.json"
     file.write_text(json.dumps(story_dict), encoding="utf-8")
     monkeypatch.setattr(import_story.db, "connect", unavailable)
