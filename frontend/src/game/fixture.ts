@@ -13,6 +13,13 @@ export const fixtures: Story[] = [
         id: 'scena-1',
         type: 'decision',
         text: 'Stoisz przed wejściem do Piwnicy Świdnickiej. Jest późna noc. Barmanka szepnęła ci, że ostatnio znikają beczki z piwem — żadnych śladów włamania. Tylko mały odcisk buta w kurzu.',
+        location: {
+          lat: 51.10967,
+          lon: 17.03069,
+          radius_m: 40,
+          label: 'Piwnica Świdnicka, Rynek',
+          streetview: { lat: 51.10967, lon: 17.03069, heading: 180, pitch: -10 },
+        },
         choices: [
           { id: 'c1-1', text: 'Zejdź do piwnicy sam, z latarnią w dłoni', consequence: 'Schody skrzypią pod każdym krokiem. W ciemności majaczy zarys małej postaci.', next_node_id: 'scena-2' },
           { id: 'c1-2', text: 'Zaczekaj do rana i wróć z miejskim strażnikiem', consequence: 'Strażnik śmieje się z twojej historii — ale w końcu zgadza się zejść razem.', next_node_id: 'scena-2' },
@@ -40,6 +47,13 @@ export const fixtures: Story[] = [
         id: 'scena-4',
         type: 'decision',
         text: 'Niebezpieczeństwo minęło. Krasnolud patrzy na ciebie z nowym szacunkiem. "Nie jesteś głupi jak wyglądasz. Mogę ci coś pokazać — ale musisz obiecać milczenie."',
+        location: {
+          lat: 51.10972,
+          lon: 17.03055,
+          radius_m: 40,
+          label: 'Podziemia Ratusza, Rynek',
+          streetview: { lat: 51.10972, lon: 17.03055, heading: 90, pitch: -5 },
+        },
         choices: [
           { id: 'c4-1', text: 'Obiecaj milczenie i idź za nim', consequence: 'Prowadzi cię korytarzem o którym nikt nie wie. Ściany błyszczą od wilgoci i czegoś jeszcze.', next_node_id: 'scena-5' },
           { id: 'c4-2', text: '"Najpierw powiedz co to jest"', consequence: '"Nieufny. Dobrze." Krasnolud wzrusza ramionami. "Skarb. Stary. Twój, jeśli dotrzymasz słowa."', next_node_id: 'scena-5' },
@@ -88,6 +102,13 @@ export const fixtures: Story[] = [
         id: 'cw-1',
         type: 'decision',
         text: 'Stoisz na Moście Tumskim o północy. Woda jest czarna jak smoła. I rzeczywiście — coś śpiewa. Głos jest piękny i nieludzki zarazem.',
+        location: {
+          lat: 51.11567,
+          lon: 17.04397,
+          radius_m: 40,
+          label: 'Most Tumski',
+          streetview: { lat: 51.11567, lon: 17.04397, heading: 270, pitch: 0 },
+        },
         choices: [
           { id: 'cw1-1', text: 'Zejdź na brzeg i podejdź bliżej', consequence: 'Kamienie są śliskie od mchu. Śpiew staje się głośniejszy i nagle — urywa się.', next_node_id: 'cw-2' },
           { id: 'cw1-2', text: 'Odpowiedz śpiewem — zaśpiewaj cokolwiek', consequence: 'Twój głos kruszy ciszę. Po chwili śpiew z wody odpowiada, jakby pytając.', next_node_id: 'cw-2' },
@@ -124,6 +145,13 @@ export const fixtures: Story[] = [
         id: 'cw-5',
         type: 'decision',
         text: 'Wracasz do domu gdy miasto się budzi. W głowie masz imię które wymówiła — i nagle wiesz gdzie szukać. W archiwum katedralnym, w piwnicy, w skrzyni która nigdy nie była katalogowana.',
+        location: {
+          lat: 51.11483,
+          lon: 17.04551,
+          radius_m: 50,
+          label: 'Archiwum Archidiecezjalne, Ostrów Tumski',
+          streetview: { lat: 51.11483, lon: 17.04551, heading: 120, pitch: 0 },
+        },
         choices: [
           { id: 'cw5-1', text: 'Idź do archiwum teraz, zanim zapomnisz', consequence: 'Archiwariusz jest zaskoczony o tak wczesnej porze. Ale wpuszcza cię. I rzeczywiście — jest skrzynia.', next_node_id: 'cw-6' },
           { id: 'cw5-2', text: 'Wróć do domu i spisz wszystko co pamiętasz', consequence: 'Piszesz trzy godziny bez przerwy. Kiedy kończysz — masz gotową historię której nikt nie zna.', next_node_id: 'cw-6' },

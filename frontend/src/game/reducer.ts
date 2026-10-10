@@ -1,4 +1,4 @@
-import type { Choice, Story, GameState } from './types'
+import type { Choice, GpsPosition, Story, GameState } from './types'
 
 export type GameAction =
   | { type: 'STORY_LOADED'; payload: Story }
@@ -8,6 +8,8 @@ export type GameAction =
   | { type: 'ADVANCE_SCENE' }
   | { type: 'RESTART' }
   | { type: 'RETRY_FETCH' }
+  | { type: 'GPS_UPDATE'; payload: GpsPosition }
+  | { type: 'TOGGLE_DEMO_MODE' }
 
 export const initialState: GameState = {
   screen: 'loading',
@@ -17,12 +19,14 @@ export const initialState: GameState = {
   pendingChoice: null,
   choiceLocked: false,
   errorMessage: null,
+  gpsPosition: null,
+  demoMode: false,
 }
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case 'STORY_LOADED':
-      return { ...initialState, screen: 'start', story: action.payload }
+      return { ...initialState, screen: 'start', story: action.payload, demoMode: state.demoMode }
 
     case 'STORY_ERROR':
       return { ...state, screen: 'error', errorMessage: action.payload }
@@ -33,6 +37,8 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         screen: 'scene',
         story: action.payload,
         currentNodeId: action.payload.entry_node_id,
+        demoMode: state.demoMode,
+        gpsPosition: state.gpsPosition,
       }
 
     case 'SELECT_CHOICE':
@@ -59,10 +65,22 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case 'RESTART':
-      return { ...initialState, screen: 'start', story: state.story }
+      return {
+        ...initialState,
+        screen: 'start',
+        story: state.story,
+        demoMode: state.demoMode,
+        gpsPosition: state.gpsPosition,
+      }
 
     case 'RETRY_FETCH':
-      return { ...initialState }
+      return { ...initialState, demoMode: state.demoMode }
+
+    case 'GPS_UPDATE':
+      return { ...state, gpsPosition: action.payload }
+
+    case 'TOGGLE_DEMO_MODE':
+      return { ...state, demoMode: !state.demoMode }
 
     default:
       return state

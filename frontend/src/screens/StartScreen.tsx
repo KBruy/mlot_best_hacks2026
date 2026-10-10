@@ -3,6 +3,7 @@ import { useGame } from '../game/useGame'
 import { GameTitle } from '../components/GameTitle'
 import { NarrativeText } from '../components/NarrativeText'
 import { HintText } from '../components/HintText'
+import { DemoModeToggle } from '../components/DemoModeToggle'
 import { UI } from '../strings'
 import type { Story } from '../game/types'
 
@@ -31,7 +32,10 @@ export function StartScreen({ stories }: Props) {
           </PixelCard>
         ))}
       </PixelStack>
-      <HintText className="mt-8">{UI.start.resetHint}</HintText>
+      <div className="mt-8">
+        <DemoModeToggle />
+      </div>
+      <HintText className="mt-4">{UI.start.resetHint}</HintText>
     </main>
   )
 }

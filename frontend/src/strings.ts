@@ -7,6 +7,12 @@ export const UI = {
     resetHint: 'Odświeżenie strony resetuje grę',
   },
 
+  demo: {
+    on: 'Tryb demo: włączony',
+    off: 'Tryb demo: wyłączony',
+    // TODO: po otrzymaniu kontraktu danych — podpiąć tu Street View pierwszej lokalizacji legendy
+  },
+
   loading: {
     message: 'Ładowanie legendy…',
   },
@@ -20,6 +26,9 @@ export const UI = {
   scene: {
     decisionHint: (current: number, total: number) => `Decyzja ${current} z ${total}`,
     totalDecisions: 6,
+    panelStory: 'Opowieść',
+    panelLocation: 'Lokalizacja',
+    panelChoices: 'Wybierz odpowiedź',
   },
 
   consequence: {

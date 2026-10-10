@@ -1,17 +1,23 @@
 import { useEffect } from 'react'
 import { GameProvider } from './game/context'
 import { useGame } from './game/useGame'
+import { useGeolocation } from './map/useGeolocation'
 import { LoadingScreen } from './screens/LoadingScreen'
 import { ErrorScreen } from './screens/ErrorScreen'
 import { StartScreen } from './screens/StartScreen'
 import { SceneScreen } from './screens/SceneScreen'
 import { ConsequenceScreen } from './screens/ConsequenceScreen'
 import { EndingScreen } from './screens/EndingScreen'
+import { MapScreen } from './screens/MapScreen'
 import { fixtures } from './game/fixture'
 import type { Story } from './game/types'
 
+const isMapPage = new URLSearchParams(window.location.search).has('page') &&
+  new URLSearchParams(window.location.search).get('page') === 'map'
+
 function GameRouter() {
   const { state, dispatch } = useGame()
+  useGeolocation()
 
   useEffect(() => {
     fetch('/api/story')
@@ -34,6 +40,8 @@ function GameRouter() {
 }
 
 function App() {
+  if (isMapPage) return <MapScreen />
+
   return (
     <GameProvider>
       <GameRouter />
