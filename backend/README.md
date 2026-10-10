@@ -38,6 +38,15 @@ docker compose up -d --build
 docker compose logs -f api
 ```
 
+## Walidacja i testy
+
+```bash
+uv run python -m app.validate        # sprawdza content/*.json bez bazy (albo podane pliki)
+uv run pytest                        # walidator, modele i API; bez Dockera
+```
+
+Walidator sprawdza kontrakt (typy, brak dodatkowych pól) i graf: unikalne id węzłów, postaci i opcji, istniejące wejścia i cele, dokładnie 2 opcje na decyzję, brak cykli, osiągalność wszystkich węzłów i dokładnie 6 decyzji na każdej trasie od wejścia postaci do finału. Import uruchamia tę samą walidację przed zapisem.
+
 ## Zależności
 
 ```bash

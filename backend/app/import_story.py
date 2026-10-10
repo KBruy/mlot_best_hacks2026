@@ -1,38 +1,30 @@
 """Tworzy tabelę stories i importuje historie z content/*.json (upsert po id).
 
-Każdy plik to jedna historia. Najpierw walidujemy wszystkie pliki modelami
-z app.models, potem zapisujemy je w jednej transakcji: jeden wadliwy plik
-blokuje cały import. Usunięcie pliku nie usuwa historii z bazy.
+Każdy plik to jedna historia. Najpierw walidujemy wszystkie pliki (kontrakt
+i graf, app.validate), potem zapisujemy je w jednej transakcji: jeden wadliwy
+plik blokuje cały import. Usunięcie pliku nie usuwa historii z bazy.
 
 Użycie (z katalogu backend/):
     uv run --env-file .env python -m app.import_story [plik.json ...]
 """
 import sys
-from pathlib import Path
 
 from psycopg.types.json import Jsonb
-from pydantic import ValidationError
 
 from . import db
-from .models import Story
-
-CONTENT_DIR = Path(__file__).resolve().parents[2] / "content"
-
-
-def load(path: Path) -> Story:
-    try:
-        return Story.model_validate_json(path.read_text(encoding="utf-8"))
-    except ValidationError as e:
-        sys.exit(f"Plik {path} nie zgadza się z kontraktem:\n{e}")
+from .validate import CONTENT_DIR, InvalidStory, load_story, story_paths
 
 
 def main() -> None:
-    paths = [Path(p) for p in sys.argv[1:]] or sorted(CONTENT_DIR.glob("*.json"))
+    paths = story_paths(sys.argv[1:])
     if not paths:
         sys.exit(f"Brak plików .json w {CONTENT_DIR}")
     stories = {}
     for path in paths:
-        story = load(path)
+        try:
+            story = load_story(path)
+        except InvalidStory as e:
+            sys.exit(str(e))
         if story.id in stories:
             sys.exit(f"Powtórzone id historii {story.id!r}: {stories[story.id][0]} i {path}")
         stories[story.id] = (path, story)
