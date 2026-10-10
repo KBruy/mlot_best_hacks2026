@@ -1,0 +1,773 @@
+{
+    "location": {
+        "name": "katedra św. Jana Chrzciciela na Ostrowie Tumskim",
+        "_note": "Współrzędne katedry i Mostu Piaskowego z OpenStreetMap (Nominatim, 2026-10-10), NIE zmierzone na miejscu. Punkt startu, promienie i punkt widokowy są oszacowane i trzeba je poprawić w terenie (prawy klik w Google Maps, jak w story.json). Okno z kamienną głową: legenda mówi tylko o wieży katedry, warto sprawdzić na miejscu, które to okienko.",
+        "center": [
+            51.1139854,
+            17.0460059
+        ],
+        "unlock_radius_m": 700,
+        "default_view": "ogolny",
+        "viewpoints": [
+            {
+                "id": "plac",
+                "label": "z placu Katedralnego, pod wieżami katedry",
+                "lat": 51.1139854,
+                "lon": 17.0460059,
+                "radius_m": 60
+            }
+        ]
+    },
+    "stops": {
+        "most": {
+            "label": "Na Moście Piaskowym",
+            "lat": 51.1135783,
+            "lon": 17.0398312,
+            "radius_m": 30,
+            "walk": "Idź na Most Piaskowy i stań na jego środku, twarzą do wody. To ok. minuty spacerem. Nie czytaj po drodze, patrz pod nogi.",
+            "arrive": "Jesteś na moście. Zatrzymaj się i spójrz na Ostrów Tumski."
+        },
+        "katedra": {
+            "label": "Pod katedrą",
+            "lat": 51.1139854,
+            "lon": 17.0460059,
+            "radius_m": 40,
+            "walk": "Przejdź przez Ostrów Tumski i stań na placu pod katedrą św. Jana Chrzciciela. To ok. 6 minut spacerem, 430 m.",
+            "arrive": "Jesteś pod katedrą. Zadrzyj głowę: tu skończy się twoja droga."
+        }
+    },
+    "route": {
+        "_note": "Trasa uproszczona (linie proste między punktami z OpenStreetMap), ok. 515 m. Do podmiany na trasę pieszą z Google Maps.",
+        "start": [
+            51.11358,
+            17.03863
+        ],
+        "legs": {
+            "most": [
+                [
+                    51.11358,
+                    17.03863
+                ],
+                [
+                    51.1135783,
+                    17.0398312
+                ]
+            ],
+            "katedra": [
+                [
+                    51.1135783,
+                    17.0398312
+                ],
+                [
+                    51.1139854,
+                    17.0460059
+                ]
+            ]
+        }
+    },
+    "test_points": [
+        {
+            "label": "Start: przed Mostem Piaskowym",
+            "lat": 51.11358,
+            "lon": 17.03863
+        },
+        {
+            "label": "Most Piaskowy",
+            "lat": 51.1135783,
+            "lon": 17.0398312
+        },
+        {
+            "label": "Katedra: plac Katedralny",
+            "lat": 51.1139854,
+            "lon": 17.0460059
+        },
+        {
+            "label": "W pobliżu katedry, poza strefami",
+            "lat": 51.116,
+            "lon": 17.048
+        },
+        {
+            "label": "Rynek: pod pręgierzem (za daleko)",
+            "lat": 51.1094653,
+            "lon": 17.0327099
+        },
+        {
+            "label": "Daleko: Dworzec Główny",
+            "lat": 51.098,
+            "lon": 17.0365
+        }
+    ],
+    "demo_start": [
+        51.11358,
+        17.03863
+    ],
+    "state": {
+        "widok": [
+            "plac",
+            "ogolny"
+        ],
+        "sciezka": [
+            "pierscien",
+            "prosba",
+            "zazdrosc"
+        ],
+        "odpowiedz": [
+            "tajemnica",
+            "zaufanie",
+            "list",
+            "milosc",
+            "czas",
+            "wyznanie",
+            "zwierzenie",
+            "zart",
+            "klotnia"
+        ],
+        "przysiega": [
+            "bogactwo",
+            "zemsta",
+            "cisza"
+        ],
+        "szlak": [
+            "imie_milosci",
+            "zima",
+            "bezwzglednosc"
+        ],
+        "powrot": [
+            "kupno",
+            "ofiara",
+            "rozmowa"
+        ],
+        "los": [
+            "glowa",
+            "odejscie",
+            "ofiara",
+            "sad",
+            "pokuta",
+            "ucieczka"
+        ]
+    },
+    "intro": {
+        "title": "KAMIENNA GŁOWA",
+        "paragraphs": [
+            [
+                {
+                    "if": {
+                        "widok": [
+                            "plac"
+                        ]
+                    },
+                    "text": "Stań na placu, twarzą do katedry, i spójrz wysoko na jej wieże. Gdzieś w murze, w małym okienku, tkwi kamienna twarz."
+                },
+                {
+                    "if": {
+                        "widok": [
+                            "ogolny"
+                        ]
+                    },
+                    "text": "Rozejrzyj się za wieżami katedry na Ostrowie Tumskim. Gdzieś wysoko w murze, w małym okienku, tkwi kamienna twarz."
+                }
+            ],
+            "Wrocławianie od wieków opowiadają, czyja to twarz i dlaczego nie może się stamtąd ruszyć. Przeżyj tę legendę na własnej skórze: krótki spacer w czterech fazach, 6 decyzji, do 10 minut. Twoja droga może pójść w różne strony, ale niektóre rzeczy wydarzą się zawsze. Na końcu dowiesz się, jak bardzo twoja wersja zgadza się z legendą.",
+            "Wpisz numer i Enter, a q kończy grę."
+        ]
+    },
+    "start": "warsztat",
+    "scenes": {
+        "warsztat": {
+            "act": "FAZA 1/4: WARSZTAT",
+            "title": "Warsztat złotnika",
+            "scene": [
+                "Wyobraź sobie, że jesteś młodym czeladnikiem u bogatego i wpływowego wrocławskiego złotnika. Jego córka mogłaby mieć każdego kawalera w mieście, a patrzy na ciebie, ubogiego, ze wzajemnością.",
+                "Mistrz nie wie o niczym i nie byłby zadowolony z jej wyboru. W warsztacie pracuje obok ciebie jeszcze jeden czeladnik, który też często zerka w stronę mistrzowskiego domu."
+            ],
+            "options": [
+                {
+                    "text": "Wytopić dla niej srebrny pierścień",
+                    "legend": true,
+                    "set": {
+                        "sciezka": "pierscien"
+                    },
+                    "next": "ogrod",
+                    "result": [
+                        "Całą noc pracujesz w tajemnicy przed mistrzem. Rano pierścień jest gotowy, a ona w zamian wręcza ci chustkę, którą sama wyhaftowała."
+                    ]
+                },
+                {
+                    "text": "Wyznać mistrzowi miłość i poprosić o rękę córki",
+                    "legend": false,
+                    "set": {
+                        "sciezka": "prosba"
+                    },
+                    "next": "mistrz",
+                    "result": [
+                        "Zbierasz się na odwagę i stajesz przed mistrzem. Serce wali ci tak, że prawie nie słyszysz własnych słów."
+                    ]
+                },
+                {
+                    "text": "Zaprzyjaźnić się z drugim czeladnikiem",
+                    "legend": false,
+                    "set": {
+                        "sciezka": "zazdrosc"
+                    },
+                    "next": "kolega",
+                    "result": [
+                        "Siadacie razem przy warsztacie. Drugi czeladnik od dawna wzdycha do córki mistrza i coraz częściej wypytuje cię o twoje wieczory."
+                    ]
+                }
+            ],
+            "fact": "Czeladnik bogatego złotnika kochał z wzajemnością córkę swojego mistrza, ale ich miłość była tajemnicą. W tajemnicy wytopił dla niej srebrny pierścień, a ona podarowała mu wyhaftowaną chustkę."
+        },
+        "ogrod": {
+            "title": "Schadzki w ogrodzie",
+            "scene": [
+                "Wieczorami wymykacie się do ogrodu, a opiekunka dziewczyny pilnuje, żeby nikt was nie zobaczył. Pierścień błyszczy jej na palcu, a twoja chustka pachnie lawendą.",
+                "Wiesz, że ktoś mógłby was wydać: tylko opiekunka i drugi czeladnik znają wasz sekret."
+            ],
+            "options": [
+                {
+                    "text": "Nikomu nie ufać i trzymać wszystko w tajemnicy",
+                    "legend": true,
+                    "set": {
+                        "odpowiedz": "tajemnica"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "Pilnujesz się na każdym kroku. Ale zazdrosny czeladnik patrzy na ciebie spod oka od dawna i w końcu wydaje wasz sekret mistrzowi.",
+                        "Mistrz wieczorem sam idzie do ogrodu. Widzi was, wrzeszczy i wymachując laską przegania cię z domu. Córce grozi strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                },
+                {
+                    "text": "Zwierzyć się drugiemu czeladnikowi",
+                    "legend": false,
+                    "set": {
+                        "odpowiedz": "zaufanie"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "Opowiadasz mu wszystko, bo ktoś musi się cieszyć twoim szczęściem. Czeladnik uśmiecha się i tego samego dnia idzie do mistrza.",
+                        "Mistrz wieczorem sam idzie do ogrodu. Widzi was, wrzeszczy i wymachując laską przegania cię z domu. Córce grozi strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                },
+                {
+                    "text": "Wysłać jej przez opiekunkę list z prośbą o ucieczkę",
+                    "legend": false,
+                    "set": {
+                        "odpowiedz": "list"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "List ląduje w rękach zazdrosnego czeladnika, który zamiast niego odnosi go mistrzowi.",
+                        "Mistrz wieczorem sam idzie do ogrodu. Widzi was, wrzeszczy i wymachując laską przegania cię z domu. Córce grozi strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                }
+            ],
+            "fact": "Kochankowie ukrywali się przed mistrzem. Ona wymykała się wieczorami do ogrodu, on niepostrzeżenie wychodził z warsztatu. O ich uczuciu wiedziały tylko opiekunka dziewczyny i drugi czeladnik, zazdrosny o nią."
+        },
+        "mistrz": {
+            "title": "Rozmowa z mistrzem",
+            "scene": [
+                "Mistrz słucha, a jego twarz ciemnieje. Za drzwiami ktoś się porusza: to drugi czeladnik, który podsłuchuje i jest wyraźnie zadowolony.",
+                "— Ty, ubogi czeladnik, chcesz mojej córki? — pyta mistrz i sięga po laskę."
+            ],
+            "options": [
+                {
+                    "text": "Powiedzieć, że ją kochasz i nie ustąpisz",
+                    "legend": true,
+                    "set": {
+                        "odpowiedz": "milosc"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "— Kocham ją i nie ustąpię — mówisz. Mistrz wymachuje laską i wyprasza cię z domu, wrzeszcząc.",
+                        "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                },
+                {
+                    "text": "Prosić o czas, żeby się wykazać",
+                    "legend": false,
+                    "set": {
+                        "odpowiedz": "czas"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "— Czas? Ona ma męża wtedy, kiedy ja zdecyduję! — krzyczy mistrz i przegania cię laską.",
+                        "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                },
+                {
+                    "text": "Wyznać, że spotykacie się w ogrodzie od miesięcy",
+                    "legend": false,
+                    "set": {
+                        "odpowiedz": "wyznanie"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "Mistrz robi się purpurowy. Biegnie do ogrodu, wymachując laską, a ciebie przegania z domu, zanim zdążysz cokolwiek dodać.",
+                        "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                }
+            ],
+            "fact": "Kochankowie ukrywali się przed mistrzem. Ona wymykała się wieczorami do ogrodu, on niepostrzeżenie wychodził z warsztatu. O ich uczuciu wiedziały tylko opiekunka dziewczyny i drugi czeladnik, zazdrosny o nią."
+        },
+        "kolega": {
+            "title": "Zazdrosny przyjaciel",
+            "scene": [
+                "— Ktoś cię wieczorami odwiedza, prawda? — pyta drugi czeladnik z uśmiechem, który nie sięga oczu. — Mnie możesz powiedzieć."
+            ],
+            "options": [
+                {
+                    "text": "Zbyć go żartem i nic nie mówić",
+                    "legend": true,
+                    "set": {
+                        "odpowiedz": "zart"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "Śmiejesz się i zmieniasz temat. Ale czeladnik tylko czeka: pewnego wieczoru śledzi cię do ogrodu i biegnie po mistrza.",
+                        "Mistrz wrzeszczy i wymachując laską przegania cię z ogrodu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                },
+                {
+                    "text": "Opowiedzieć mu o wszystkim",
+                    "legend": false,
+                    "set": {
+                        "odpowiedz": "zwierzenie"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "Mówisz wszystko, bo uważasz go za przyjaciela. Czeladnik kiwa głową i tego samego dnia idzie do mistrza.",
+                        "Mistrz wrzeszczy i wymachując laską przegania cię z domu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                },
+                {
+                    "text": "Pokłócić się z nim",
+                    "legend": false,
+                    "set": {
+                        "odpowiedz": "klotnia"
+                    },
+                    "next": "przysiega",
+                    "result": [
+                        "W złości wykrzykujesz więcej, niż chciałeś, a czeladnik słucha każdego słowa. Zanim ochłoniesz, mistrz już wie.",
+                        "Mistrz wrzeszczy i wymachując laską przegania cię z domu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+                    ]
+                }
+            ],
+            "fact": "Kochankowie ukrywali się przed mistrzem. Ona wymykała się wieczorami do ogrodu, on niepostrzeżenie wychodził z warsztatu. O ich uczuciu wiedziały tylko opiekunka dziewczyny i drugi czeladnik, zazdrosny o nią."
+        },
+        "przysiega": {
+            "act": "FAZA 2/4: PRZYSIĘGA",
+            "keypoint": "przysiega",
+            "before": "most",
+            "title": "Przysięga",
+            "scene": [
+                "Stań na środku mostu. Tędy opuszcza się miasto, a ty po raz ostatni patrzysz na Wrocław, zanim zniknie za zakrętem rzeki.",
+                [
+                    {
+                        "if": {
+                            "sciezka": [
+                                "pierscien"
+                            ]
+                        },
+                        "text": "Wiesz, że w ogrodzie zostało twoje szczęście, pierścień na jej palcu i chustka w twojej kieszeni."
+                    },
+                    {
+                        "if": {
+                            "sciezka": [
+                                "prosba"
+                            ]
+                        },
+                        "text": "Wiesz, że mistrz nigdy ci nie wybaczy, że ubogi czeladnik śmiał prosić o jego córkę."
+                    },
+                    {
+                        "if": {
+                            "sciezka": [
+                                "zazdrosc"
+                            ]
+                        },
+                        "text": "Wiesz, że wydał cię ten, którego uważałeś za przyjaciela."
+                    }
+                ],
+                "Wyjeżdżasz, bo mistrz ci grozi. Ale zanim zniknie za tobą ostatni dach, musisz sobie coś przysiąc."
+            ],
+            "options": [
+                {
+                    "text": "Przysiąc, że wrócisz tak bogaty, że mistrz sam poprosi cię o ślub",
+                    "legend": true,
+                    "set": {
+                        "przysiega": "bogactwo"
+                    },
+                    "next": "szlak",
+                    "result": [
+                        "— Wrócę bogaty — mówisz do rzeki. — Tak bogaty, że mistrz sam poprosi mnie o jej rękę.",
+                        "Odchodzisz z miasta. Nie masz złota, ale masz cel."
+                    ]
+                },
+                {
+                    "text": "Przysiąc zemstę na mistrzu i na tym, który cię wydał",
+                    "legend": false,
+                    "set": {
+                        "przysiega": "zemsta"
+                    },
+                    "next": "szlak",
+                    "result": [
+                        "— Obaj tego pożałują — szepczysz, zaciskając pięści na poręczy mostu.",
+                        "Odchodzisz z miasta. Nie masz złota, ale masz gniew."
+                    ]
+                },
+                {
+                    "text": "Odejść w milczeniu, pogodzony z losem",
+                    "legend": false,
+                    "set": {
+                        "przysiega": "cisza"
+                    },
+                    "next": "szlak",
+                    "result": [
+                        "Nie przysięgasz niczego. Patrzysz ostatni raz i odwracasz się.",
+                        "Odchodzisz z miasta. Nie masz złota ani celu, tylko chustkę w kieszeni."
+                    ]
+                }
+            ],
+            "fact": "Czeladnik wyjechał z Wrocławia i w chwili, w której opuszczał miasto, po raz ostatni na nie spoglądając, przysiągł, że wróci dopiero wtedy, gdy będzie tak bogaty, że mistrz sam poprosi go o ślub z córką."
+        },
+        "szlak": {
+            "title": "Zbójnik",
+            "art": [
+                "   /\\    /\\    /\\",
+                "  /  \\  /  \\  /  \\",
+                " /____\\/____\\/____\\",
+                "    ||    ||    ||"
+            ],
+            "scene": [
+                "Przez długie miesiące tułasz się po miasteczkach i wsiach. Nikt nie ufa przybyszowi znikąd, nikt nie daje pracy. Nadciąga zima, a ty nie masz dachu nad głową.",
+                "Wtedy napada cię banda zbójców. Nie masz przy sobie niczego, co mógłbyś oddać. Mogą cię zabić albo przyjąć do siebie."
+            ],
+            "options": [
+                {
+                    "text": "Przyjąć ich propozycję i mówić sobie, że zło robisz w imię miłości",
+                    "legend": true,
+                    "set": {
+                        "szlak": "imie_milosci"
+                    },
+                    "next": "powrot",
+                    "result": [
+                        "Dołączasz do bandy. Napadasz na podróżnych kupców i wieśniaków niosących sakwy ze złotem, a przed snem powtarzasz sobie: to wszystko dla niej.",
+                        "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi."
+                    ]
+                },
+                {
+                    "text": "Przystać na zbójców tylko na jedną zimę",
+                    "legend": false,
+                    "set": {
+                        "szlak": "zima"
+                    },
+                    "next": "powrot",
+                    "result": [
+                        "— Do wiosny — mówisz. Ale wiosną łup jest zbyt dobry, a drogi powrotnej nie ma.",
+                        "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi."
+                    ]
+                },
+                {
+                    "text": "Zostać najbezwzględniejszym z nich",
+                    "legend": false,
+                    "set": {
+                        "szlak": "bezwzglednosc"
+                    },
+                    "next": "powrot",
+                    "result": [
+                        "Nie zostawiasz świadków, nie okazujesz litości, dlatego bandyci szybko zaczynają cię słuchać.",
+                        "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi."
+                    ]
+                }
+            ],
+            "fact": "Czeladnik dołączył do bandy zbójców, bo napadli go zimą i nie miał nic do oddania. Mówił sobie, że zło wyrządza w imię miłości, i obiecał Bogu wielką ofiarę, gdy połączy się z wybranką. Zasłynął okrucieństwem na szlaku z Wrocławia do Pragi."
+        },
+        "powrot": {
+            "act": "FAZA 3/4: POWRÓT",
+            "keypoint": "powrot",
+            "before": "katedra",
+            "title": "Powrót",
+            "scene": [
+                "Minęło kilkanaście lat. Stoisz na Ostrowie Tumskim, pod katedrą, a bujna broda sprawia, że nikt cię nie poznaje. Stoisz na czele zbójeckiej bandy, a w sakwach masz złoto.",
+                [
+                    {
+                        "if": {
+                            "przysiega": [
+                                "bogactwo"
+                            ]
+                        },
+                        "text": "Przysiągłeś, że wrócisz tak bogaty, że mistrz sam poprosi cię o ślub. Masz dość złota, żeby kupić jej rękę."
+                    },
+                    {
+                        "if": {
+                            "przysiega": [
+                                "zemsta"
+                            ]
+                        },
+                        "text": "Przysiągłeś zemstę i nie zapomniałeś o niej ani na jeden dzień."
+                    },
+                    {
+                        "if": {
+                            "przysiega": [
+                                "cisza"
+                            ]
+                        },
+                        "text": "Wróciłeś nie wiadomo po co: może po odpuszczenie, może po jej twarz."
+                    }
+                ],
+                "Mistrz mieszka w kamienicy na Rynku, ale katedra jest tu, tuż obok, a Bogu obiecałeś ofiarę."
+            ],
+            "options": [
+                {
+                    "text": "Pójść do mistrza i kupić od niego rękę córki",
+                    "legend": true,
+                    "set": {
+                        "powrot": "kupno"
+                    },
+                    "next": "odmowa",
+                    "result": [
+                        "Zostawiasz katedrę za plecami i idziesz na Rynek. Stajesz przed dawnym mistrzem i oznajmiasz, że jesteś tym samym chłopcem, którego przed laty przegnał."
+                    ]
+                },
+                {
+                    "text": "Najpierw złożyć w katedrze obiecaną ofiarę",
+                    "legend": false,
+                    "set": {
+                        "powrot": "ofiara"
+                    },
+                    "next": "ofiara",
+                    "result": [
+                        "Wchodzisz do katedry z sakwami. Zatrzymuje cię ksiądz, zaciekawiony ciężarem."
+                    ]
+                },
+                {
+                    "text": "Poczekać pod domem, aż córka wyjdzie sama",
+                    "legend": false,
+                    "set": {
+                        "powrot": "rozmowa"
+                    },
+                    "next": "rozmowa",
+                    "result": [
+                        "Idziesz na Rynek i stajesz przy ogrodzie. Czekasz do wieczora, jak kiedyś, kiedy oboje się ukrywaliście."
+                    ]
+                }
+            ],
+            "fact": "Po kilkunastu latach rozboju czeladnik, odmieniony bujną brodą, wrócił do Wrocławia i stanął przed mistrzem. Oznajmił, że jest tym samym chłopcem, którego przed laty przegnał, i że przyszedł kupić rękę jego córki."
+        },
+        "odmowa": {
+            "title": "Odmowa",
+            "scene": [
+                "Mistrz, zaślepiony ilością złota, sam biegnie po córkę do jej celi. Ona jednak słyszała rozmowę, a gdy dowiaduje się, skąd to złoto, patrzy na ciebie z odrazą.",
+                "— Nie chcę ani ciebie, ani pieniędzy zabranych innym ludziom — mówi. Ty nie przyjmujesz odmowy i zwalasz winę na mistrza: — Jeszcze pożałujesz swojej decyzji sprzed lat!"
+            ],
+            "options": [
+                {
+                    "text": "Podłożyć nocą ogień pod kamienicę",
+                    "legend": true,
+                    "set": {
+                        "los": "glowa"
+                    },
+                    "next": null,
+                    "result": [
+                        "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry.",
+                        "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej.",
+                        "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze."
+                    ]
+                },
+                {
+                    "text": "Odejść bez słowa i nigdy nie wracać",
+                    "legend": false,
+                    "set": {
+                        "los": "odejscie"
+                    },
+                    "next": null,
+                    "result": [
+                        "Kłaniasz się mistrzowi, odwracasz się i wychodzisz. Nikt cię nie zatrzymuje."
+                    ]
+                },
+                {
+                    "text": "Oddać całe złoto na ofiarę i błagać ją o wybaczenie",
+                    "legend": false,
+                    "set": {
+                        "los": "ofiara"
+                    },
+                    "next": null,
+                    "result": [
+                        "Wysypujesz złoto na stół i padasz na kolana. Ona milczy, a mistrz patrzy na ciebie ze zgrozą."
+                    ]
+                }
+            ],
+            "fact": "Dziewczyna usłyszała rozmowę i poczuła do dawnego ukochanego odrazę. Odtrącony zbójnik obarczył winą złotnika i podłożył ogień pod kamienicę na Rynku. Przebiegł przez Most Piaskowy na Ostrów Tumski i wspiął się na wieżę katedry, żeby popatrzeć na dzieło zniszczenia."
+        },
+        "ofiara": {
+            "title": "Ofiara",
+            "scene": [
+                "Składasz w katedrze zrabowane złoto. Ksiądz długo przygląda się sakwom, a potem odsuwa je od siebie. — Takiej ofiary Bóg nie przyjmie — mówi cicho. — Na tym złocie nadal schnie cudza krew.",
+                "Wychodzisz na plac. Złoto ciąży ci bardziej niż przedtem."
+            ],
+            "options": [
+                {
+                    "text": "Mimo to pójść do mistrza po rękę córki, a gdy cię odtrąci, podłożyć ogień",
+                    "legend": true,
+                    "set": {
+                        "los": "glowa"
+                    },
+                    "next": null,
+                    "result": [
+                        "Mistrz i jego córka odmawiają ci, wiedząc, skąd masz złoto. Zaślepiony, nie wybaczasz.",
+                        "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry.",
+                        "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej.",
+                        "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze."
+                    ]
+                },
+                {
+                    "text": "Wyznać winy księdzu i oddać się w ręce sprawiedliwości",
+                    "legend": false,
+                    "set": {
+                        "los": "sad"
+                    },
+                    "next": null,
+                    "result": [
+                        "Klękasz, wyznajesz wszystko i prosisz, żeby zawołano straż."
+                    ]
+                },
+                {
+                    "text": "Zostać na Ostrowie Tumskim jako pokutnik",
+                    "legend": false,
+                    "set": {
+                        "los": "pokuta"
+                    },
+                    "next": null,
+                    "result": [
+                        "Zdejmujesz płaszcz herszta i prosisz o miejsce przy klasztornej furcie."
+                    ]
+                }
+            ],
+            "fact": "Dziewczyna usłyszała rozmowę i poczuła do dawnego ukochanego odrazę. Odtrącony zbójnik obarczył winą złotnika i podłożył ogień pod kamienicę na Rynku. Przebiegł przez Most Piaskowy na Ostrów Tumski i wspiął się na wieżę katedry, żeby popatrzeć na dzieło zniszczenia."
+        },
+        "rozmowa": {
+            "title": "Wieczór w ogrodzie",
+            "scene": [
+                "Wychodzi ona. Jest starsza, ale poznaje twoje oczy, kiedy wyciągasz z kieszeni wyhaftowaną chustkę. Przez chwilę widzisz w jej twarzy tamtą dziewczynę.",
+                "Potem mruży oczy. — To ty jesteś tym zbójem z gościńca do Pragi? — pyta. — Cały Wrocław o tobie słyszał."
+            ],
+            "options": [
+                {
+                    "text": "Zagrozić, że kamienica spłonie, jeśli z tobą nie pójdzie",
+                    "legend": true,
+                    "set": {
+                        "los": "glowa"
+                    },
+                    "next": null,
+                    "result": [
+                        "Odsuwa się od ciebie z odrazą. W tej chwili zrozumiałeś, że nie odzyskasz niczego, co straciłeś.",
+                        "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry.",
+                        "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej.",
+                        "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze."
+                    ]
+                },
+                {
+                    "text": "Uciec z miasta z całym łupem, zanim ktoś cię rozpozna",
+                    "legend": false,
+                    "set": {
+                        "los": "ucieczka"
+                    },
+                    "next": null,
+                    "result": [
+                        "Chowasz chustkę, kiwasz głową w ciemności i znikasz w uliczkach, zanim zdąży zawołać straż."
+                    ]
+                },
+                {
+                    "text": "Prosić o wybaczenie i obiecać, że porzucisz zbójeckie życie",
+                    "legend": false,
+                    "set": {
+                        "los": "pokuta"
+                    },
+                    "next": null,
+                    "result": [
+                        "Mówisz cicho i długo. Ona nie odpowiada, tylko patrzy, a potem zamyka furtkę."
+                    ]
+                }
+            ],
+            "fact": "Dziewczyna usłyszała rozmowę i poczuła do dawnego ukochanego odrazę. Odtrącony zbójnik obarczył winą złotnika i podłożył ogień pod kamienicę na Rynku. Przebiegł przez Most Piaskowy na Ostrów Tumski i wspiął się na wieżę katedry, żeby popatrzeć na dzieło zniszczenia."
+        }
+    },
+    "ending_by": [
+        "los"
+    ],
+    "endings": {
+        "glowa": {
+            "title": "Kamienna głowa",
+            "paragraphs": [
+                "Wrocławianie mówią, że do dziś w oknie wieży katedry widać twarz zbójnika, który patrzy na ogień, jaki sam podłożył. Kamienna głowa pozostała jako przestroga dla tych, którzy w imię miłości krzywdzą innych."
+            ]
+        },
+        "odejscie": {
+            "title": "Pusta droga",
+            "paragraphs": [
+                "Odchodzisz z Wrocławia tak cicho, jak do niego wróciłeś. Nikt nie wie, dokąd poszedł zbójca z bujną brodą. W oknie wieży katedry nie ma żadnej twarzy."
+            ]
+        },
+        "ofiara": {
+            "title": "Ofiara bez przebaczenia",
+            "paragraphs": [
+                "Mistrz nie przyjmuje twojego złota, a ona nie przyjmuje ciebie. Złoto trafia w końcu do kościoła, ale w kronikach nikt nie zapisał, czy Bóg je przyjął."
+            ]
+        },
+        "sad": {
+            "title": "Wyrok sprawiedliwości",
+            "paragraphs": [
+                "Straż prowadzi cię na ratusz, a z gościńca do Pragi ludzie wreszcie mogą odetchnąć. Kamienna głowa w oknie wieży to tylko legenda: ty swoją karę odbyłeś zwyczajnie, jak każdy zbójca."
+            ]
+        },
+        "pokuta": {
+            "title": "Pokutnik z Ostrowa",
+            "paragraphs": [
+                "Do końca życia pomagasz przy klasztornej furcie i nie wspominasz nikomu, kim byłeś. Ponoć w oknie wieży nigdy nie pojawiła się żadna głowa."
+            ]
+        },
+        "ucieczka": {
+            "title": "Złoto na wietrze",
+            "paragraphs": [
+                "Uciekasz z całym łupem, ale na gościńcu do Pragi czekają już na ciebie inni zbóje. Złoto, na które pracowałeś kilkanaście lat, rozchodzi się w kilka nocy."
+            ]
+        }
+    },
+    "finale": {
+        "act": "FAZA 4/4: GŁOWA W OKNIE",
+        "paragraphs": [
+            "A teraz zadrzyj głowę i poszukaj wzrokiem okienka w wieży katedry. Według legendy tkwi w nim do dziś kamienna twarz, która patrzy w stronę Rynku.",
+            "Tak przez wieki patrzył na Wrocław zbójnik, który chciał kupić miłość."
+        ]
+    },
+    "reveal": {
+        "title": "Kim byli bohaterowie?",
+        "paragraphs": [
+            "Legenda nie podaje imion. Był młody czeladnik bogatego złotnika, jego ukochana, córka mistrza, jej opiekunka i drugi czeladnik, który z zazdrości wydał sekret. Czeladnik został rozbójnikiem, a po latach wrócił do Wrocławia.",
+            "Wszyscy pochodzą z wrocławskiej legendy o kamiennej głowie, opowiadanej od pokoleń."
+        ]
+    },
+    "ranks": [
+        {
+            "min": 0,
+            "title": "Totalny remiks",
+            "text": "To zupełnie nowa legenda. Też się liczy."
+        },
+        {
+            "min": 2,
+            "title": "Własna wersja",
+            "text": "Coś się zgadza, ale kronikarze by się kłócili."
+        },
+        {
+            "min": 4,
+            "title": "Prawie jak w legendzie",
+            "text": "Niewiele brakowało. Zagraj jeszcze raz i trafisz w każdy szczegół."
+        },
+        {
+            "min": 6,
+            "title": "Kronikarz legend",
+            "text": "Znasz tę historię lepiej niż przewodnik."
+        }
+    ],
+    "heritage": "Legendy żyją, dopóki ktoś je opowiada. Opowiedz tę komuś, kto stoi obok.",
+    "look_up": "Wracając, spójrz jeszcze raz na wieże katedry: gdzieś w murze tkwi kamienna głowa. Poszukaj okienka, w którym według legendy utknął zbójnik."
+}
