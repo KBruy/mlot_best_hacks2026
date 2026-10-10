@@ -1,0 +1,14 @@
+[project]
+name = "legend-backend"
+version = "0.1.0"
+description = "API polskojęzycznej PWA z legendą wrocławską"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "psycopg[binary]>=3.2",
+    "uvicorn[standard]>=0.30",
+]
+
+[tool.uv]
+# Aplikacja, nie biblioteka: instalujemy tylko zależności.
+package = false
