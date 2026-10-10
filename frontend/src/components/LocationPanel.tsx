@@ -10,7 +10,7 @@ interface Props {
 
 export function LocationPanel({ location }: Props) {
   return (
-    <div className="w-[65%] h-full flex flex-col border-retro-border-strong bg-retro-bg">
+    <div className="h-full flex flex-col border-b-2 md:border-b-0 border-retro-border-strong bg-retro-bg">
       <PanelHeader label={location?.label ?? UI.scene.panelLocation} />
       <div className="flex-1 overflow-hidden">
         {location ? (
