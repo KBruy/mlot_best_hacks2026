@@ -1,4 +1,5 @@
 @import "@pxlkit/ui-kit/styles.css";
+@import "leaflet/dist/leaflet.css";
 
 /* Tailwind v4 — scan klas pxlkit */
 @source "../../../node_modules/@pxlkit/ui-kit/dist";
@@ -54,6 +55,24 @@
     font-family: var(--font-sans);
     min-height: 100vh;
   }
+}
+
+/* ── Piny legend na mapie Leaflet ── */
+.map-pin {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--retro-surface);
+  border: 2px solid var(--retro-border-strong);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.map-pin--selected {
+  background-color: var(--retro-secondary);
+  border-color: var(--retro-secondary);
+  transform: scale(1.5);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
 }
 
 /* Narracja — font-mono (JetBrains Mono) jak buttony pxlkit, pełne polskie znaki */
