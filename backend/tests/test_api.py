@@ -19,7 +19,12 @@ def test_health():
 
 
 def test_list_stories(monkeypatch):
-    summary = {"id": "s1", "title": "T", "intro": {"title": "T", "paragraphs": ["I"]}}
+    summary = {
+        "id": "s1",
+        "title": "T",
+        "location": {"name": "M", "center": [51.1, 17.03]},
+        "intro": {"title": "T", "paragraphs": ["I"]},
+    }
     monkeypatch.setattr(db, "list_stories", lambda: [summary])
     response = client.get("/api/stories")
     assert response.status_code == 200
