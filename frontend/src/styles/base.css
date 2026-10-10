@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Georgia, serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}

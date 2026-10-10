@@ -12,6 +12,8 @@ package-lock.json
 .idea/
 .vscode/
 
+.claude/
+
 # OS
 .DS_Store
 
@@ -20,7 +22,6 @@ frontend/dist/
 frontend/node_modules/
 frontend/.env
 frontend/.env.local
-
 
 frontend/.claude/
 frontend/CLAUDE.md
