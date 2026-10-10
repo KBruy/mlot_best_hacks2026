@@ -1,0 +1,22 @@
+# root — caveman SDK (lokalne, nie pushujemy)
+node_modules/
+package.json
+package-lock.json
+
+# env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# frontend build
+frontend/dist/
+frontend/node_modules/
+frontend/.env
+frontend/.env.local

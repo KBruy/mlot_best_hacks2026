@@ -17,14 +17,14 @@ Wybierzcie jedną legendę i dwie postaci, zaakceptujcie graf 9 węzłów z `SCO
 
 ## A — frontend
 
-| ID | Zadanie | Min | Zależności | Kryterium akceptacji |
-|---|---|---:|---|---|
-| A01 | Dodać typy danych i stan gry | 15 | D01, D02 | Stan obejmuje postać, węzeł, liczbę decyzji i wybraną konsekwencję; fixture się wczytuje |
-| A02 | Zbudować wybór postaci | 15 | A01 | Dwie karty kierują do różnych pierwszych scen |
-| A03 | Wyświetlić scenę i dwie opcje | 20 | A01 | Tekst ma akapity, przyciski pokazują opisowe, wielowierszowe opcje |
-| A04 | Obsłużyć wybór i ekran konsekwencji | 25 | A03 | Wybór nalicza jedną decyzję, pokazuje konsekwencję; „Dalej” przechodzi do celu; podwójne kliknięcie nie pomija sceny |
-| A05 | Dodać finał, licznik i nową grę | 15 | A04 | Dwa finały wyświetlają właściwy tekst; nowa gra wraca do wyboru postaci; licznik nie przekracza 6 |
-| A06 | Podłączyć API i stany pobrania | 20 | A02, B04 | Gra pobiera pełną historię; loading, błąd i ponowienie działają; po pobraniu nie odpytuje API przy wyborach |
+| ID | Zadanie                                  | Min | Zależności | Kryterium akceptacji |
+|---|------------------------------------------|---:|---|---|
+| A01 | Dodać typy danych i stan gry             | 15 | D01, D02 | Stan obejmuje postać, węzeł, liczbę decyzji i wybraną konsekwencję; fixture się wczytuje |
+| A02 | Zbudować wybór postaci                   | 15 | A01 | Dwie karty kierują do różnych pierwszych scen |
+| A03 | Wyświetlić scenę i max 3 opcje           | 20 | A01 | Tekst ma akapity, przyciski pokazują opisowe, wielowierszowe opcje |
+| A04 | Obsłużyć wybór i ekran konsekwencji      | 25 | A03 | Wybór nalicza jedną decyzję, pokazuje konsekwencję; „Dalej” przechodzi do celu; podwójne kliknięcie nie pomija sceny |
+| A05 | Dodać finał, licznik i nową grę          | 15 | A04 | Dwa finały wyświetlają właściwy tekst; nowa gra wraca do wyboru postaci; licznik nie przekracza 6 |
+| A06 | Podłączyć API i stany pobrania           | 20 | A02, B04 | Gra pobiera pełną historię; loading, błąd i ponowienie działają; po pobraniu nie odpytuje API przy wyborach |
 | A07 | Sprawdzić przejścia i obsługę klawiatury | 15 | A05, A06 | Oba wejścia i finały działają; fokus jest widoczny, po przejściu trafia do nowej sceny |
 
 **Suma: 125 minut + 10 minut kickoffu = 135 minut.**
