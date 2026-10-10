@@ -1,0 +1,14 @@
+# Profile postaci. Klucz = identyfikator uzywany w API (male litery, bez polskich znakow).
+# Dozwolone parametry: exaggeration, cfg_weight, temperature, repetition_penalty.
+# Domyslne (engine.DEFAULTS): temperature 0.6, repetition_penalty 2.5, cfg_weight 0.3.
+# repetition_penalty < ~2 nie ustawiac: detektor ucina audio przy powtorzonych tokenach.
+#
+# Jesli istnieje voices/<glos>_<postac>.wav (nagranie w danej manierze), jest uzywane
+# zamiast voices/<glos>_neutral.wav - tak wypadlo najlepiej w tescie jakosci.
+neutral: {}
+
+starzec:
+  exaggeration: 0.3
+
+wiedzma:
+  exaggeration: 0.8   # cfg_weight celowo domyslny (0.3) - 0.5 nie pasowalo stylem
