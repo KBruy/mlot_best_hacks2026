@@ -1,8 +1,6 @@
-import { PixelButton, PixelCard } from '@pxlkit/ui-kit'
 import { useGame } from '../game/useGame'
 import { GameLayout } from '../components/GameLayout'
-import { NarrativeText } from '../components/NarrativeText'
-import { UI } from '../strings'
+import { ConsequenceView } from '../components/ConsequenceView'
 
 export function ConsequenceScreen() {
   const { state, dispatch } = useGame()
@@ -12,16 +10,11 @@ export function ConsequenceScreen() {
   return (
     <GameLayout>
       <div className="w-full max-w-xl">
-        <PixelCard title={state.pendingChoice.text}>
-          <NarrativeText className="mb-6">{state.pendingChoice.consequence}</NarrativeText>
-          <PixelButton
-            tone="gold"
-            className="w-full"
-            onClick={() => dispatch({ type: 'ADVANCE_SCENE' })}
-          >
-            {UI.consequence.nextButton}
-          </PixelButton>
-        </PixelCard>
+        <ConsequenceView
+          choiceText={state.pendingChoice.text}
+          consequence={state.pendingChoice.consequence}
+          onNext={() => dispatch({ type: 'ADVANCE_SCENE' })}
+        />
       </div>
     </GameLayout>
   )
