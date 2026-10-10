@@ -5,6 +5,8 @@ export const UI = {
     subtitle: 'Wybierz legendę i rozpocznij przygodę',
     beginButton: 'Rozpocznij',
     resetHint: 'Odświeżenie strony resetuje grę',
+    listPanel: 'Legendy',
+    noSelection: 'Wybierz legendę z listy lub mapy',
   },
 
   demo: {
