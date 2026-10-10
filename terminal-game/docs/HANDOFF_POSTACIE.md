@@ -1,6 +1,6 @@
 # Handoff: postacie w „Mostku Czarownic”
 
-Stan na 2026-10-10, gałąź `terminal_game`. Ten plik opisuje wszystkie postacie z obecnej
+Stan na 2026-10-10. Prototyp leży w katalogu `terminal-game/` repozytorium. Ten plik opisuje wszystkie postacie z obecnej
 historii: kim są, skąd pochodzą (z legendy czy dopisane do gry), w których scenach
 występują i czego pilnować przy ich zmienianiu.
 
@@ -10,9 +10,9 @@ Gra to krótki spacer z legendą (do 10 minut) wokół kościoła św. Marii Mag
 i na Rynek, z symulowanym GPS. Cała treść siedzi w `story.json` jako graf scen
 (`scenes`, każda opcja ma `next`), a każda ścieżka ma 6 decyzji w 4 fazach:
 kościół → wyrok pod wieżami → Rynek → widok z mostka. Źródło legendy:
-`docs/LEGENDY.pdf` (rozdział 2, „Mostek Czarownic”).
+`docs/LEGENDY.pdf` w głównym katalogu repo (rozdział 2, „Mostek Czarownic”).
 
-Uruchomienie: `uv run python main.py --trasa --mapa`, testy: `uv run python -m unittest`.
+Uruchomienie (z katalogu `terminal-game/`): `uv run python main.py --trasa --mapa`, testy: `uv run python -m unittest`.
 
 ## Zasady, które dotyczą wszystkich postaci
 
@@ -105,7 +105,7 @@ niezgodne z legendą (✗).
 | Kim jest | Młody czeladnik z warsztatu ojca, zakochany w pannie. |
 | Sceny | `dom` (wybór „Zajrzeć do warsztatu”), `czeladnik`; wraca w `wyrok` i w opowieści starej panny w `mostek`. |
 | W grze | Otwiera drogę miłości (`sciezka: milosc`). Panna może odmówić kandydatowi ojca, uciec z czeladnikiem nocą albo spotykać się z nim potajemnie. |
-| Uwaga | Motyw jest echem innej wrocławskiej legendy z `docs/LEGENDY.pdf` (o kamiennej głowie: czeladnik i córka mistrza), ale w grze to osobna, wymyślona postać. |
+| Uwaga | Motyw jest echem innej wrocławskiej legendy z `docs/LEGENDY.pdf` w głównym katalogu repo (o kamiennej głowie: czeladnik i córka mistrza), ale w grze to osobna, wymyślona postać. |
 
 ### Stary bogaty kupiec
 

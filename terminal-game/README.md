@@ -11,7 +11,10 @@ w terminalu, a GPS jest symulowany.
 
 ## Szybki start
 
+Wszystkie polecenia uruchamiaj z katalogu `terminal-game/`:
+
 ```
+cd terminal-game
 uv run python main.py --trasa --mapa   # spacer po prawdziwej trasie + Street View w przeglądarce
 uv run python main.py --demo           # najszybsze przejście, bez spaceru
 uv run python -m unittest              # testy

@@ -1,6 +1,6 @@
 # Architektura: Mostek Czarownic
 
-Stan na 2026-10-10, gałąź `terminal_game`. Dokument dla zespołu: jak zbudowany jest
+Stan na 2026-10-10. Prototyp leży w katalogu `terminal-game/` repozytorium. Dokument dla zespołu: jak zbudowany jest
 prototyp, jak płyną dane i dlaczego podjęliśmy takie decyzje. Instrukcja uruchomienia
 jest w [`README.md`](../README.md), format treści w [`FORMAT_HISTORII.md`](FORMAT_HISTORII.md),
 postacie w [`HANDOFF_POSTACIE.md`](HANDOFF_POSTACIE.md).
@@ -10,7 +10,7 @@ postacie w [`HANDOFF_POSTACIE.md`](HANDOFF_POSTACIE.md).
 Przekazać wrocławską legendę tam, gdzie się wydarzyła. Turysta stoi pod kościołem
 św. Marii Magdaleny, otwiera grę i w ciągu do 10 minut przechodzi krótki spacer
 (kościół → pod wieże → Rynek), podejmując 6 decyzji. Na końcu dowiaduje się, jak jego
-wersja ma się do prawdziwej legendy. Źródło legendy: [`LEGENDY.pdf`](LEGENDY.pdf), rozdział 2.
+wersja ma się do prawdziwej legendy. Źródło legendy: [`LEGENDY.pdf`](../../docs/LEGENDY.pdf), rozdział 2.
 
 To **prototyp w terminalu**: sprawdza treść, rozgałęzienia, logikę lokalizacji i spaceru,
 zanim powstanie aplikacja na telefon. GPS jest symulowany, a Street View pokazuje
@@ -116,5 +116,5 @@ z boku, co tekst uwzględnia.
   a stronę z `mapa.py` zastępuje widok w aplikacji.
 - **Backend:** szkic API w FastAPI (legendy, zapis gier przez interfejs do bazy
   w Postgresie) istnieje lokalnie jako `git stash` i nie jest częścią tej gałęzi.
-- **Notatki z planowania** w `docs/zalozenia.txt` i `docs/ai_slop/` opisują pierwotny
+- **Notatki z planowania** w `docs/zalozenia.txt` i `docs/ai_slop/` (w głównym katalogu repo) opisują pierwotny
   plan (PWA, FastAPI, Postgres, 3 legendy) i nie odzwierciedlają obecnego prototypu.
