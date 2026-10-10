@@ -46,7 +46,7 @@ def read_stories():
     "/api/stories/{story_id}",
     response_model=Story,
     summary="Pełna historia",
-    description="Cały dokument historii (postaci i wszystkie węzły). Pobierany raz; przejścia wykonuje frontend.",
+    description="Cały dokument historii (lokalizacja, stan, sceny, zakończenia). Pobierany raz; przejścia wykonuje frontend.",
     responses={404: {"model": ErrorMessage, "description": "Nie ma takiej historii."}, **RESPONSE_503},
 )
 def read_story(story_id: str):

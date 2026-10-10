@@ -23,12 +23,14 @@ Sprawdzenie: `curl http://localhost:8000/api/health`, dokumentacja endpointów: 
 
 | Endpoint                | Zwraca                                                           |
 | ----------------------- | ---------------------------------------------------------------- |
-| `GET /api/stories`      | lista `[{id, title, intro}]` (pusta przed importem)              |
+| `GET /api/stories`      | lista `[{id, title, intro: {title, paragraphs}}]` (pusta przed importem) |
 | `GET /api/stories/{id}` | pełna historia zgodna z `app/models.py`; 404 dla nieznanego `id` |
 
 Niedostępna baza daje 503 na obu endpointach. Frontend pobiera wybraną historię raz i gra lokalnie.
 
-Opcjonalne pole `audio_url` (w scenie, finale i opcji — nagranie konsekwencji) to ścieżka do gotowego nagrania MP3 serwowanego statycznie przez frontend, np. `/audio/<id historii>/<plik>.mp3` z `frontend/public/audio/`. Pole może nie występować; backend nie przechowuje plików audio.
+Format historii pochodzi z prototypu `terminal-game/` (opis pól: `terminal-game/docs/FORMAT_HISTORII.md`), z dodanymi `id` i `title`. Frontend sam rozwiązuje teksty z warunkami `if` na podstawie stanu (`state`, ustawiany przez `set` w opcjach; pole `widok` ustawia z GPS: id punktu widokowego albo `location.default_view`) i wybiera zakończenie po polach `ending_by`, gdy opcja ma `next: null`. Pola zaczynające się od `_` (np. `_note`) to notatki: walidator i import je pomijają.
+
+Opcjonalne pole `audio_url` (w scenie, opcji — nagranie skutku — i zakończeniu) to ścieżka do gotowego nagrania MP3 serwowanego statycznie przez frontend, np. `/audio/<id historii>/<plik>.mp3` z `frontend/public/audio/`. Pole może nie występować; backend nie przechowuje plików audio.
 
 ## Wszystko w Dockerze (baza + API)
 
@@ -45,7 +47,7 @@ uv run python -m app.validate        # sprawdza content/*.json bez bazy (albo po
 uv run pytest                        # walidator, modele i API; bez Dockera
 ```
 
-Walidator sprawdza kontrakt (typy, brak dodatkowych pól) i graf: unikalne id węzłów, postaci i opcji, istniejące wejścia i cele, dokładnie 2 opcje na decyzję, brak cykli, osiągalność wszystkich węzłów i dokładnie 6 decyzji na każdej trasie od wejścia postaci do finału. Import uruchamia tę samą walidację przed zapisem.
+Walidator sprawdza kontrakt (typy, brak dodatkowych pól poza notatkami `_...`) i graf: istniejące `start`, cele `next` i przystanki `before`, 2–3 opcje na scenę, warunki `if` i `set` tylko z pól i wartości z `state`, `location.default_view` i punkty widokowe w `state.widok`, brak cykli, osiągalność wszystkich scen, dokładnie 6 decyzji na każdej ścieżce, ustalenie pól `ending_by` na każdej ścieżce, istniejące i osiągalne zakończenie dla każdej kombinacji ich wartości oraz rangę z `min: 0`. Import uruchamia tę samą walidację przed zapisem.
 
 ## Zależności
 
