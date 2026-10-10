@@ -1,9 +1,9 @@
-import type { Choice, Character, Story, GameState } from './types'
+import type { Choice, Story, GameState } from './types'
 
 export type GameAction =
   | { type: 'STORY_LOADED'; payload: Story }
   | { type: 'STORY_ERROR'; payload: string }
-  | { type: 'SELECT_CHARACTER'; payload: Character }
+  | { type: 'START_STORY'; payload: Story }
   | { type: 'SELECT_CHOICE'; payload: Choice }
   | { type: 'ADVANCE_SCENE' }
   | { type: 'RESTART' }
@@ -12,7 +12,6 @@ export type GameAction =
 export const initialState: GameState = {
   screen: 'loading',
   story: null,
-  character: null,
   currentNodeId: null,
   decisionCount: 0,
   pendingChoice: null,
@@ -28,15 +27,12 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case 'STORY_ERROR':
       return { ...state, screen: 'error', errorMessage: action.payload }
 
-    case 'SELECT_CHARACTER':
+    case 'START_STORY':
       return {
-        ...state,
+        ...initialState,
         screen: 'scene',
-        character: action.payload,
+        story: action.payload,
         currentNodeId: action.payload.entry_node_id,
-        decisionCount: 0,
-        pendingChoice: null,
-        choiceLocked: false,
       }
 
     case 'SELECT_CHOICE':
@@ -53,10 +49,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (!state.pendingChoice) return state
       const nextId = state.pendingChoice.next_node_id
       const nextNode = state.story?.nodes.find(n => n.id === nextId)
-      const nextScreen = nextNode?.type === 'ending' ? 'ending' : 'scene'
       return {
         ...state,
-        screen: nextScreen,
+        screen: nextNode?.type === 'ending' ? 'ending' : 'scene',
         currentNodeId: nextId,
         pendingChoice: null,
         choiceLocked: false,
@@ -67,7 +62,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...initialState, screen: 'start', story: state.story }
 
     case 'RETRY_FETCH':
-      return { ...initialState, screen: 'loading' }
+      return { ...initialState }
 
     default:
       return state
