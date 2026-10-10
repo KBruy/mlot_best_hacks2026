@@ -9,6 +9,22 @@ Działa tylko na miejscu. Bez lokalizacji albo dalej niż 250 m od kościoła le
 pozostaje zablokowana („podejdź bliżej, żeby ją odblokować”). Ten prototyp działa
 w terminalu, a GPS jest symulowany.
 
+## Szybki start
+
+```
+uv run python main.py --trasa --mapa   # spacer po prawdziwej trasie + Street View w przeglądarce
+uv run python main.py --demo           # najszybsze przejście, bez spaceru
+uv run python -m unittest              # testy
+```
+
+Bez `uv` działa też `python3 main.py` (Python 3.9+, tylko biblioteka standardowa).
+
+## Dokumentacja
+
+- [`docs/ARCHITEKTURA.md`](docs/ARCHITEKTURA.md): jak to jest zbudowane, przepływ danych, decyzje i ich powody, następne kroki.
+- [`docs/FORMAT_HISTORII.md`](docs/FORMAT_HISTORII.md): format `story.json` i przepisy (nowa scena, zakończenie, współrzędne, panoramy).
+- [`docs/HANDOFF_POSTACIE.md`](docs/HANDOFF_POSTACIE.md): wszystkie postacie, z legendy i dopisane do gry.
+
 ## Jak to działa
 
 Historia ma cztery fazy i prawdziwe rozgałęzienia. Między punktami kluczowymi

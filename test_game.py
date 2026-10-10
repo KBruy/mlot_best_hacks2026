@@ -139,8 +139,8 @@ class Branching(unittest.TestCase):
         for sciezka in STORY["state"]["sciezka"]:
             verdicts.add(tuple(main.render_decision(SCENES["wyrok"], {"sciezka": sciezka})["scene"]))
             tales.add(tuple(main.choose(SCENES["mostek"], 0, {"sciezka": sciezka})["result"]))
-        self.assertEqual(len(verdicts), 3)
-        self.assertEqual(len(tales), 3)
+        self.assertEqual(len(verdicts), len(STORY["state"]["sciezka"]))
+        self.assertEqual(len(tales), len(STORY["state"]["sciezka"]))
 
     def test_empty_bridge_only_when_she_is_freed(self):
         for path, _, state, _, texts in ROUTES:
