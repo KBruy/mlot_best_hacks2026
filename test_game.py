@@ -9,43 +9,48 @@ import main
 import mapa
 
 STORY = main.load_story()
+SCENES = STORY["scenes"]
+PATHS = main.scene_paths(STORY)
 DEMO_GPS = main.demo_gps(STORY)
 POINTS = {p["label"]: (p["lat"], p["lon"]) for p in STORY["test_points"]}
 FAR = POINTS["Daleko: Dworzec Główny"]
 TOWERS = (STORY["stops"]["wieze"]["lat"], STORY["stops"]["wieze"]["lon"])
 NAMES = ("Tekl", "Martynk", "Michał")
 
-
-def all_routes(story=STORY):
-    """Zwraca listę tras: (indeksy wyborów, końcowy stan, wynik, teksty wyświetlone w trasie)."""
-    routes = []
-
-    def walk(step, state, score, choices, texts):
-        if step == len(story["decisions"]):
-            ending = main.render_ending(story, state, score)
-            facts = [d["fact"] for d in story["decisions"]]
-            routes.append((choices, state, score,
-                           texts + [ending["title"]] + ending["paragraphs"] + facts))
-            return
-        decision = story["decisions"][step]
-        view = main.render_decision(decision, state)
-        shown = texts + view["scene"] + view["options"]
-        for i in range(len(decision["options"])):
-            new_state = dict(state)
-            outcome = main.choose(decision, i, new_state)
-            walk(step + 1, new_state, score + outcome["legend"], choices + [i],
-                 shown + outcome["result"])
-
-    for view in STORY["state"]["widok"]:
-        walk(0, {"widok": view}, 0, [], resolve_intro(view))
-    return routes
+ALL_LEGEND = [0, 0, 0, 0, 0, 0]   # bal → kawaler → wyrok → czarownica → pomoc → uwolnienie
+NO_LEGEND = [1, 1, 1, 1, 1, 1]    # czeladnik → ucieczka → błaganie → milczenie → kradzież → zamiana
 
 
 def resolve_intro(view):
     return main.resolve_all(STORY["intro"]["paragraphs"], {"widok": view})
 
 
-ROUTES = all_routes()
+def play_path(path, view="ogolny"):
+    """Przechodzi ścieżkę bez terminala; zwraca (stan, wynik, wyświetlone teksty)."""
+    state, score, texts = {"widok": view}, 0, resolve_intro(view)
+    for sid, i in path:
+        rendered = main.render_decision(SCENES[sid], state)
+        texts += rendered["scene"] + rendered["options"]
+        outcome = main.choose(SCENES[sid], i, state)
+        texts += outcome["result"]
+        score += outcome["legend"]
+    ending = main.render_ending(STORY, state, score)
+    texts += [ending["title"]] + ending["paragraphs"]
+    texts += main.resolve_all(STORY["finale"]["paragraphs"], state)
+    texts += [SCENES[sid]["fact"] for sid, _ in path]
+    return state, score, texts
+
+
+# (ścieżka, strefa, stan końcowy, wynik, teksty) dla każdej ścieżki i każdej strefy startu
+ROUTES = [(path, view) + play_path(path, view) for view in STORY["state"]["widok"] for path in PATHS]
+
+
+def path_for(choices):
+    sid, path = STORY["start"], []
+    for i in choices:
+        path.append((sid, i))
+        sid = SCENES[sid]["options"][i]["next"]
+    return path
 
 
 def run_game(story, answers, width=80, color=False, gps=DEMO_GPS):
@@ -72,111 +77,102 @@ def script(choices, restart="n"):
     return answers + [restart]
 
 
-ALL_LEGEND = [0, 0, 0, 0, 0, 0]   # każdy wybór zgodny z legendą
-NO_LEGEND = [2, 2, 2, 1, 1, 1]    # żaden wybór zgodny z legendą
-
-
 class StoryStructure(unittest.TestCase):
     def test_story_validates(self):
         self.assertEqual(main.validate_story(STORY), [])
 
-    def test_six_decisions_with_two_or_three_options(self):
-        self.assertEqual(len(STORY["decisions"]), 6)
-        for decision in STORY["decisions"]:
-            self.assertIn(len(decision["options"]), (2, 3))
+    def test_every_scene_has_two_or_three_options_a_fact_and_both_kinds_of_choice(self):
+        for sid, scene in SCENES.items():
+            self.assertIn(len(scene["options"]), (2, 3), sid)
+            self.assertTrue(scene["fact"], sid)
+            self.assertTrue(any(o["legend"] for o in scene["options"]), sid)
+            self.assertTrue(any(not o["legend"] for o in scene["options"]), sid)
 
-    def test_every_decision_has_legend_fact_and_a_legend_option(self):
-        for decision in STORY["decisions"]:
-            self.assertTrue(decision["fact"])
-            self.assertTrue(any(o["legend"] for o in decision["options"]))
-            self.assertTrue(any(not o["legend"] for o in decision["options"]))
+    def test_every_path_has_six_decisions_and_reaches_an_ending(self):
+        for path in PATHS:
+            self.assertEqual(len(path), 6)
+        for _, _, state, _, _ in ROUTES:
+            self.assertIn(state["los"], STORY["endings"])
 
-    def test_every_route_has_six_decisions_and_reaches_an_ending(self):
-        expected = len(STORY["state"]["widok"])
-        for decision in STORY["decisions"]:
-            expected *= len(decision["options"])
-        self.assertEqual(len(ROUTES), expected)
-        for choices, state, _, _ in ROUTES:
-            self.assertEqual(len(choices), 6)
-            self.assertIn(state["wish"], STORY["endings"])
-
-    def test_all_endings_and_scores_reachable(self):
-        self.assertEqual({s["wish"] for _, s, _, _ in ROUTES}, set(STORY["endings"]))
-        self.assertEqual({score for _, _, score, _ in ROUTES}, set(range(7)))
-
-    def test_every_rank_reachable(self):
-        ranks = {main.rank_for(STORY, score)["title"] for _, _, score, _ in ROUTES}
+    def test_every_scene_ending_score_and_rank_is_reachable(self):
+        self.assertEqual({sid for path in PATHS for sid, _ in path}, set(SCENES))
+        self.assertEqual({r[2]["los"] for r in ROUTES}, set(STORY["endings"]))
+        self.assertEqual({r[3] for r in ROUTES}, set(range(7)))
+        ranks = {main.rank_for(STORY, r[3])["title"] for r in ROUTES}
         self.assertEqual(ranks, {r["title"] for r in STORY["ranks"]})
 
 
-# Stałe punkty legendy: muszą wydarzyć się na każdej trasie, niezależnie od wyborów.
-CANON = {
-    2: ["Przeklinam cię", "mostku między wieżami"],   # klątwa i porwanie
-    3: ["Postanawiasz jej pomóc"],                     # Martynkę porusza los Tekli
-    4: ["różdżk", "pod pręgierzem"],                   # różdżka Michała się odnajduje
-}
+class Branching(unittest.TestCase):
+    def test_choices_lead_to_really_different_scenes(self):
+        start = [o["next"] for o in SCENES[STORY["start"]]["options"]]
+        self.assertEqual(len(set(start)), 3)                       # trzy różne drogi panny
+        rynek = [o["next"] for o in SCENES["starzec"]["options"]]
+        self.assertEqual(len(set(rynek)), 3)                       # trzy różne scenariusze na Rynku
+        routes = {tuple(sid for sid, _ in path) for path in PATHS}
+        self.assertGreaterEqual(len(routes), 9)
 
+    def test_keypoints_are_on_every_path_in_order(self):
+        for path in PATHS:
+            visited = [sid for sid, _ in path]
+            self.assertEqual(visited[2], "wyrok", visited)
+            self.assertEqual(visited[4], "starzec", visited)
+            self.assertEqual(SCENES[visited[2]]["keypoint"], "wyrok")
+            self.assertEqual(SCENES[visited[4]]["keypoint"], "rynek")
 
-class Consistency(unittest.TestCase):
-    def test_canon_beats_happen_on_every_choice(self):
-        for step, phrases in CANON.items():
-            decision = STORY["decisions"][step]
-            for klatwa in STORY["state"]["klatwa"]:
-                for i in range(len(decision["options"])):
-                    result = " ".join(main.choose(decision, i, {"klatwa": klatwa})["result"])
-                    for phrase in phrases:
-                        self.assertIn(phrase, result, (step, i))
+    def test_verdict_always_ends_on_the_bridge(self):
+        for sciezka in STORY["state"]["sciezka"]:
+            scene = " ".join(main.render_decision(SCENES["wyrok"], {"sciezka": sciezka})["scene"])
+            self.assertIn("Przeklinam", scene)
+            for i in range(len(SCENES["wyrok"]["options"])):
+                result = " ".join(main.choose(SCENES["wyrok"], i, {"sciezka": sciezka})["result"])
+                self.assertIn("na tym mostku", result)
+                self.assertIn("miotłę", result)
 
-    def test_tekla_is_free_in_every_ending(self):
-        for key, ending in STORY["endings"].items():
-            text = " ".join(ending["paragraphs"])
-            self.assertTrue("wolna" in text or "panny już tam nie ma" in text, key)
+    def test_the_witch_always_decides_to_help(self):
+        for sciezka in STORY["state"]["sciezka"]:
+            for i in range(len(SCENES["mostek"]["options"])):
+                result = " ".join(main.choose(SCENES["mostek"], i, {"sciezka": sciezka})["result"])
+                self.assertIn("Postanawiasz jej pomóc", result)
 
-    def test_tekla_disappears_only_when_freed_by_the_wish(self):
-        for choices, state, _, texts in ROUTES:
-            if state["wish"] != "uwolnij":
-                self.assertFalse(any("panny już tam nie ma" in t for t in texts), choices)
+    def test_earlier_path_changes_the_verdict_and_the_old_womans_tale(self):
+        verdicts, tales = set(), set()
+        for sciezka in STORY["state"]["sciezka"]:
+            verdicts.add(tuple(main.render_decision(SCENES["wyrok"], {"sciezka": sciezka})["scene"]))
+            tales.add(tuple(main.choose(SCENES["mostek"], 0, {"sciezka": sciezka})["result"]))
+        self.assertEqual(len(verdicts), 3)
+        self.assertEqual(len(tales), 3)
 
-    def test_each_scene_follows_from_the_previous_choice(self):
-        decisions = STORY["decisions"]
-        # (decyzja, pole z poprzedniej decyzji, część: scena albo skutek)
-        links = [(1, "dom", "scene"), (2, "swaty", "scene"), (3, "klatwa", "result"),
-                 (4, "czarownica", "scene"), (5, "rynek", "scene")]
-        for step, field, part in links:
-            variants = set()
-            for value in STORY["state"][field]:
-                state = {field: value}
-                if part == "scene":
-                    variants.add(tuple(main.render_decision(decisions[step], state)["scene"]))
-                else:
-                    variants.add(tuple(main.choose(decisions[step], 0, state)["result"]))
-            self.assertEqual(len(variants), len(STORY["state"][field]), (step, field))
+    def test_empty_bridge_only_when_she_is_freed(self):
+        for path, _, state, _, texts in ROUTES:
+            if state["los"] != "wolna":
+                self.assertFalse(any("panny już tam nie ma" in t for t in texts), path)
 
     def test_every_option_has_distinct_result(self):
-        state = {"widok": "ogolny", "klatwa": "smiech", "czarownica": "pytac", "rynek": "pomoc"}
-        for decision in STORY["decisions"]:
-            results = [" ".join(main.choose(decision, i, dict(state))["result"])
-                       for i in range(len(decision["options"]))]
-            self.assertEqual(len(set(results)), len(results))
+        state = {"widok": "ogolny", "sciezka": "proznosc"}
+        for sid, scene in SCENES.items():
+            results = [" ".join(main.choose(scene, i, dict(state))["result"])
+                       for i in range(len(scene["options"]))]
+            self.assertEqual(len(set(results)), len(results), sid)
 
 
 class Gameplay(unittest.TestCase):
-    def test_full_playthrough_shows_progress_and_score_only_at_the_end(self):
+    def test_full_playthrough_shows_phases_and_score_only_at_the_end(self):
         status, out = run_game(STORY, script(ALL_LEGEND))
         self.assertEqual(status, "finished")
         for n in range(1, 7):
             self.assertIn(f"Decyzja {n}/6", out)
-        self.assertIn("AKT I: PANNA Z KAMIENICY", out)
-        self.assertIn("AKT II: MŁODA CZAROWNICA", out)
+        phases = [out.index(f"FAZA {n}/4") for n in range(1, 5)]
+        self.assertEqual(phases, sorted(phases))
         game, finale = out.split("Twoja wersja a legenda:")
         self.assertNotIn("✓", game)
         self.assertNotIn("Zgodność", game)
-        for decision in STORY["decisions"]:
-            self.assertNotIn(decision["fact"][:40], game)
-            self.assertIn(f"✓ {decision['title']}:", finale)
+        for sid, _ in path_for(ALL_LEGEND):
+            self.assertNotIn(SCENES[sid]["fact"][:40], game)
+            self.assertIn(f"✓ {SCENES[sid]['title']}:", finale)
         self.assertIn("■■■■■■ 6/6", finale)
         self.assertIn("Kronikarz legend", finale)
         self.assertIn("Pusty mostek", out)
+        self.assertIn(STORY["finale"]["paragraphs"][1], out)
         self.assertIn(STORY["heritage"], finale)
 
     def test_zero_score_route(self):
@@ -184,6 +180,8 @@ class Gameplay(unittest.TestCase):
         self.assertEqual(out.split("Twoja wersja a legenda:")[1].count("✗ "), 6)
         self.assertIn("□□□□□□ 0/6", out)
         self.assertIn("Totalny remiks", out)
+        self.assertIn("Czeladnik", out)
+        self.assertIn(STORY["endings"]["zamiana"]["title"], out)
 
     def test_enter_pauses_are_not_decisions(self):
         _, out = run_game(STORY, script(ALL_LEGEND))
@@ -247,18 +245,18 @@ class Gameplay(unittest.TestCase):
 
     def test_ascii_art_fits_narrow_terminal(self):
         _, out = run_game(STORY, script(ALL_LEGEND), width=40)
-        self.assertIn(STORY["decisions"][3]["art"][2], out)
-        for decision in STORY["decisions"]:
-            for line in decision.get("art", []):
+        self.assertIn(SCENES["mostek"]["art"][2], out)
+        for scene in SCENES.values():
+            for line in scene.get("art", []):
                 self.assertLess(len(line), 40)
 
-    def test_route_is_short(self):
+    def test_route_is_not_too_long(self):
         extra = sum(len(p.split()) for p in STORY["reveal"]["paragraphs"])
         extra += len(STORY["heritage"].split()) + len(STORY["look_up"].split())
         extra += sum(len((s["walk"] + " " + s["arrive"]).split()) for s in STORY["stops"].values())
-        for _, _, _, texts in ROUTES:
-            words = sum(len(t.split()) for t in texts) + extra  # trasy zawierają już intro
-            self.assertTrue(600 <= words <= 900, words)
+        for path, _, _, _, texts in ROUTES:
+            words = sum(len(t.split()) for t in texts) + extra
+            self.assertTrue(600 <= words <= 1000, (words, path))
 
 
 class Location(unittest.TestCase):
@@ -310,26 +308,27 @@ class Location(unittest.TestCase):
         def gps(target):
             return next(readings)
 
-        answers = ([""] + ["1", ""] * 3        # intro i akt I
-                   + [""]                       # jeszcze nie pod wieżami: sprawdź ponownie
-                   + ["1", ""]                  # decyzja 4
-                   + ["j"]                      # GPS nie widzi Rynku: „jestem na miejscu”
-                   + ["1", ""] * 2 + ["n"])
+        answers = ([""] + ["1", ""] * 2          # intro i faza 1 (dwie decyzje)
+                   + [""]                        # jeszcze nie pod wieżami: sprawdź ponownie
+                   + ["1", ""] * 2               # faza 2: wyrok i czarownica
+                   + ["j"]                       # GPS nie widzi Rynku: „jestem na miejscu”
+                   + ["1", ""] * 2 + ["n"])      # faza 3
         status, out = run_game(STORY, answers, gps=gps)
         self.assertEqual(status, "finished")
         self.assertIn("spójrz w lewo", out)
         self.assertRegex(out, r"Do celu zostało ok\. \d+ m")
         wieze, rynek = STORY["stops"]["wieze"]["arrive"], STORY["stops"]["rynek"]["arrive"]
-        self.assertLess(out.index(wieze), out.index("Decyzja 4/6"))
+        self.assertLess(out.index(wieze), out.index("Decyzja 3/6"))
         self.assertLess(out.index(rynek), out.index("Decyzja 5/6"))
 
     def test_walk_fits_in_ten_minutes_with_reading(self):
-        _, out = run_game(STORY, script(ALL_LEGEND))
-        reading = len(out.split()) / 200  # słów na minutę przy spokojnym czytaniu
-        self.assertLessEqual(main.walk_minutes(STORY) + reading, 10)
+        for choices in (ALL_LEGEND, NO_LEGEND, [2, 0, 2, 2, 2, 2]):
+            _, out = run_game(STORY, script(choices))
+            reading = len(out.split()) / 200  # słów na minutę przy spokojnym czytaniu
+            self.assertLessEqual(main.walk_minutes(STORY) + reading, 10, choices)
 
     def test_names_are_revealed_only_at_the_end(self):
-        for choices in (ALL_LEGEND, NO_LEGEND):
+        for choices in (ALL_LEGEND, NO_LEGEND, [2, 1, 2, 2, 2, 2]):
             _, out = run_game(STORY, script(choices))
             game, finale = out.split(STORY["reveal"]["title"])
             for name in NAMES:

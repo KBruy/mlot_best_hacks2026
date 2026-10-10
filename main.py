@@ -3,6 +3,9 @@
 
 Gra działa tylko na miejscu: bez lokalizacji albo zbyt daleko od kościoła
 legenda pozostaje zablokowana. W terminalu GPS jest symulowany (patrz main()).
+
+Historia to graf scen: każda opcja wskazuje następną scenę ("next", null = koniec).
+Ścieżki rozchodzą się między punktami kluczowymi i spotykają się w nich znowu.
 """
 
 import argparse
@@ -17,7 +20,7 @@ import time
 from pathlib import Path
 
 STORY_PATH = Path(__file__).with_name("story.json")
-DECISIONS = 6
+DECISIONS = 6  # tyle decyzji ma każda ścieżka przez graf scen
 WALK_SPEED_M_PER_MIN = 70  # spokojny spacer po Starym Mieście
 
 
@@ -88,9 +91,9 @@ def walk_minutes(story):
     if "route" in story:
         return sum(path_length_m(leg) for leg in route_legs(story).values()) / WALK_SPEED_M_PER_MIN
     points = [tuple(story["location"]["center"])]
-    for decision in story["decisions"]:
-        if decision.get("before"):
-            stop = story["stops"][decision["before"]]
+    for scene in story["scenes"].values():
+        if scene.get("before"):
+            stop = story["stops"][scene["before"]]
             points.append((stop["lat"], stop["lon"]))
     meters = sum(distance_m(*a, *b) for a, b in zip(points, points[1:]))
     return meters / WALK_SPEED_M_PER_MIN
@@ -135,15 +138,35 @@ def render_decision(decision, state):
 
 
 def choose(decision, index, state):
-    """Zapisuje wybór w state. Zwraca skutek, zgodność z legendą i fakt z legendy."""
+    """Zapisuje wybór w state. Zwraca skutek, następną scenę, zgodność i fakt z legendy."""
     option = decision["options"][index]
     state.update(option["set"])
     return {
         "title": decision["title"],
         "result": resolve_all(option["result"], state),
+        "next": option["next"],
         "legend": option["legend"],
         "fact": decision["fact"],
     }
+
+
+def scene_paths(story):
+    """Wszystkie ścieżki przez graf jako listy (id sceny, numer opcji)."""
+    paths = []
+
+    def walk(scene_id, path):
+        if len(path) > 2 * DECISIONS:  # zabezpieczenie przed pętlą w grafie
+            paths.append(path)
+            return
+        for i, option in enumerate(story["scenes"][scene_id]["options"]):
+            step = path + [(scene_id, i)]
+            if option["next"] is None:
+                paths.append(step)
+            elif option["next"] in story["scenes"]:
+                walk(option["next"], step)
+
+    walk(story["start"], [])
+    return paths
 
 
 def rank_for(story, score):
@@ -178,7 +201,7 @@ def validate_story(story):
     """Zwraca listę problemów; pusta lista oznacza poprawną historię."""
     problems = []
     domains = story["state"]
-    decisions = story["decisions"]
+    scenes = story["scenes"]
     loc = story["location"]
     views = set(domains.get("widok", []))
     if loc["default_view"] not in views:
@@ -188,31 +211,47 @@ def validate_story(story):
             problems.append(f"location: punkt widokowy {vp['id']} spoza state.widok")
     for item in story["intro"]["paragraphs"]:
         _check_value(item, "intro", domains, problems)
-    if len(decisions) != DECISIONS:
-        problems.append(f"oczekiwano {DECISIONS} decyzji, jest {len(decisions)}")
-    for n, decision in enumerate(decisions, 1):
-        if decision.get("before") and decision["before"] not in story["stops"]:
-            problems.append(f"decyzja {n}: nieznany przystanek {decision['before']}")
-        if not 2 <= len(decision["options"]) <= 3:
-            problems.append(f"decyzja {n}: {len(decision['options'])} opcji")
-        if not isinstance(decision.get("act", ""), str):
-            problems.append(f"decyzja {n}: act musi być tekstem")
-        if not isinstance(decision.get("fact"), str):
-            problems.append(f"decyzja {n}: brak faktu z legendy")
-        if not all(isinstance(line, str) for line in decision.get("art", [])):
-            problems.append(f"decyzja {n}: art musi być listą tekstów")
-        for i, item in enumerate(decision["scene"]):
-            _check_value(item, f"decyzja {n}, scena {i}", domains, problems)
-        for i, option in enumerate(decision["options"], 1):
-            where = f"decyzja {n}, opcja {i}"
+    if story["start"] not in scenes:
+        problems.append(f"start: nieznana scena {story['start']}")
+        return problems
+    for sid, scene in scenes.items():
+        if scene.get("before") and scene["before"] not in story["stops"]:
+            problems.append(f"scena {sid}: nieznany przystanek {scene['before']}")
+        if not 2 <= len(scene["options"]) <= 3:
+            problems.append(f"scena {sid}: {len(scene['options'])} opcji")
+        if not isinstance(scene.get("act", ""), str):
+            problems.append(f"scena {sid}: act musi być tekstem")
+        if not isinstance(scene.get("fact"), str):
+            problems.append(f"scena {sid}: brak faktu z legendy")
+        if not all(isinstance(line, str) for line in scene.get("art", [])):
+            problems.append(f"scena {sid}: art musi być listą tekstów")
+        for i, item in enumerate(scene["scene"]):
+            _check_value(item, f"scena {sid}, akapit {i}", domains, problems)
+        for i, option in enumerate(scene["options"], 1):
+            where = f"scena {sid}, opcja {i}"
             if not isinstance(option.get("legend"), bool):
                 problems.append(f"{where}: brak pola legend (true/false)")
+            if option.get("next", "?") is not None and option.get("next") not in scenes:
+                problems.append(f"{where}: nieznana następna scena {option.get('next')}")
             _check_value(option["text"], where, domains, problems)
             for item in option["result"]:
                 _check_value(item, where + " (skutek)", domains, problems)
             for key, val in option["set"].items():
                 if val not in domains.get(key, []):
                     problems.append(f"{where}: zły set {key}={val}")
+    for path in scene_paths(story):
+        if len(path) != DECISIONS:
+            names = " → ".join(sid for sid, _ in path)
+            problems.append(f"ścieżka {names}: {len(path)} decyzji zamiast {DECISIONS}")
+        state = {}
+        for sid, i in path:
+            state.update(scenes[sid]["options"][i]["set"])
+        if any(field not in state for field in story["ending_by"]):
+            problems.append(f"ścieżka kończąca się w {path[-1][0]} nie ustala pól zakończenia")
+    reachable = {sid for path in scene_paths(story) for sid, _ in path}
+    for sid in scenes:
+        if sid not in reachable:
+            problems.append(f"scena {sid} jest nieosiągalna")
     fields = story["ending_by"]
     for combo in itertools.product(*(domains[f] for f in fields)):
         key = "|".join(combo)
@@ -367,7 +406,10 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
         output_fn("")
         say_paragraphs(resolve_all(story["intro"]["paragraphs"], state))
         pause()
-        for number, decision in enumerate(story["decisions"], 1):
+        scene_id, number = story["start"], 0
+        while scene_id is not None:
+            decision = story["scenes"][scene_id]
+            number += 1
             if decision.get("before"):
                 walk_to(decision["before"])
             view_ = render_decision(decision, state)
@@ -386,14 +428,18 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
             output_fn("")
             outcome = choose(decision, ask_choice(len(view_["options"])), state)
             recap.append(outcome)
+            scene_id = outcome["next"]
             output_fn("")
             say_paragraphs(outcome["result"])
             pause()
         score = sum(o["legend"] for o in recap)
         ending = render_ending(story, state, score)
+        say(f"══ {story['finale']['act']} ══", style="1;35")
+        output_fn("")
         say_title_box(ending["title"])
         output_fn("")
         say_paragraphs(ending["paragraphs"])
+        say_paragraphs(resolve_all(story["finale"]["paragraphs"], state))
         say(story["reveal"]["title"], style="1;35")
         say_paragraphs(story["reveal"]["paragraphs"])
         say("Twoja wersja a legenda:", style="1")

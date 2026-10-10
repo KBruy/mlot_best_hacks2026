@@ -11,20 +11,29 @@ w terminalu, a GPS jest symulowany.
 
 ## Jak to działa
 
+Historia ma cztery fazy i prawdziwe rozgałęzienia. Między punktami kluczowymi
+gracz idzie różnymi scenami, a w punktach kluczowych drogi się spotykają.
+
 1. **Odblokowanie:** pozycja musi być w promieniu 250 m od kościoła. Strefa
    (zachód, południe, północ, wschód albo „ogólna”) decyduje o pierwszych słowach,
-   np. „Stań twarzą do kościoła. Wieże masz po lewej”.
-2. **Akt I, przy kościele:** grasz panną z kamienicy przy Rynku (3 decyzje).
-3. **Spacer pod wieże** (ok. minuty), **akt II:** jesteś młodą czarownicą, a mostek
-   jest nad twoją głową (1 decyzja).
-4. **Spacer na Rynek** przez Kurzy Targ (ok. 170 m, 2 minuty), pod pręgierz: dziwny starzec i życzenie
-   (2 decyzje).
-5. **Koniec:** zakończenie, odsłonięcie bohaterów (Tekla, Martynka, czarodziej
-   Michał), zestawienie „Twoja wersja a legenda” i wynik zgodności X/6.
+   np. „Stań twarzą do kościoła i spójrz w lewo, wzdłuż ulicy”.
+2. **Faza 1, kościół:** panna z kamienicy przy Rynku wybiera drogę: próżność
+   (jak w legendzie), miłość do czeladnika albo intrygę zazdrosnej kuzynki.
+   Każda droga to inna scena i inne wybory.
+3. **Spacer pod wieże, faza 2, wyrok (punkt kluczowy):** każda droga kończy się
+   klątwą ojca i porwaniem na mostek, ale z innym powodem. Potem młoda czarownica
+   słyszy od starej panny jej własną historię i postanawia pomóc.
+4. **Spacer na Rynek** przez Kurzy Targ (ok. 170 m, 2 minuty), **faza 3, Rynek
+   (punkt kluczowy):** starzec pod pręgierzem i trzy różne scenariusze: pomoc,
+   kradzież różdżki albo targi. Każdy prowadzi do innej sceny i innych zakończeń
+   (6 zakończeń, w tym takie, w którym czarownica sama trafia na mostek).
+5. **Faza 4, widok z kościoła:** zakończenie, widok z mostka, odsłonięcie
+   bohaterów (Tekla, Martynka, czarodziej Michał), zestawienie „Twoja wersja
+   a legenda” i wynik zgodności X/6.
 
-Imiona bohaterów pojawiają się dopiero na końcu. Stałe punkty legendy dzieją się
-na każdej trasie: wybór niezgodny z legendą ma w fabule skutek, który prowadzi
-z powrotem do niej. Szacowany czas: ok. 3 minuty chodzenia i 4–5 minut czytania.
+Każda ścieżka ma 6 decyzji, a wszystkich ścieżek jest 729 (9 różnych ciągów scen).
+Imiona bohaterów pojawiają się dopiero na końcu. Szacowany czas: ok. 3,5 minuty
+chodzenia i 4–5 minut czytania.
 
 Blokada działa tylko na starcie. W trakcie spaceru gra pokazuje odległość do celu,
 a gdy GPS nie łapie przystanku, możesz wpisać `j` („jestem na miejscu”).
@@ -66,9 +75,12 @@ Przed testem w terenie warto potwierdzić strefy telefonem na miejscu.
 uv run python -m unittest -v
 ```
 
-Testy przechodzą wszystkie trasy dla każdej strefy (zawsze 6 decyzji, 2–3 opcje,
+Testy przechodzą wszystkie 729 ścieżek dla każdej strefy (zawsze 6 decyzji, 2–3 opcje,
 istniejące zakończenie, wynik 0–6) i sprawdzają m.in.:
-- stałe punkty legendy przy każdym wyborze i to, że każda scena reaguje na poprzedni wybór,
+- że wybory prowadzą do naprawdę różnych scen, a punkty kluczowe (wyrok, Rynek)
+  są na każdej ścieżce we właściwej kolejności,
+- że wyrok zawsze kończy się na mostku, a czarownica zawsze postanawia pomóc,
+- że wcześniejsza droga zmienia wyrok i opowieść starej panny,
 - wykrywanie stref, blokadę bez GPS i z daleka, odblokowanie po podejściu,
 - spacer: czekanie na dotarcie, odległość do celu, pominięcie przez `j`,
 - odtwarzanie trasy: długość zgodna z Google Maps, każdy odcinek kończy się na przystanku,
@@ -82,7 +94,8 @@ istniejące zakończenie, wynik 0–6) i sprawdzają m.in.:
 - `mapa.py`: podgląd spaceru na żywo (lokalny serwer ze stroną i mapą Google).
 - `main.py`: gra, mały silnik (warunki, walidacja, punktacja), lokalizacja
   (odległość, strefy, spacer) i symulowany GPS.
-- `story.json`: cała treść i dane miejsca: `location` (środek, zasięg, strefy),
+- `story.json`: cała treść jako graf scen (`start`, `scenes`: każda opcja ma `next`
+  z następną sceną albo `null` na końcu) i dane miejsca: `location` (środek, zasięg, strefy),
   `stops` (przystanki spaceru), `test_points` (punkty do symulacji). Teksty mogą mieć
   warianty `{"if": {"pole": ["wartość"]}, "text": "..."}` zależne od strefy
   i wcześniejszych wyborów.
