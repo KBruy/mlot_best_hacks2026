@@ -13,17 +13,17 @@ Osobny podserwis (FastAPI + PostgreSQL) w monorepo. Zarządzany przez [uv](https
 cp .env.example .env
 docker compose up -d --wait db          # baza; --wait czeka na healthcheck
 uv sync                                 # tworzy .venv wg uv.lock
-uv run --env-file .env python -m app.import_story   # tabela stories + upsert content/*.json
-uv run --env-file .env uvicorn app.main:app --reload
+uv run --env-file .env python -m app.import_story  # tabela stories + upsert content/*.json
+uv run --env-file .env uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 Sprawdzenie: `curl http://localhost:8000/api/health`, dokumentacja endpointów: http://localhost:8000/docs.
 
 ## API
 
-| Endpoint | Zwraca |
-|---|---|
-| `GET /api/stories` | lista `[{id, title, intro}]` (pusta przed importem) |
+| Endpoint                | Zwraca                                                           |
+| ----------------------- | ---------------------------------------------------------------- |
+| `GET /api/stories`      | lista `[{id, title, intro}]` (pusta przed importem)              |
 | `GET /api/stories/{id}` | pełna historia zgodna z `app/models.py`; 404 dla nieznanego `id` |
 
 Niedostępna baza daje 503 na obu endpointach. Frontend pobiera wybraną historię raz i gra lokalnie.
