@@ -1,6 +1,6 @@
 # mlot_best_hacks2026
 
-Krystian To cwel
+Polskojęzyczna PWA z interaktywną adaptacją legendy wrocławskiej: wybór postaci i decyzje fabularne.
 
 ## Backend
 

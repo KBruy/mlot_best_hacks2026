@@ -13,6 +13,7 @@ class Choice(_Model):
     text: str
     consequence: str
     next_node_id: str
+    audio_url: str | None = None  # nagranie konsekwencji
 
 
 class Decision(_Model):
@@ -20,6 +21,7 @@ class Decision(_Model):
     type: Literal["decision"]
     text: str
     choices: list[Choice]
+    audio_url: str | None = None  # nagranie tekstu sceny
 
 
 class Ending(_Model):
@@ -27,6 +29,7 @@ class Ending(_Model):
     type: Literal["ending"]
     title: str
     text: str
+    audio_url: str | None = None  # nagranie tekstu finału
 
 
 Node = Annotated[Decision | Ending, Field(discriminator="type")]
@@ -45,3 +48,9 @@ class Story(_Model):
     intro: str
     characters: list[Character]
     nodes: list[Node]
+
+
+class StorySummary(_Model):
+    id: str
+    title: str
+    intro: str
