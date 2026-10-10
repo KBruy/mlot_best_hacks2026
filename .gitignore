@@ -25,3 +25,11 @@ frontend/.env.local
 
 frontend/.claude/
 frontend/CLAUDE.md
+
+# terminal-game (prototyp w Pythonie)
+.venv/
+__pycache__/
+.playwright-mcp/
+
+# notatki Obsidiana
+.obsidian/
