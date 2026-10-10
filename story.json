@@ -1,0 +1,683 @@
+{
+  "location": {
+    "name": "kościół św. Marii Magdaleny",
+    "_note": "Wszystkie współrzędne są przybliżone i do zmierzenia na miejscu. Kościół jest orientowany: wieże z mostkiem stoją od zachodu.",
+    "center": [
+      51.1098,
+      17.0358
+    ],
+    "unlock_radius_m": 250,
+    "default_view": "ogolny",
+    "viewpoints": [
+      {
+        "id": "zachod",
+        "label": "od zachodu, naprzeciw wież",
+        "lat": 51.1098,
+        "lon": 17.0348,
+        "radius_m": 40
+      },
+      {
+        "id": "poludnie",
+        "label": "od południa, przy bocznej ścianie",
+        "lat": 51.1092,
+        "lon": 17.0358,
+        "radius_m": 40
+      },
+      {
+        "id": "polnoc",
+        "label": "od północy, przy bocznej ścianie",
+        "lat": 51.1104,
+        "lon": 17.0358,
+        "radius_m": 40
+      },
+      {
+        "id": "wschod",
+        "label": "od wschodu, za prezbiterium",
+        "lat": 51.1098,
+        "lon": 17.0368,
+        "radius_m": 40
+      }
+    ]
+  },
+  "stops": {
+    "wieze": {
+      "label": "Pod wieżami",
+      "lat": 51.1098,
+      "lon": 17.0348,
+      "radius_m": 40,
+      "walk": "Obejdź kościół i stań od zachodu, pod dwiema wieżami. To ok. minuta spacerem.",
+      "arrive": "Jesteś pod wieżami. Zatrzymaj się na chwilę."
+    },
+    "rynek": {
+      "label": "Rynek, pod pręgierzem",
+      "lat": 51.1096,
+      "lon": 17.0327,
+      "radius_m": 40,
+      "walk": "Idź na Rynek i stań przy pręgierzu, przed Ratuszem. To ok. 3–4 minuty spacerem. Nie czytaj po drodze, patrz pod nogi.",
+      "arrive": "Jesteś przy pręgierzu. Rozejrzyj się: tu wszystko się rozstrzygnie."
+    }
+  },
+  "test_points": [
+    {
+      "label": "Kościół: naprzeciw wież (zachód)",
+      "lat": 51.1098,
+      "lon": 17.0348
+    },
+    {
+      "label": "Kościół: boczna ściana (południe)",
+      "lat": 51.1092,
+      "lon": 17.0358
+    },
+    {
+      "label": "Kościół: boczna ściana (północ)",
+      "lat": 51.1104,
+      "lon": 17.0358
+    },
+    {
+      "label": "Kościół: za prezbiterium (wschód)",
+      "lat": 51.1098,
+      "lon": 17.0368
+    },
+    {
+      "label": "W pobliżu kościoła, poza strefami",
+      "lat": 51.1108,
+      "lon": 17.0378
+    },
+    {
+      "label": "Rynek: pod pręgierzem",
+      "lat": 51.1096,
+      "lon": 17.0327
+    },
+    {
+      "label": "Daleko: Dworzec Główny",
+      "lat": 51.098,
+      "lon": 17.0365
+    }
+  ],
+  "demo_start": [
+    51.1098,
+    17.0348
+  ],
+  "state": {
+    "widok": [
+      "zachod",
+      "poludnie",
+      "polnoc",
+      "wschod",
+      "ogolny"
+    ],
+    "dom": [
+      "bal",
+      "suknia",
+      "pomoc"
+    ],
+    "swaty": [
+      "smiech",
+      "zwodzic",
+      "zgoda"
+    ],
+    "klatwa": [
+      "smiech",
+      "zabawa",
+      "obietnica"
+    ],
+    "czarownica": [
+      "pytac",
+      "milczec",
+      "smiac"
+    ],
+    "rynek": [
+      "pomoc",
+      "odlot",
+      "targ"
+    ],
+    "wish": [
+      "uwolnij",
+      "moc",
+      "rok"
+    ]
+  },
+  "intro": {
+    "title": "MOSTEK CZAROWNIC",
+    "paragraphs": [
+      [
+        {
+          "if": {
+            "widok": [
+              "zachod"
+            ]
+          },
+          "text": "Stań twarzą do kościoła. Dwie ceglane wieże masz na wprost, a wysoko między nimi wisi wąski mostek."
+        },
+        {
+          "if": {
+            "widok": [
+              "poludnie"
+            ]
+          },
+          "text": "Stań twarzą do kościoła. Wieże masz po lewej. Zadrzyj głowę: wysoko między nimi wisi wąski mostek."
+        },
+        {
+          "if": {
+            "widok": [
+              "polnoc"
+            ]
+          },
+          "text": "Stań twarzą do kościoła. Wieże masz po prawej. Zadrzyj głowę: wysoko między nimi wisi wąski mostek."
+        },
+        {
+          "if": {
+            "widok": [
+              "wschod"
+            ]
+          },
+          "text": "Stań twarzą do kościoła. Przed tobą długie, ceglane prezbiterium, a nad jego dachem wystają dwie wieże połączone wąskim mostkiem."
+        },
+        {
+          "if": {
+            "widok": [
+              "ogolny"
+            ]
+          },
+          "text": "Rozejrzyj się za dwiema ceglanymi wieżami kościoła. Wysoko między nimi wisi wąski mostek."
+        }
+      ],
+      "Wrocławianie od wieków opowiadają, kto go zamiata i dlaczego. Przeżyj tę legendę na własnej skórze: krótki spacer, 6 decyzji, do 10 minut. Na końcu dowiesz się, kim byli bohaterowie i jak bardzo twoja wersja zgadza się z legendą.",
+      "Wpisz numer i Enter, a q kończy grę."
+    ]
+  },
+  "decisions": [
+    {
+      "act": "AKT I: PANNA Z KAMIENICY",
+      "title": "Bal",
+      "scene": [
+        "Wyobraź sobie, że jesteś córką bogatego mieszczanina z kamienicy przy Rynku, kilka minut stąd. Wszyscy mówią, że jesteś najpiękniejszą panną we Wrocławiu, a ty nie zamierzasz temu przeczyć.",
+        "Dziś wieczorem jest bal. Matka od rana sama szoruje garnki i prosi cię o pomoc."
+      ],
+      "options": [
+        {
+          "text": "Wymknąć się na bal",
+          "legend": true,
+          "set": {
+            "dom": "bal"
+          },
+          "result": [
+            "Zostawiasz matkę z garnkami i biegniesz na bal. Tańczysz do świtu, a kawalerowie nie odstępują cię na krok."
+          ]
+        },
+        {
+          "text": "Cały dzień przymierzać suknie",
+          "legend": true,
+          "set": {
+            "dom": "suknia"
+          },
+          "result": [
+            "Do wieczora stoisz przed lustrem. Gdy wchodzisz na salę w błękitnej sukni, wszyscy milkną. Matka szoruje garnki sama."
+          ]
+        },
+        {
+          "text": "Pomóc matce",
+          "legend": false,
+          "set": {
+            "dom": "pomoc"
+          },
+          "result": [
+            "Pomagasz, ale co chwila zerkasz w lustro, a garnki zostawiasz w połowie. — Ręce w kuchni, a głowa na balu — wzdycha matka. Wieczorem i tak biegniesz tańczyć."
+          ]
+        }
+      ],
+      "fact": "Tekla była piękna, ale próżna i leniwa: stroiła się, bawiła na balach i w domu nie kiwnęła palcem."
+    },
+    {
+      "title": "Kawaler",
+      "scene": [
+        [
+          {
+            "if": {
+              "dom": [
+                "bal"
+              ]
+            },
+            "text": "Na balu jeden kawaler, syn bogatego kupca, nie spuszcza z ciebie oczu."
+          },
+          {
+            "if": {
+              "dom": [
+                "suknia"
+              ]
+            },
+            "text": "Błękitna suknia robi swoje: syn bogatego kupca nie spuszcza z ciebie oczu przez cały bal."
+          },
+          {
+            "if": {
+              "dom": [
+                "pomoc"
+              ]
+            },
+            "text": "Na balu syn bogatego kupca nie spuszcza z ciebie oczu. Może słyszał, że dziś nawet pomagałaś w domu."
+          }
+        ],
+        "Następnego dnia staje w waszych drzwiach. — Panno, czy zostanie pani moją żoną? Rodzice wstrzymują oddech."
+      ],
+      "options": [
+        {
+          "text": "Roześmiać się: — Na cóż mi mąż?",
+          "legend": true,
+          "set": {
+            "swaty": "smiech"
+          },
+          "result": [
+            "— Na cóż mi mąż? Żebym robotę jeno miała? — śmiejesz się. Kawaler czerwienieje i wychodzi. Ojciec zaciska pięści."
+          ]
+        },
+        {
+          "text": "Zwodzić go i obiecywać „może kiedyś”",
+          "legend": true,
+          "set": {
+            "swaty": "zwodzic"
+          },
+          "result": [
+            "Uśmiechasz się, obiecujesz „może kiedyś” i przez pół roku zawracasz mu w głowie. W końcu kawaler żeni się z inną. Ojciec zaciska pięści."
+          ]
+        },
+        {
+          "text": "Zgodzić się",
+          "legend": false,
+          "set": {
+            "swaty": "zgoda"
+          },
+          "result": [
+            "Mówisz „tak”. Ale gdy przyszła teściowa wylicza, ile pracy czeka żonę kupca, bledniesz. — Ja mam prowadzić dom? Zaręczyny pękają jak bańka mydlana, a całe miasto ma o czym plotkować."
+          ]
+        }
+      ],
+      "fact": "Tekla zawracała chłopcom w głowach, ale za mąż wyjść nie chciała: „Na cóż mi mąż? Żebym robotę jeno miała?”"
+    },
+    {
+      "title": "Klątwa",
+      "scene": [
+        [
+          {
+            "if": {
+              "swaty": [
+                "smiech"
+              ]
+            },
+            "text": "Mijają lata. Po tamtym kawalerze przychodzą następni i każdy odchodzi wyśmiany."
+          },
+          {
+            "if": {
+              "swaty": [
+                "zwodzic"
+              ]
+            },
+            "text": "Mijają lata. Kawalerowie przychodzą i odchodzą, a ty żadnemu nie mówisz „tak”."
+          },
+          {
+            "if": {
+              "swaty": [
+                "zgoda"
+              ]
+            },
+            "text": "Mijają lata. Po zerwanych zaręczynach nikt już się nie oświadcza, a ty i tak wolisz bale."
+          }
+        ],
+        "Nie jesteś już najmłodsza. Pewnego wieczoru ojciec zastępuje ci drogę w drzwiach. — Co z ciebie wyrośnie? Albo się zmienisz, albo pożałujesz!"
+      ],
+      "options": [
+        {
+          "text": "Wyśmiać ojca",
+          "legend": true,
+          "set": {
+            "klatwa": "smiech"
+          },
+          "result": [
+            "Śmiejesz mu się w twarz. Ojciec blednie i wypowiada słowa, których nie da się cofnąć: — Przeklinam cię za lenistwo i próżność!",
+            "Tej samej nocy coś porywa cię z łóżka. Budzisz się wysoko pod chmurami, na wąskim mostku między wieżami tego kościoła. W rękach trzymasz miotłę."
+          ]
+        },
+        {
+          "text": "Minąć go i pobiec na zabawę",
+          "legend": true,
+          "set": {
+            "klatwa": "zabawa"
+          },
+          "result": [
+            "Mijasz go bez słowa i biegniesz na zabawę. Za plecami słyszysz krzyk: — Przeklinam cię za lenistwo i próżność!",
+            "Tej samej nocy coś porywa cię z łóżka. Budzisz się wysoko pod chmurami, na wąskim mostku między wieżami tego kościoła. W rękach trzymasz miotłę."
+          ]
+        },
+        {
+          "text": "Obiecać poprawę",
+          "legend": false,
+          "set": {
+            "klatwa": "obietnica"
+          },
+          "result": [
+            "— Zmienię się, przysięgam. Rano jednak znów przymierzasz suknie, a wieczorem biegniesz na bal. Ojciec tego nie wytrzymuje: — Przeklinam cię za lenistwo i próżność!",
+            "Tej samej nocy coś porywa cię z łóżka. Budzisz się wysoko pod chmurami, na wąskim mostku między wieżami tego kościoła. W rękach trzymasz miotłę."
+          ]
+        }
+      ],
+      "fact": "Rozgniewany ojciec przeklął Teklę. Tej samej nocy porwano ją na mostek między wieżami kościoła św. Marii Magdaleny i kazano go zamiatać do końca świata."
+    },
+    {
+      "act": "AKT II: MŁODA CZAROWNICA",
+      "title": "Mostek",
+      "art": [
+        "   /\\            /\\",
+        "  /  \\          /  \\",
+        "  |[]|==========|[]|",
+        "  |  |    ||    |  |",
+        "  |[]|          |[]|"
+      ],
+      "scene": [
+        "Zadrzyj głowę. Ten wąski mostek nad tobą, między wieżami, to miejsce, w którym budzi się przeklęta panna.",
+        "Mijają lata. Panna zamiata go każdego dnia. Postarzała się, twarz ma czarną od kurzu, a pod chmurami nikt nie słyszy jej płaczu.",
+        "Teraz jesteś młodą czarownicą. Przysłano cię, żebyś jej pomagała, bo sama już nie daje rady."
+      ],
+      "options": [
+        {
+          "text": "Zapytać, za co ją ukarano",
+          "legend": true,
+          "set": {
+            "czarownica": "pytac"
+          },
+          "result": [
+            "Pytasz łagodnie. Stara panna długo milczy, a potem opowiada wszystko.",
+            [
+              {
+                "if": {
+                  "klatwa": [
+                    "smiech"
+                  ]
+                },
+                "text": "— Wyśmiałam własnego ojca — szepcze. — Gdybym mogła cofnąć ten śmiech..."
+              },
+              {
+                "if": {
+                  "klatwa": [
+                    "zabawa"
+                  ]
+                },
+                "text": "— Minęłam ojca w drzwiach i pobiegłam na zabawę — szepcze. — Nawet się nie odwróciłam."
+              },
+              {
+                "if": {
+                  "klatwa": [
+                    "obietnica"
+                  ]
+                },
+                "text": "— Obiecałam ojcu, że się zmienię — szepcze. — I nie dotrzymałam słowa."
+              }
+            ],
+            "Słuchasz o balach, sukniach i kawalerach i coś ściska cię w gardle. Postanawiasz jej pomóc."
+          ]
+        },
+        {
+          "text": "Zamiatać w milczeniu",
+          "legend": false,
+          "set": {
+            "czarownica": "milczec"
+          },
+          "result": [
+            "Zamiatacie w milczeniu kilka dni. W końcu stara panna sama zaczyna mówić, jakby nie mogła dłużej tego dźwigać.",
+            [
+              {
+                "if": {
+                  "klatwa": [
+                    "smiech"
+                  ]
+                },
+                "text": "— Wyśmiałam własnego ojca — szepcze. — Gdybym mogła cofnąć ten śmiech..."
+              },
+              {
+                "if": {
+                  "klatwa": [
+                    "zabawa"
+                  ]
+                },
+                "text": "— Minęłam ojca w drzwiach i pobiegłam na zabawę — szepcze. — Nawet się nie odwróciłam."
+              },
+              {
+                "if": {
+                  "klatwa": [
+                    "obietnica"
+                  ]
+                },
+                "text": "— Obiecałam ojcu, że się zmienię — szepcze. — I nie dotrzymałam słowa."
+              }
+            ],
+            "Słuchasz o balach, sukniach i kawalerach i coś ściska cię w gardle. Postanawiasz jej pomóc."
+          ]
+        },
+        {
+          "text": "Wyśmiać leniwą pannę",
+          "legend": false,
+          "set": {
+            "czarownica": "smiac"
+          },
+          "result": [
+            "— Leniwa panna dostała miotłę? — parskasz. — Śmiej się — odpowiada. — Ja też się kiedyś śmiałam. Posłuchaj.",
+            [
+              {
+                "if": {
+                  "klatwa": [
+                    "smiech"
+                  ]
+                },
+                "text": "— Wyśmiałam własnego ojca. Gdybym mogła cofnąć ten śmiech..."
+              },
+              {
+                "if": {
+                  "klatwa": [
+                    "zabawa"
+                  ]
+                },
+                "text": "— Minęłam ojca w drzwiach i pobiegłam na zabawę. Nawet się nie odwróciłam."
+              },
+              {
+                "if": {
+                  "klatwa": [
+                    "obietnica"
+                  ]
+                },
+                "text": "— Obiecałam ojcu, że się zmienię. I nie dotrzymałam słowa."
+              }
+            ],
+            "Słuchasz o balach, sukniach i kawalerach i śmiech więźnie ci w gardle. Postanawiasz jej pomóc."
+          ]
+        }
+      ],
+      "fact": "Gdy Tekla opadła z sił, przysłano jej do pomocy Martynkę, czarownicę o dobrym sercu. Martynka długo wypytywała ją o winy, a los Tekli bardzo ją przejął.",
+      "before": "wieze"
+    },
+    {
+      "title": "Rynek nocą",
+      "scene": [
+        "Ale jak pomóc komuś, kogo przeklął własny ojciec? Nocą po cichu bierzesz jej miotłę i lecisz na Rynek szukać pomocy. Tu, gdzie teraz stoisz.",
+        [
+          {
+            "if": {
+              "czarownica": [
+                "pytac"
+              ]
+            },
+            "text": "Stara panna śpi z twarzą mokrą od łez."
+          },
+          {
+            "if": {
+              "czarownica": [
+                "milczec"
+              ]
+            },
+            "text": "Stara panna śpi skulona przy balustradzie."
+          },
+          {
+            "if": {
+              "czarownica": [
+                "smiac"
+              ]
+            },
+            "text": "Wciąż wstyd ci za tamten śmiech."
+          }
+        ],
+        "Rynek jest pusty, tylko pod Ratuszem, przy tym pręgierzu, jakiś dziwny starzec łazi na czworaka. — Pomogłabyś, zamiast się gapić! — burczy."
+      ],
+      "options": [
+        {
+          "text": "— Chętnie. Czego pan szuka?",
+          "legend": true,
+          "set": {
+            "rynek": "pomoc"
+          },
+          "result": [
+            "— Okularów i różdżki! Bez różdżki nie mam mocy — sapie starzec. Wzbijasz się na miotle i z góry od razu dostrzegasz różdżkę, tuż pod pręgierzem."
+          ]
+        },
+        {
+          "text": "Odlecieć, szkoda czasu",
+          "legend": false,
+          "set": {
+            "rynek": "odlot"
+          },
+          "result": [
+            "Już się wznosisz, gdy z góry dostrzegasz coś pod pręgierzem: różdżkę. Ten dziwak bez niej sobie nie poradzi. Wzdychasz i zawracasz."
+          ]
+        },
+        {
+          "text": "— A co ja z tego będę mieć?",
+          "legend": false,
+          "set": {
+            "rynek": "targ"
+          },
+          "result": [
+            "— Bezczelna! — burczy starzec. — Szukam różdżki. Znajdź ją, to pogadamy. — Z miotły wypatrujesz różdżkę pod pręgierzem."
+          ]
+        }
+      ],
+      "fact": "Na Rynku Martynka spotkała czarodzieja Michała, który zgubił okulary i różdżkę, a bez różdżki nie miał mocy. Martynka wypatrzyła ją z miotły.",
+      "before": "rynek"
+    },
+    {
+      "title": "Życzenie",
+      "scene": [
+        "Starzec chwyta różdżkę i prostuje plecy. To czarodziej!",
+        [
+          {
+            "if": {
+              "rynek": [
+                "pomoc"
+              ]
+            },
+            "text": "— Dobre z ciebie dziecko. W nagrodę spełnię jedno twoje życzenie."
+          },
+          {
+            "if": {
+              "rynek": [
+                "odlot"
+              ]
+            },
+            "text": "— Mogłaś odlecieć, a wróciłaś. To się liczy. Spełnię jedno twoje życzenie."
+          },
+          {
+            "if": {
+              "rynek": [
+                "targ"
+              ]
+            },
+            "text": "— Umowa to umowa. Jedno życzenie i ani jednego więcej."
+          }
+        ],
+        "Przed oczami masz starą pannę z miotłą, wysoko pod chmurami."
+      ],
+      "options": [
+        {
+          "text": "Uwolnij pannę z mostka",
+          "legend": true,
+          "set": {
+            "wish": "uwolnij"
+          },
+          "result": [
+            "Czarodziej macha różdżką. Gdzieś za dachami, nad kościołem, który dopiero co został za tobą, między wieżami coś błyska."
+          ]
+        },
+        {
+          "text": "Uczyń mnie najpotężniejszą czarownicą",
+          "legend": false,
+          "set": {
+            "wish": "moc"
+          },
+          "result": [
+            "Czarodziej macha różdżką. Czujesz moc aż w czubkach palców. Z wieży wciąż dobiega szuranie miotły."
+          ]
+        },
+        {
+          "text": "Niech panna odpracuje jeszcze rok",
+          "legend": false,
+          "set": {
+            "wish": "rok"
+          },
+          "result": [
+            "— Sprawiedliwie — mruczy czarodziej i macha różdżką. — Za rok będzie wolna."
+          ]
+        }
+      ],
+      "fact": "Martynka poprosiła o uwolnienie Tekli, a wdzięczny czarodziej spełnił jej życzenie."
+    }
+  ],
+  "ending_by": [
+    "wish"
+  ],
+  "endings": {
+    "uwolnij": {
+      "title": "Pusty mostek",
+      "paragraphs": [
+        "Wracasz na wieże, ale panny już tam nie ma. Został tylko kurz na deskach. Dokąd poszła? Tego nie wie nikt. Mostek pozostał jako przestroga dla leniwych panien."
+      ]
+    },
+    "moc": {
+      "title": "Potężna, ale...",
+      "paragraphs": [
+        "Jesteś najpotężniejszą czarownicą Wrocławia, a jednak każdej nocy słyszysz z wieży szuranie miotły. W końcu nie wytrzymujesz i własną mocą zdejmujesz klątwę. Tak czy inaczej, panna jest wolna."
+      ]
+    },
+    "rok": {
+      "title": "Rok pokuty",
+      "paragraphs": [
+        "Panna zamiata jeszcze rok, ale już bez płaczu. Ostatniego dnia klątwa pęka i panna jest wolna. Ponoć do końca życia pomagała każdemu, kto o to poprosił. Mostek pozostał jako przestroga dla leniwych panien."
+      ]
+    }
+  },
+  "reveal": {
+    "title": "Kim byli bohaterowie?",
+    "paragraphs": [
+      "Panna z kamienicy miała na imię Tekla. Młoda czarownica to Martynka, a dziwny starzec z Rynku to czarodziej Michał.",
+      "Wszyscy pochodzą z wrocławskiej legendy o Mostku Czarownic, opowiadanej od pokoleń."
+    ]
+  },
+  "ranks": [
+    {
+      "min": 0,
+      "title": "Totalny remiks",
+      "text": "To zupełnie nowa legenda. Też się liczy."
+    },
+    {
+      "min": 2,
+      "title": "Własna wersja",
+      "text": "Coś się zgadza, ale kronikarze by się kłócili."
+    },
+    {
+      "min": 4,
+      "title": "Prawie jak w legendzie",
+      "text": "Niewiele brakowało. Zagraj jeszcze raz i trafisz w każdy szczegół."
+    },
+    {
+      "min": 6,
+      "title": "Kronikarz legend",
+      "text": "Znasz tę historię lepiej niż przewodnik."
+    }
+  ],
+  "heritage": "Legendy żyją, dopóki ktoś je opowiada. Opowiedz tę komuś, kto stoi obok.",
+  "look_up": "Wracając, spójrz jeszcze raz na mostek między wieżami: to Mostek Czarownic, zwany też Mostkiem Pokutnic. Zwykle można na niego wejść, godziny sprawdź przy kościele."
+}
