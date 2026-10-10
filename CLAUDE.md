@@ -55,21 +55,21 @@ Format pochodzi z prototypu `terminal-game/` (pełny opis pól: `terminal-game/d
 Story: id, title, location, stops{}, route?, streetview?, test_points?, demo_start?,
        state{pole: [wartości]}, intro{title, paragraphs}, start, scenes{id: Scene},
        ending_by[], endings{klucz: Ending}, finale{act?, paragraphs}, reveal{title, paragraphs},
-       ranks[{min, title, text}], heritage, look_up
+       ranks[{min, title, text}], heritage: Text, look_up: Text
 Location: name, center[lat, lon], unlock_radius_m, default_view, viewpoints[{id, label, lat, lon, radius_m}]
 Stop: label, lat, lon, radius_m, walk, arrive
-Scene: title, scene: Paragraphs, options[2..3], fact, act?, before?, keypoint?, art?, audio_url?
-Option: text: Text, legend: bool, set{pole: wartość}, next: id sceny | null, result: Paragraphs, audio_url?
-Ending: title, paragraphs: Paragraphs, audio_url?
-Text = napis | {if: {pole: [wartości]}, text} | [warianty]   (wygrywa pierwszy pasujący, brak = akapit pominięty)
+Scene: title, scene: Paragraphs, options[2..3], fact, act?, before?, keypoint?, art?
+Option: text: Text, legend: bool, set{pole: wartość}, next: id sceny | null, result: Paragraphs
+Ending: title, paragraphs: Paragraphs
+Text = napis | {if?: {pole: [wartości]}, text, audio_url?} | [warianty]   (wygrywa pierwszy pasujący, brak = akapit pominięty)
 Paragraphs = [Text]
 ```
 
 Stan gry to słownik pól z `state`; opcja zapisuje w nim `set`. Pole `widok` frontend ustawia z GPS (id punktu widokowego albo `location.default_view`). Opcja z `next: null` kończy grę: zakończenie to `endings["|".join(stan[p] for p in ending_by)]`. Wynik to liczba wybranych opcji z `legend: true`; ranga to najwyższa z `min <= wynik`. Scena z `before` wymaga dojścia do przystanku. Pola zaczynające się od `_` to notatki, pomijane przez walidator i import.
 
-Walidator (`python -m app.validate`, ten sam przy imporcie) sprawdza wszystkie ścieżki: istniejące `start`, `next` i `before`; 2–3 opcje; warunki i `set` tylko z `state`; brak cykli i nieosiągalnych scen; dokładnie 6 decyzji na każdej ścieżce; każda ścieżka ustala pola `ending_by`, każda kombinacja ich wartości ma zakończenie i każde zakończenie jest osiągalne; jest ranga `min: 0`.
+Walidator (`python -m app.validate`, ten sam przy imporcie) sprawdza wszystkie ścieżki: istniejące `start`, `next` i `before`; 2–3 opcje; warunki i `set` tylko z `state`; `audio_url` w ścieżce historii, jeden plik na jeden tekst, brak nagrań tekstów opcji; brak cykli i nieosiągalnych scen; dokładnie 6 decyzji na każdej ścieżce; każda ścieżka ustala pola `ending_by`, każda kombinacja ich wartości ma zakończenie i każde zakończenie jest osiągalne; jest ranga `min: 0`.
 
-`audio_url` jest opcjonalne: ścieżka do pre-generowanego nagrania MP3 (scena, zakończenie, skutek opcji) serwowanego statycznie przez frontend, np. `/audio/<id historii>/<plik>.mp3`. Backend nie przechowuje plików audio.
+`audio_url` należy do pojedynczego akapitu albo wariantu: każdy czytany akapit (wstęp, scena, skutek, zakończenie, `finale`, `reveal`, `heritage`, `look_up`) i każdy jego wariant `if` ma osobne nagranie MP3 `/audio/<id historii>/<plik>.mp3`, serwowane statycznie przez frontend z `frontend/public/audio/`. Akapit bez warunku z nagraniem to wariant bez `if`: `{"text", "audio_url"}`. Teksty opcji nie są czytane. Jeden plik może służyć tylko identycznemu tekstowi. Obok MP3 może leżeć `<plik>.json` ze znacznikami czasu słów do karaoke (`{"words": [{text, start, end}]}`); bez niego front rozkłada czas nagrania proporcjonalnie na słowa. Przypisanie głosów i plików: `voice-service/NARRACJA.md`. Backend nie przechowuje plików audio.
 
 Narracja jest zwykłym tekstem z akapitami; nie renderuj dowolnego HTML. Nie hardkoduj treści ani ID scen w komponentach. Warunki są tylko w formie `if` powyżej (bez wyrażeń i `eval`); nie rozbudowuj ich w ogólny język.
 

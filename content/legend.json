@@ -68,7 +68,10 @@
       "act": "FAZA 1/2",
       "title": "Scena 1",
       "scene": [
-        "Scena 1: tekst przykładowy."
+        {
+          "text": "Scena 1: tekst przykładowy.",
+          "audio_url": "/audio/legenda-fixture/s1-1.mp3"
+        }
       ],
       "options": [
         {
@@ -163,7 +166,8 @@
                 "a"
               ]
             },
-            "text": "Akapit dla ścieżki a."
+            "text": "Akapit dla ścieżki a.",
+            "audio_url": "/audio/legenda-fixture/s3-2-a.mp3"
           },
           {
             "if": {

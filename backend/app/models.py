@@ -8,6 +8,10 @@ Teksty z warunkami: akapit sceny, tekst opcji, akapit skutku i zakończenia moż
 napisem, jednym wariantem {"if": {pole: [wartości]}, "text": ...} albo listą wariantów
 (wygrywa pierwszy pasujący; gdy nic nie pasuje, akapit się pomija). Warunek pasuje, gdy
 każde wymienione pole stanu ma jedną z podanych wartości; brak `if` pasuje zawsze.
+
+Nagrania: każdy czytany akapit (i każdy jego wariant) ma własne `audio_url`. Akapit bez
+warunku z nagraniem zapisujemy jako wariant bez `if`: {"text": ..., "audio_url": ...}.
+Teksty opcji nie są czytane.
 """
 from typing import Annotated
 
@@ -16,14 +20,6 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class _Model(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
-
-
-def _audio(what: str):
-    return Field(
-        None,
-        description=f"Opcjonalna ścieżka do nagrania {what} (MP3 serwowany statycznie"
-        " przez frontend, np. /audio/<id historii>/<plik>.mp3). Pole może nie występować.",
-    )
 
 
 Condition = dict[str, list[str]]
@@ -39,6 +35,11 @@ class Variant(_Model):
         description="{pole stanu: [dozwolone wartości]}; wszystkie pola muszą pasować. Brak = zawsze.",
     )
     text: str
+    audio_url: str | None = Field(
+        None,
+        description="Nagranie tego akapitu lub wariantu: MP3 serwowany statycznie przez frontend,"
+        " /audio/<id historii>/<plik>.mp3. Obok może leżeć <plik>.json ze znacznikami czasu słów (karaoke).",
+    )
 
 
 Text = str | Variant | list[Variant]
@@ -122,7 +123,6 @@ class Option(_Model):
         description="Id następnej sceny albo null, gdy to ostatnia decyzja (zakończenie wybiera `ending_by`)."
     )
     result: Paragraphs
-    audio_url: str | None = _audio("skutku")
 
 
 class Scene(_Model):
@@ -136,13 +136,11 @@ class Scene(_Model):
     before: str | None = Field(None, description="Id przystanku, do którego gracz dochodzi przed sceną.")
     keypoint: str | None = Field(None, description="Oznaczenie punktu kluczowego fabuły.")
     art: list[str] | None = Field(None, description="Linie grafiki ASCII.")
-    audio_url: str | None = _audio("tekstu sceny")
 
 
 class Ending(_Model):
     title: str
     paragraphs: Paragraphs
-    audio_url: str | None = _audio("tekstu zakończenia")
 
 
 class Finale(_Model):
@@ -193,8 +191,8 @@ class Story(_Model):
     finale: Finale
     reveal: Reveal
     ranks: list[Rank]
-    heritage: str
-    look_up: str
+    heritage: Text
+    look_up: Text
 
 
 class StorySummary(_Model):

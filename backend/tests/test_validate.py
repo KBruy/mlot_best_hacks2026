@@ -121,5 +121,31 @@ def test_contract_rejects_unknown_fields(story_dict):
 def test_dump_keeps_if_alias(story_dict):
     dumped = parse_story(story_dict).model_dump(exclude_unset=True, by_alias=True)
     assert dumped["scenes"]["s3"]["scene"][1][0] == {
-        "if": {"sciezka": ["a"]}, "text": "Akapit dla ścieżki a."
+        "if": {"sciezka": ["a"]},
+        "text": "Akapit dla ścieżki a.",
+        "audio_url": "/audio/legenda-fixture/s3-2-a.mp3",
     }
+
+
+def test_audio_url_must_follow_story_path(story_dict):
+    story_dict["scenes"]["s1"]["scene"][0]["audio_url"] = "/audio/inna/s1-1.wav"
+    assert errors(story_dict) == [
+        "Scena 's1', akapit 1: audio_url '/audio/inna/s1-1.wav' spoza /audio/legenda-fixture/*.mp3"
+    ]
+
+
+def test_audio_url_shared_only_by_identical_text(story_dict):
+    url = story_dict["scenes"]["s1"]["scene"][0]["audio_url"]
+    story_dict["scenes"]["s2a"]["scene"] = [{"text": "Scena 1: tekst przykładowy.", "audio_url": url}]
+    assert errors(story_dict) == []
+    story_dict["scenes"]["s2a"]["scene"][0]["text"] = "Inny tekst."
+    assert errors(story_dict) == [f"Scena 's2a', akapit 1: audio_url {url!r} użyte dla innego tekstu"]
+
+
+def test_option_text_is_not_spoken(story_dict):
+    story_dict["scenes"]["s4"]["options"][0]["text"] = {
+        "text": "Opcja", "audio_url": "/audio/legenda-fixture/opcja.mp3"
+    }
+    assert errors(story_dict) == [
+        "Scena 's4', opcja 1: tekst nie jest czytany, nie może mieć audio_url"
+    ]

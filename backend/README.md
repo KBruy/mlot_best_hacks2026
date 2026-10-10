@@ -30,7 +30,7 @@ Niedostępna baza daje 503 na obu endpointach. Frontend pobiera wybraną histori
 
 Format historii pochodzi z prototypu `terminal-game/` (opis pól: `terminal-game/docs/FORMAT_HISTORII.md`), z dodanymi `id` i `title`. Frontend sam rozwiązuje teksty z warunkami `if` na podstawie stanu (`state`, ustawiany przez `set` w opcjach; pole `widok` ustawia z GPS: id punktu widokowego albo `location.default_view`) i wybiera zakończenie po polach `ending_by`, gdy opcja ma `next: null`. Pola zaczynające się od `_` (np. `_note`) to notatki: walidator i import je pomijają.
 
-Opcjonalne pole `audio_url` (w scenie, opcji — nagranie skutku — i zakończeniu) to ścieżka do gotowego nagrania MP3 serwowanego statycznie przez frontend, np. `/audio/<id historii>/<plik>.mp3` z `frontend/public/audio/`. Pole może nie występować; backend nie przechowuje plików audio.
+Opcjonalne pole `audio_url` jest przy pojedynczym akapicie albo wariancie tekstu (`{"if"?, "text", "audio_url"}`): każdy czytany akapit ma własne nagranie MP3 `/audio/<id historii>/<plik>.mp3` serwowane statycznie przez frontend z `frontend/public/audio/`. Teksty opcji nie są czytane. Obok może leżeć `<plik>.json` ze znacznikami czasu słów (karaoke). Backend nie przechowuje plików audio; przypisanie głosów: `voice-service/NARRACJA.md`.
 
 ## Wszystko w Dockerze (baza + API)
 
@@ -47,7 +47,7 @@ uv run python -m app.validate        # sprawdza content/*.json bez bazy (albo po
 uv run pytest                        # walidator, modele i API; bez Dockera
 ```
 
-Walidator sprawdza kontrakt (typy, brak dodatkowych pól poza notatkami `_...`) i graf: istniejące `start`, cele `next` i przystanki `before`, 2–3 opcje na scenę, warunki `if` i `set` tylko z pól i wartości z `state`, `location.default_view` i punkty widokowe w `state.widok`, brak cykli, osiągalność wszystkich scen, dokładnie 6 decyzji na każdej ścieżce, ustalenie pól `ending_by` na każdej ścieżce, istniejące i osiągalne zakończenie dla każdej kombinacji ich wartości oraz rangę z `min: 0`. Import uruchamia tę samą walidację przed zapisem.
+Walidator sprawdza kontrakt (typy, brak dodatkowych pól poza notatkami `_...`) i graf: istniejące `start`, cele `next` i przystanki `before`, 2–3 opcje na scenę, warunki `if` i `set` tylko z pól i wartości z `state`, `audio_url` w ścieżce `/audio/<id>/…mp3` (jeden plik na jeden tekst, bez nagrań tekstów opcji), `location.default_view` i punkty widokowe w `state.widok`, brak cykli, osiągalność wszystkich scen, dokładnie 6 decyzji na każdej ścieżce, ustalenie pól `ending_by` na każdej ścieżce, istniejące i osiągalne zakończenie dla każdej kombinacji ich wartości oraz rangę z `min: 0`. Import uruchamia tę samą walidację przed zapisem.
 
 ## Zależności
 
