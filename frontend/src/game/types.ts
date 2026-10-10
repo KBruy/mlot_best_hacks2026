@@ -32,6 +32,7 @@ export interface Story {
   id: string
   title: string
   intro: string
+  entry_node_id: string
   characters: Character[]
   nodes: StoryNode[]
 }
@@ -41,7 +42,6 @@ export type Screen = 'loading' | 'error' | 'start' | 'scene' | 'consequence' | '
 export interface GameState {
   screen: Screen
   story: Story | null
-  character: Character | null
   currentNodeId: string | null
   decisionCount: number
   pendingChoice: Choice | null
