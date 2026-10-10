@@ -22,3 +22,7 @@ frontend/dist/
 frontend/node_modules/
 frontend/.env
 frontend/.env.local
+
+# frontend — lokalne pliki Claude (nie pushujemy)
+frontend/.claude/
+frontend/CLAUDE.md
