@@ -44,11 +44,23 @@ def check_graph(story: Story) -> list[str]:
     domains = story.state
     scenes = story.scenes
 
-    def check_text(text: Text, where: str) -> None:
+    audio_prefix = f"/audio/{story.id}/"
+    audio_texts: dict[str, str] = {}
+
+    def check_text(text: Text, where: str, spoken: bool = True) -> None:
         for variant in _variants(text):
             for key, allowed in variant.if_.items():
                 if key not in domains or not set(allowed) <= set(domains[key]):
                     errors.append(f"{where}: zły warunek {key}={allowed}")
+            url = variant.audio_url
+            if url is None:
+                continue
+            if not spoken:
+                errors.append(f"{where}: tekst nie jest czytany, nie może mieć audio_url")
+            elif not (url.startswith(audio_prefix) and url.endswith(".mp3")):
+                errors.append(f"{where}: audio_url {url!r} spoza {audio_prefix}*.mp3")
+            elif audio_texts.setdefault(url, variant.text) != variant.text:
+                errors.append(f"{where}: audio_url {url!r} użyte dla innego tekstu")
 
     views = set(domains.get(VIEW_FIELD, []))
     if story.location.default_view not in views:
@@ -69,6 +81,8 @@ def check_graph(story: Story) -> list[str]:
         check_text(item, "finale")
     for item in story.reveal.paragraphs:
         check_text(item, "reveal")
+    check_text(story.heritage, "heritage")
+    check_text(story.look_up, "look_up")
 
     if story.start not in scenes:
         errors.append(f"start: nieznana scena {story.start!r}")
@@ -86,7 +100,7 @@ def check_graph(story: Story) -> list[str]:
             where = f"Scena {sid!r}, opcja {i}"
             if option.next is not None and option.next not in scenes:
                 errors.append(f"{where}: cel {option.next!r} nie istnieje")
-            check_text(option.text, where)
+            check_text(option.text, where, spoken=False)
             for item in option.result:
                 check_text(item, f"{where} (skutek)")
             for key, val in option.set.items():

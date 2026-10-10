@@ -12,3 +12,15 @@ starzec:
 
 wiedzma:
   exaggeration: 0.8   # cfg_weight celowo domyslny (0.3) - 0.5 nie pasowalo stylem
+
+# "Mostek Czarownic" (NAGRANIA.md). Bez voices/<glos>_<postac>.wav uzywana jest probka neutralna.
+narrator: {}      # krystian_neutral.wav
+kawaler: {}       # krystian_kawaler.wav
+ojciec: {}        # andrzej_ojciec.wav
+straznik: {}      # andrzej_neutral.wav
+czeladnik: {}     # adrian_neutral.wav
+panna: {}         # ola_panna.wav
+stara_panna: {}   # ola_stara_panna.wav
+kuzynka: {}       # ola_kuzynka.wav
+matka: {}         # ola_neutral.wav
+tesciowa: {}      # ola_neutral.wav
