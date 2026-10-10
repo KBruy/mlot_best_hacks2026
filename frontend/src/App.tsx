@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { GameProvider } from './game/context'
 import { useGame } from './game/useGame'
+import { useGeolocation } from './map/useGeolocation'
 import { LoadingScreen } from './screens/LoadingScreen'
 import { ErrorScreen } from './screens/ErrorScreen'
 import { StartScreen } from './screens/StartScreen'
@@ -16,6 +17,7 @@ const isMapPage = new URLSearchParams(window.location.search).has('page') &&
 
 function GameRouter() {
   const { state, dispatch } = useGame()
+  useGeolocation()
 
   useEffect(() => {
     fetch('/api/story')

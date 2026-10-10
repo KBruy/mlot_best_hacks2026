@@ -53,6 +53,11 @@ export interface Story {
 
 export type Screen = 'loading' | 'error' | 'start' | 'scene' | 'consequence' | 'ending'
 
+export interface GpsPosition {
+  lat: number
+  lon: number
+}
+
 export interface GameState {
   screen: Screen
   story: Story | null
@@ -61,4 +66,6 @@ export interface GameState {
   pendingChoice: Choice | null
   choiceLocked: boolean
   errorMessage: string | null
+  gpsPosition: GpsPosition | null
+  demoMode: boolean
 }
