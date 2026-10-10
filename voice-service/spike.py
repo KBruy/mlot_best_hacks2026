@@ -10,6 +10,7 @@ from pathlib import Path
 
 import torch
 import torchaudio as ta
+from audio import trim_tail
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 
 ROOT = Path(__file__).parent
@@ -28,7 +29,9 @@ print(f"device: {device}")
 # Wariant A: parametry modelu na jednej probce neutralnej.
 # Wariant B: osobna probka w danej manierze (jesli plik istnieje).
 # Domyslne parametry wybrane na slух w tune.py (pelne zdanie, bez ucinania).
-DEFAULTS = dict(temperature=0.6, repetition_penalty=1.3, cfg_weight=0.3)
+# cfg_weight = styl mowy (0.3 wolniej/spokojniej), repetition_penalty = artefakty.
+# repetition_penalty < ~2 NIE uzywac: detektor ucina audio przy 2 identycznych tokenach z rzedu.
+DEFAULTS = dict(temperature=0.6, repetition_penalty=2.5, cfg_weight=0.3)
 CHARACTERS = {
     "starzec": dict(exaggeration=0.3),
     "wiedzma": dict(exaggeration=0.8, cfg_weight=0.5),  # nadpisuje domyslne
@@ -53,7 +56,7 @@ def generate(tag: str, sample: Path, params: dict):
         dt = time.time() - t
         dur = wav.shape[-1] / model.sr
         path = OUT / f"{tag}_{i}.wav"
-        ta.save(str(path), wav.cpu(), model.sr)
+        ta.save(str(path), trim_tail(wav.cpu(), model.sr), model.sr)
         print(f"{path.name}: {dur:.1f}s audio w {dt:.1f}s (x{dt / dur:.1f} czasu rzeczywistego)")
 
 
