@@ -9,6 +9,7 @@ requires-python = ">=3.11"
 dependencies = [
     "chatterbox-tts>=0.1.7",
     "fastapi>=0.143.0",
+    "pyyaml>=6.0.3",
     "setuptools<81",
     "uvicorn[standard]>=0.54.0",
 ]
@@ -19,3 +20,11 @@ voice-service = "voice_service:main"
 [build-system]
 requires = ["uv_build>=0.13.0,<0.14.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
