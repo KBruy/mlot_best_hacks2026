@@ -267,14 +267,21 @@ def validate_story(story):
 
 # --- interfejs terminala ----------------------------------------------------
 
-def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=None):
+def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=None,
+         observer=None):
     """Prowadzi grę (z możliwością restartu).
 
     gps(cel) zwraca pozycję (lat, lon) albo None, gdy lokalizacja jest niedostępna;
     cel to przystanek, do którego gracz idzie (None na starcie). Bez GPS gra się
     nie zaczyna. Zwraca "finished", "quit", "interrupted" albo "locked".
     Zgodność z legendą jest liczona po cichu i pokazywana dopiero na końcu.
+    observer(zdarzenie, dane) dostaje "scene" przy każdej scenie i "finale" na końcu
+    (np. podgląd Street View w mapa.py).
     """
+
+    def notify(event, data):
+        if observer:
+            observer(event, data)
 
     def line_width():
         columns = width or shutil.get_terminal_size((80, 24)).columns
@@ -410,6 +417,7 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
         while scene_id is not None:
             decision = story["scenes"][scene_id]
             number += 1
+            notify("scene", {"id": scene_id, "title": decision["title"], "act": decision.get("act")})
             if decision.get("before"):
                 walk_to(decision["before"])
             view_ = render_decision(decision, state)
@@ -434,6 +442,7 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
             pause()
         score = sum(o["legend"] for o in recap)
         ending = render_ending(story, state, score)
+        notify("finale", {"act": story["finale"]["act"]})
         say(f"══ {story['finale']['act']} ══", style="1;35")
         output_fn("")
         say_title_box(ending["title"])
@@ -565,7 +574,7 @@ def main(argv=None, input_fn=input, output_fn=print):
     parser.add_argument("--tempo", type=float, default=None, metavar="SEKUNDY",
                         help="przy --trasa: przerwa między odczytami GPS (domyślnie 1 s, 0 = od razu)")
     parser.add_argument("--mapa", action="store_true",
-                        help="pokazuje spacer na żywo na mapie Google w przeglądarce")
+                        help="pokazuje spacer na żywo w Street View i na mapie Google w przeglądarce")
     parser.add_argument("--port", type=int, default=8765, help="port strony z mapą (domyślnie 8765)")
     args = parser.parse_args(argv)
 
@@ -592,8 +601,9 @@ def main(argv=None, input_fn=input, output_fn=print):
         if output_fn is print:
             webbrowser.open(live_map.url)
     color = output_fn is print and sys.stdout.isatty() and "NO_COLOR" not in os.environ
+    observer = getattr(gps, "notify", None)
     try:
-        status = play(story, input_fn, output_fn, color=color, gps=gps)
+        status = play(story, input_fn, output_fn, color=color, gps=gps, observer=observer)
     finally:
         if live_map:
             live_map.close()

@@ -383,16 +383,20 @@ class LiveMapTests(unittest.TestCase):
         with urllib.request.urlopen(self.live.url.rstrip("/") + path, timeout=5) as r:
             return r.headers.get("Content-Type"), r.read().decode()
 
-    def test_page_embeds_google_map_and_polls_position(self):
+    def test_page_embeds_street_view_and_minimap_and_polls_position(self):
         kind, body = self.get("/")
         self.assertIn("text/html", kind)
-        self.assertIn("maps.google.com/maps?q=", body)
+        self.assertIn("output=svembed", body)          # Street View bez klucza API
+        self.assertIn("maps.google.com/maps?q=", body)  # mała mapa satelitarna
         self.assertIn('fetch("/pos"', body)
 
     def test_position_endpoint_follows_updates(self):
         self.assertEqual(json.loads(self.get("/pos")[1])["lat"], None)
-        self.live.update((51.1, 17.03), "test")
-        self.assertEqual(json.loads(self.get("/pos")[1]), {"lat": 51.1, "lon": 17.03, "note": "test"})
+        view = {"lat": 51.1, "lon": 17.03, "heading": 90, "pitch": 0}
+        self.live.update((51.1, 17.03), "test", view)
+        self.live.update(title="FAZA 1/4")  # zmienia tylko tytuł, reszta zostaje
+        self.assertEqual(json.loads(self.get("/pos")[1]),
+                         {"lat": 51.1, "lon": 17.03, "note": "test", "title": "FAZA 1/4", "view": view})
 
     def test_unknown_path_is_404(self):
         with self.assertRaises(urllib.error.HTTPError):
@@ -408,6 +412,58 @@ class LiveMapTests(unittest.TestCase):
         self.assertLessEqual(main.distance_m(last["lat"], last["lon"], stop["lat"], stop["lon"]),
                              stop["radius_m"])
         self.assertIn("jesteś: " + stop["label"], last["note"])
+
+    def test_street_view_follows_the_walk_and_ends_on_the_bridge(self):
+        gps = mapa.MappedGps(main.RouteGps(STORY), self.live, STORY, main.distance_m)
+        views = []
+        original = self.live.update
+
+        def spy(*args, **kwargs):
+            original(*args, **kwargs)
+            views.append(self.live.snapshot())
+        self.live.update = spy
+        answers = iter(script(ALL_LEGEND))
+        main.play(STORY, lambda prompt: next(answers), lambda text: None, gps=gps,
+                  observer=gps.notify)
+        sv = STORY["streetview"]
+        anchors = {tuple(a) for a in sv["anchors"]}
+        shown = [v["view"] for v in views if v["view"]]
+        for view in shown:
+            self.assertTrue(0 <= view["heading"] < 360)
+            spot = (view["lat"], view["lon"])
+            special = [sv["finale"]] + list(sv["stops"].values())
+            self.assertTrue(spot in anchors or any(spot == (s["lat"], s["lon"]) for s in special), spot)
+        for name in ("wieze", "rynek"):
+            self.assertIn(sv["stops"][name], shown)  # na przystankach ustalone ujęcia
+        last = views[-1]
+        self.assertEqual((last["view"]["lat"], last["view"]["lon"]), (sv["finale"]["lat"], sv["finale"]["lon"]))
+        self.assertIn("mostka", last["note"])
+        self.assertEqual(last["title"], STORY["finale"]["act"])
+
+    def test_street_view_data_matches_the_route(self):
+        sv = STORY["streetview"]
+        route = [p for leg in main.route_legs(STORY).values() for p in main.densify(leg, 10)]
+        for anchor in sv["anchors"]:
+            self.assertLess(min(main.distance_m(*anchor, *p) for p in route), 25, anchor)
+        for name, view in sv["stops"].items():
+            stop = STORY["stops"][name]
+            self.assertLess(main.distance_m(view["lat"], view["lon"], stop["lat"], stop["lon"]),
+                            stop["radius_m"] + 20, name)
+        self.assertLess(main.distance_m(sv["finale"]["lat"], sv["finale"]["lon"], *TOWERS), 30)
+
+    def test_bearing(self):
+        self.assertEqual(mapa.bearing_deg(51.0, 17.0, 51.1, 17.0), 0)    # na północ
+        self.assertEqual(mapa.bearing_deg(51.0, 17.0, 51.0, 17.1), 90)   # na wschód
+        self.assertEqual(mapa.bearing_deg(51.0, 17.0, 50.9, 17.0), 180)  # na południe
+
+    def test_game_notifies_scenes_and_finale(self):
+        events = []
+        answers = iter(script(ALL_LEGEND))
+        main.play(STORY, lambda prompt: next(answers), lambda text: None, gps=DEMO_GPS,
+                  observer=lambda event, data: events.append((event, data)))
+        self.assertEqual([e for e, _ in events].count("scene"), 6)
+        self.assertEqual(events[-1], ("finale", {"act": STORY["finale"]["act"]}))
+        self.assertEqual(events[0][1]["act"], SCENES[STORY["start"]]["act"])
 
 
 class CommandLine(unittest.TestCase):

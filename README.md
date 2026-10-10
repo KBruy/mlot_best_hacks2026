@@ -51,9 +51,15 @@ uv run python main.py --no-gps   # brak zgody na lokalizację
 ```
 
 `--mapa` uruchamia lokalną stronę (http://127.0.0.1:8765/, port zmienisz przez
-`--port`) i otwiera ją w przeglądarce. Strona ma osadzoną mapę Google ze zdjęciem
-satelitarnym i co chwilę pyta grę o pozycję, więc pinezka przesuwa się razem ze
-spacerem w terminalu. Działa z każdym trybem GPS, także z menu.
+`--port`) i otwiera ją w przeglądarce. Strona pokazuje **Google Street View** (osadzony
+bez klucza API) i w rogu małą mapę satelitarną, które co chwilę pytają grę o pozycję:
+- w drodze widać najbliższą sprawdzoną panoramę z ulicy, zwróconą w kierunku marszu,
+- na przystankach ustalone ujęcia (pod wieżami kamera w górę, na Rynku pręgierz),
+- w fazie 4 panoramę z samego mostka między wieżami (zdjęcie sferyczne autorstwa belu p. fly).
+
+Osadzony Street View sam wybiera najbliższą panoramę, także zdjęcia użytkowników,
+dlatego gra pokazuje tylko punkty z listy `streetview.anchors` w `story.json`
+(oficjalne panoramy z ulicy, sprawdzone na trasie). Działa z każdym trybem GPS.
 
 (albo `python3 main.py`). Wpisz numer opcji i Enter, po każdym wyniku Enter
 przechodzi dalej. `q` albo Ctrl+C kończy grę. Kolory działają w terminalu,
@@ -84,19 +90,21 @@ istniejące zakończenie, wynik 0–6) i sprawdzają m.in.:
 - wykrywanie stref, blokadę bez GPS i z daleka, odblokowanie po podejściu,
 - spacer: czekanie na dotarcie, odległość do celu, pominięcie przez `j`,
 - odtwarzanie trasy: długość zgodna z Google Maps, każdy odcinek kończy się na przystanku,
-- mapę na żywo: strona, pozycja, nakładka na GPS i flaga `--mapa`,
+- podgląd na żywo: strona, pozycja, wybór panoram Street View w drodze, na przystankach
+  i w finale, zdarzenia gry i flaga `--mapa`,
 - że spacer i czytanie mieszczą się w 10 minutach,
 - że imiona pojawiają się dopiero na końcu,
 - błędne dane, `q`, Ctrl+C, restart, zawijanie tekstu, kolory i opcje wiersza poleceń.
 
 ## Pliki
 
-- `mapa.py`: podgląd spaceru na żywo (lokalny serwer ze stroną i mapą Google).
+- `mapa.py`: podgląd spaceru na żywo (lokalny serwer ze stroną: Street View i mapa Google).
 - `main.py`: gra, mały silnik (warunki, walidacja, punktacja), lokalizacja
   (odległość, strefy, spacer) i symulowany GPS.
 - `story.json`: cała treść jako graf scen (`start`, `scenes`: każda opcja ma `next`
   z następną sceną albo `null` na końcu) i dane miejsca: `location` (środek, zasięg, strefy),
-  `stops` (przystanki spaceru), `test_points` (punkty do symulacji). Teksty mogą mieć
+  `stops` (przystanki spaceru), `route` (trasa piesza), `streetview` (panoramy),
+  `test_points` (punkty do symulacji). Teksty mogą mieć
   warianty `{"if": {"pole": ["wartość"]}, "text": "..."}` zależne od strefy
   i wcześniejszych wyborów.
 - `test_game.py`: testy.

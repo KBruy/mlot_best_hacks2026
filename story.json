@@ -122,6 +122,88 @@
       ]
     }
   },
+  "streetview": {
+    "_note": "Panoramy Google Street View sprawdzone 2026-10-10 przez osadzenie bez klucza API. anchors: oficjalne panoramy z ulicy na trasie (zdjęcia użytkowników pominięte, bo osadzenie bierze najbliższą panoramę); stops: ujęcia na przystankach; finale: zdjęcie sferyczne z samego mostka (autor: belu p. fly).",
+    "anchors": [
+      [
+        51.109256,
+        17.035013
+      ],
+      [
+        51.109298,
+        17.034832
+      ],
+      [
+        51.10934,
+        17.034651
+      ],
+      [
+        51.109378,
+        17.034474
+      ],
+      [
+        51.109475,
+        17.034324
+      ],
+      [
+        51.109534,
+        17.034351
+      ],
+      [
+        51.109593,
+        17.034374
+      ],
+      [
+        51.109475,
+        17.034024
+      ],
+      [
+        51.109513,
+        17.033863
+      ],
+      [
+        51.109551,
+        17.033702
+      ],
+      [
+        51.109589,
+        17.033541
+      ],
+      [
+        51.109626,
+        17.03338
+      ],
+      [
+        51.10966,
+        17.033206
+      ],
+      [
+        51.109626,
+        17.032965
+      ]
+    ],
+    "stops": {
+      "wieze": {
+        "lat": 51.109593,
+        "lon": 17.034374,
+        "heading": 85,
+        "pitch": -60
+      },
+      "rynek": {
+        "lat": 51.109626,
+        "lon": 17.032965,
+        "heading": 215,
+        "pitch": 0
+      }
+    },
+    "finale": {
+      "lat": 51.109652,
+      "lon": 17.034396,
+      "heading": 290,
+      "pitch": 10,
+      "note": "🌅 widok z mostka między wieżami (przeciągnij, żeby się rozejrzeć)"
+    }
+  },
   "test_points": [
     {
       "label": "Kościół: naprzeciw wież (zachód, ul. Szewska)",
@@ -856,7 +938,7 @@
   "finale": {
     "act": "FAZA 4/4: WIDOK Z KOŚCIOŁA",
     "paragraphs": [
-      "A teraz wyobraź sobie, że stoisz na samym mostku, wysoko między wieżami. Pod tobą czerwone dachy Starego Miasta, Rynek z Ratuszem i pręgierzem, a dalej całe miasto aż po horyzont.",
+      "A teraz wyobraź sobie, że stoisz na samym mostku, wysoko między wieżami. Pod tobą czerwone dachy Starego Miasta, a dalej całe miasto aż po horyzont.",
       "Tak przez lata widziała Wrocław panna z miotłą."
     ]
   },
