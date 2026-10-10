@@ -2,6 +2,7 @@ import { PixelButton, PixelCard } from '@pxlkit/ui-kit'
 import { useGame } from '../game/useGame'
 import { GameLayout } from '../components/GameLayout'
 import { NarrativeText } from '../components/NarrativeText'
+import { UI } from '../strings'
 
 export function ConsequenceScreen() {
   const { state, dispatch } = useGame()
@@ -18,7 +19,7 @@ export function ConsequenceScreen() {
             className="w-full"
             onClick={() => dispatch({ type: 'ADVANCE_SCENE' })}
           >
-            Dalej
+            {UI.consequence.nextButton}
           </PixelButton>
         </PixelCard>
       </div>

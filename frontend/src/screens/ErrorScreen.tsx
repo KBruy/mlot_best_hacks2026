@@ -3,15 +3,16 @@ import { useGame } from '../game/useGame'
 import { GameLayout } from '../components/GameLayout'
 import { GameTitle } from '../components/GameTitle'
 import { NarrativeText } from '../components/NarrativeText'
+import { UI } from '../strings'
 
 export function ErrorScreen() {
   const { state, dispatch } = useGame()
 
   return (
     <GameLayout>
-      <GameTitle>Błąd połączenia</GameTitle>
+      <GameTitle>{UI.error.title}</GameTitle>
       <NarrativeText center className="mb-2">
-        Nie udało się pobrać historii z serwera.
+        {UI.error.message}
       </NarrativeText>
       {state.errorMessage && (
         <NarrativeText center className="mb-6 text-xs">
@@ -19,7 +20,7 @@ export function ErrorScreen() {
         </NarrativeText>
       )}
       <PixelButton tone="gold" onClick={() => dispatch({ type: 'RETRY_FETCH' })}>
-        Spróbuj ponownie
+        {UI.error.retryButton}
       </PixelButton>
     </GameLayout>
   )

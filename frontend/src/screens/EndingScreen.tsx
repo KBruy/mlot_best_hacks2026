@@ -3,6 +3,7 @@ import { useGame } from '../game/useGame'
 import { GameLayout } from '../components/GameLayout'
 import { NarrativeText } from '../components/NarrativeText'
 import { HintText } from '../components/HintText'
+import { UI } from '../strings'
 import type { EndingNode } from '../game/types'
 
 export function EndingScreen() {
@@ -16,7 +17,7 @@ export function EndingScreen() {
   return (
     <GameLayout>
       <div className="w-full max-w-xl">
-        <HintText className="mb-4">Koniec legendy</HintText>
+        <HintText className="mb-4">{UI.ending.hint}</HintText>
         <PixelCard title={endingNode.title}>
           <NarrativeText className="mb-6">{endingNode.text}</NarrativeText>
           <PixelButton
@@ -24,7 +25,7 @@ export function EndingScreen() {
             className="w-full"
             onClick={() => dispatch({ type: 'RESTART' })}
           >
-            Zagraj ponownie
+            {UI.ending.restartButton}
           </PixelButton>
         </PixelCard>
       </div>

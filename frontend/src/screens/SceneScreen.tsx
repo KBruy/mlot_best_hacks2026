@@ -1,39 +1,63 @@
-import { PixelButton, PixelCard, PixelStack } from '@pxlkit/ui-kit'
+import { useState, useEffect, useCallback } from 'react'
+import { PixelCard } from '@pxlkit/ui-kit'
 import { useGame } from '../game/useGame'
 import { GameLayout } from '../components/GameLayout'
-import { NarrativeText } from '../components/NarrativeText'
+import { NarrativeKaraoke } from '../components/NarrativeKaraoke'
+import { ChoicePanel } from '../components/ChoicePanel'
 import { HintText } from '../components/HintText'
-import type { DecisionNode } from '../game/types'
+import { UI } from '../strings'
+import type { Choice, DecisionNode } from '../game/types'
 
 export function SceneScreen() {
   const { state, dispatch } = useGame()
+  const [completedNodeId, setCompletedNodeId] = useState<string | null>(null)
 
   const node = state.story?.nodes.find(n => n.id === state.currentNodeId)
-  if (!node || node.type !== 'decision') return null
+  const decisionNode = node?.type === 'decision' ? (node as DecisionNode) : null
 
-  const decisionNode = node as DecisionNode
+  const karaokeComplete = completedNodeId === state.currentNodeId
+  const choicesLocked = !karaokeComplete || state.choiceLocked
+
+  const handleKaraokeComplete = useCallback(() => {
+    setCompletedNodeId(state.currentNodeId)
+  }, [state.currentNodeId])
+
+  const handleSelect = useCallback((choice: Choice) => {
+    dispatch({ type: 'SELECT_CHOICE', payload: choice })
+  }, [dispatch])
+
+  useEffect(() => {
+    if (!decisionNode || choicesLocked) return
+    const handleKey = (e: KeyboardEvent) => {
+      const index = parseInt(e.key) - 1
+      if (index >= 0 && index < decisionNode.choices.length) {
+        handleSelect(decisionNode.choices[index])
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [choicesLocked, decisionNode, handleSelect])
+
+  if (!decisionNode) return null
 
   return (
     <GameLayout>
       <div className="w-full max-w-xl">
         <HintText className="mb-4">
-          Decyzja {state.decisionCount + 1} z 6
+          {UI.scene.decisionHint(state.decisionCount + 1, UI.scene.totalDecisions)}
         </HintText>
         <PixelCard title={state.story?.title ?? ''}>
-          <NarrativeText className="mb-6">{decisionNode.text}</NarrativeText>
-          <PixelStack gap={2}>
-            {decisionNode.choices.map(choice => (
-              <PixelButton
-                key={choice.id}
-                tone="gold"
-                className="w-full"
-                disabled={state.choiceLocked}
-                onClick={() => dispatch({ type: 'SELECT_CHOICE', payload: choice })}
-              >
-                {choice.text}
-              </PixelButton>
-            ))}
-          </PixelStack>
+          <NarrativeKaraoke
+            key={state.currentNodeId ?? undefined}
+            text={decisionNode.text}
+            onComplete={handleKaraokeComplete}
+            className="mb-6"
+          />
+          <ChoicePanel
+            choices={decisionNode.choices}
+            onSelect={handleSelect}
+            locked={choicesLocked}
+          />
         </PixelCard>
       </div>
     </GameLayout>
