@@ -12,9 +12,7 @@ Pełny scope i kontrakt danych w `../CLAUDE.md` i `../SCOPE_V0.md`. Ten plik zaw
 > w zależności od decyzji backendu (kształt API, format danych, endpointy). Przed implementacją sprawdź
 > aktualny kontrakt z zespołem i `docs/INTEGRATIONS.md`.
 
-> **Paleta kolorów i styl wizualny nie są jeszcze ustalone.** Wartości kolorów, motyw Helltaker i konkretne
-> zmienne CSS w tym pliku są propozycją roboczą — nie implementuj ich jako finalnych bez potwierdzenia
-> z zespołem. Docelową paletę wpisz do `docs/DECISIONS.md` gdy zostanie zatwierdzona.
+> **Paleta "Herb i Ratusz" — zatwierdzona.** Używaj wyłącznie zmiennych CSS z `themes.css`, nie hardkoduj wartości kolorów.
 
 ## Stack
 
@@ -248,20 +246,21 @@ Brak localStorage — odświeżenie resetuje grę. `StartScreen` wyświetla komu
 
 Komikso-kreskówkowy: grube kontury (2–3px solid), płaskie kolory, kanciaste narożniki, zero zaokrągleń i cieni.
 
-**Paleta (zmienne CSS):**
+**Paleta "Herb i Ratusz" (zmienne CSS z `themes.css`):**
 ```css
---color-bg: #1a0a0a;
---color-surface: #2a1010;
---color-accent: #cc2200;     /* krwista czerwień */
---color-text: #f0e0d0;
---color-border: #cc2200;
---color-border-hover: #ff4422;
+--color-bg: #1C1917;        /* stone-900  — tło */
+--color-surface: #292524;   /* stone-800  — panele */
+--color-primary: #FB7185;   /* rose-400   — przyciski, karaoke */
+--color-secondary: #FBBF24; /* amber-400  — tytuły, złote akcenty */
+--color-text: #F5F5F4;      /* stone-100  — tekst */
+--color-text-muted: #A8A29E; /* stone-400 — tekst drugorzędny */
+--color-outline: #0C0A09;   /* stone-950  — grube ramki Helltaker */
 ```
 
 **Przyciski opcji (`ChoiceButton`):**
-- Border: `2px solid var(--color-border)`, narożniki z pseudo-elementami `::before/::after` tworzącymi kanciastą "ozdobę"
-- `:hover`: kolor ramki → `--color-border-hover`, `translateY(-2px)`
-- `:active`: `translateY(1px)`, jasny fill tła
+- Border: `2–3px solid var(--color-outline)`, fill tła `--color-surface`
+- `:hover`: fill → `--color-primary` (przyciemniony), `translateY(-2px)`
+- `:active`: `translateY(1px)`
 - Tekst wyśrodkowany, zawijanie na wiele wierszy, min-height zapewniający czytelność
 
 **Typografia:**
