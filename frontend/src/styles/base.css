@@ -1,0 +1,65 @@
+@import "@pxlkit/ui-kit/styles.css";
+
+/* Tailwind v4 — scan klas pxlkit */
+@source "../../../node_modules/@pxlkit/ui-kit/dist";
+
+/* ── Paleta "Grymuar Wrocławski" — nadpisanie dark theme pxlkit ── */
+.dark {
+  --retro-bg:             #0C0A09;   /* stone-950 — tło jak zaschły atrament */
+  --retro-surface:        #1C1917;   /* stone-900 — karty, panele */
+  --retro-card:           #292524;   /* stone-800 — podwyższone karty */
+  --retro-text:           #D6D3D1;   /* stone-300 — stary pergamin */
+  --retro-muted:          #78716C;   /* stone-500 */
+  --retro-border:         #44322A;   /* ciemna ambra — patyna */
+  --retro-border-strong:  #7C4A2D;   /* ambra mocniejsza */
+
+  /* Złoto — główny kolor akcentu */
+  --retro-gold:           #D97706;   /* amber-600 — prawdziwe złoto, nie neon */
+  --retro-secondary:      #F59E0B;   /* amber-400 — tytuły */
+
+  /* Reszta tonów — przytłumione, pasujące do klimatu */
+  --retro-green:          #4D7C5A;   /* ciemna leśna zieleń */
+  --retro-green-hover:    #3A5E44;
+  --retro-cyan:           #3D7A74;
+  --retro-red:            #9B3A3A;   /* karmazynowa krew */
+  --retro-purple:         #6B3E8C;   /* mroczny fiolet */
+  --retro-pink:           #8C3A5A;
+
+  /* Cień złota — subtelny, nie neonowy */
+  --retro-shadow-gold:    rgba(180, 100, 0, 0.4);
+
+  /* Re-deklaracje dla Tailwind v4 */
+  --color-retro-bg:            var(--retro-bg);
+  --color-retro-surface:       var(--retro-surface);
+  --color-retro-card:          var(--retro-card);
+  --color-retro-text:          var(--retro-text);
+  --color-retro-muted:         var(--retro-muted);
+  --color-retro-border:        var(--retro-border);
+  --color-retro-border-strong: var(--retro-border-strong);
+  --color-retro-gold:          var(--retro-gold);
+  --color-retro-secondary:     var(--retro-secondary);
+  --color-retro-green:         var(--retro-green);
+  --color-retro-green-hover:   var(--retro-green-hover);
+  --color-retro-cyan:          var(--retro-cyan);
+  --color-retro-red:           var(--retro-red);
+  --color-retro-purple:        var(--retro-purple);
+  --color-retro-pink:          var(--retro-pink);
+}
+
+/* Tło i kolor tekstu strony — pxlkit ich nie ustawia automatycznie */
+@layer base {
+  body {
+    background-color: var(--retro-bg);
+    color: var(--retro-text);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+  }
+}
+
+/* Narracja — font-mono (JetBrains Mono) jak buttony pxlkit, pełne polskie znaki */
+.narrative {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: #A8967A;
+}

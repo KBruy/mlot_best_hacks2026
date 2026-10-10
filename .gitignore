@@ -1,5 +1,35 @@
+# root — caveman SDK (lokalne, nie pushujemy)
+node_modules/
+package.json
+package-lock.json
+
+# env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+
+.claude/
+
+# OS
+.DS_Store
+
+# frontend build
+frontend/dist/
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+
+frontend/.claude/
+frontend/CLAUDE.md
+
+# terminal-game (prototyp w Pythonie)
 .venv/
 __pycache__/
 .playwright-mcp/
-.DS_Store
+
+# notatki Obsidiana
 .obsidian/
