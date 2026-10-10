@@ -3,6 +3,7 @@ import type { Choice, GpsPosition, Story, GameState } from './types'
 export type GameAction =
   | { type: 'STORY_LOADED'; payload: Story }
   | { type: 'STORY_ERROR'; payload: string }
+  | { type: 'SUMMARIES_LOADED' }
   | { type: 'START_STORY'; payload: Story }
   | { type: 'SELECT_CHOICE'; payload: Choice }
   | { type: 'ADVANCE_SCENE' }
@@ -30,6 +31,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'STORY_ERROR':
       return { ...state, screen: 'error', errorMessage: action.payload }
+
+    case 'SUMMARIES_LOADED':
+      return { ...state, screen: 'start' }
 
     case 'START_STORY':
       return {

@@ -51,6 +51,21 @@ export interface Story {
   nodes: StoryNode[]
 }
 
+export interface StorySummaryLocation {
+  name: string
+  center: [number, number]
+}
+
+export interface StorySummary {
+  id: string
+  title: string
+  location: StorySummaryLocation
+  intro: {
+    title: string
+    paragraphs: string[]
+  }
+}
+
 export type Screen = 'loading' | 'error' | 'start' | 'scene' | 'consequence' | 'ending'
 
 export interface GpsPosition {
