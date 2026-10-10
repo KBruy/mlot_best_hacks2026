@@ -28,7 +28,7 @@ Sprawdzenie: `curl http://localhost:8000/api/health`, dokumentacja endpointów: 
 
 Niedostępna baza daje 503 na obu endpointach. Frontend pobiera wybraną historię raz i gra lokalnie.
 
-Opcjonalne pole `audio_url` (w scenie, finale i opcji — nagranie konsekwencji) to ścieżka do gotowego pliku audio serwowanego statycznie przez frontend, np. `/audio/<id historii>/<id węzła>.wav` z `frontend/public/audio/`. Pole może nie występować; backend nie przechowuje plików audio.
+Opcjonalne pole `audio_url` (w scenie, finale i opcji — nagranie konsekwencji) to ścieżka do gotowego nagrania MP3 serwowanego statycznie przez frontend, np. `/audio/<id historii>/<plik>.mp3` z `frontend/public/audio/`. Pole może nie występować; backend nie przechowuje plików audio.
 
 ## Wszystko w Dockerze (baza + API)
 
