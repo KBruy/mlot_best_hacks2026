@@ -1,0 +1,38 @@
+
+Wygeneruj atomowe taski, scope na v0, I plik CLAUDE.md do projektu
+
+<opis projektu>
+Aplikacja pwa. Czas na development do 24 godzin. Aplikacja w formie gry z możliwością wyboru (jak DND). Historie są związane z legendami wrocławskimi. Zespół składa się z 4 osób.
+</opis projektu>
+
+<technologie>
+front: vite + react
+backend: fast api, w dockerze postgresql
+
+wszystko moze byc w dockerze
+
+Aplikacja pwa 
+</technologie>
+
+
+<specyfikacja>
+Długość historii - około 8 min,
+Wyborów - 6-7 na historię, wieloliniowe
+Liczba historii - 3 legendy
+</specyfikacja>
+
+<v0>
+Na v0 nie używamy ai w ogóle. Ścieżki są wygenerowane przez nas. 
+
+W v0 generujemy drzewko wyborów na podstawie 1 legendy. 
+
+Scope na v0:
+- 1 legenda z opracowaną ścieżką
+- dzielimy historię na postaci - od tego zależy drzewko wyborów. 
+- interaktywne ui, z historią
+</v0>
+
+
+
+
+
