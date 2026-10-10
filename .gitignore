@@ -8,6 +8,15 @@ package-lock.json
 .env.local
 .env.*.local
 
+# Python (backend, tools/tts)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Klonowanie głosu (TTS) – nagrania to dane osobowe
+tools/tts/samples/
+
 # IDE
 .idea/
 .vscode/
