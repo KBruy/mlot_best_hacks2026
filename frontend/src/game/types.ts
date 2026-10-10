@@ -5,11 +5,25 @@ export interface Choice {
   next_node_id: string
 }
 
+export interface NodeLocation {
+  lat: number
+  lon: number
+  radius_m: number
+  label: string
+  streetview: {
+    lat: number
+    lon: number
+    heading: number
+    pitch: number
+  }
+}
+
 export interface DecisionNode {
   id: string
   type: 'decision'
   text: string
   choices: Choice[]
+  location?: NodeLocation
 }
 
 export interface EndingNode {

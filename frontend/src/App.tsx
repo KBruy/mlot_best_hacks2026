@@ -7,8 +7,12 @@ import { StartScreen } from './screens/StartScreen'
 import { SceneScreen } from './screens/SceneScreen'
 import { ConsequenceScreen } from './screens/ConsequenceScreen'
 import { EndingScreen } from './screens/EndingScreen'
+import { MapScreen } from './screens/MapScreen'
 import { fixtures } from './game/fixture'
 import type { Story } from './game/types'
+
+const isMapPage = new URLSearchParams(window.location.search).has('page') &&
+  new URLSearchParams(window.location.search).get('page') === 'map'
 
 function GameRouter() {
   const { state, dispatch } = useGame()
@@ -34,6 +38,8 @@ function GameRouter() {
 }
 
 function App() {
+  if (isMapPage) return <MapScreen />
+
   return (
     <GameProvider>
       <GameRouter />
