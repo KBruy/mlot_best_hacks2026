@@ -31,7 +31,10 @@ def _fetch(query: str, params: tuple = ()) -> list[dict]:
 
 def list_stories() -> list[dict]:
     return _fetch(
-        "SELECT id, payload->>'title' AS title, payload->'intro' AS intro"
+        "SELECT id, payload->>'title' AS title,"
+        " jsonb_build_object('name', payload->'location'->'name',"
+        " 'center', payload->'location'->'center') AS location,"
+        " payload->'intro' AS intro"
         " FROM stories ORDER BY id"
     )
 

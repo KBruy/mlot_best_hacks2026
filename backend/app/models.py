@@ -195,9 +195,17 @@ class Story(_Model):
     look_up: Text
 
 
+class LocationSummary(_Model):
+    """Miejsce legendy na liście historii (bez punktów widokowych)."""
+
+    name: str
+    center: LatLon
+
+
 class StorySummary(_Model):
     """Pozycja listy historii (bez grafu)."""
 
     id: str
     title: str
+    location: LocationSummary
     intro: Intro

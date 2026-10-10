@@ -28,7 +28,7 @@ Poza zakresem: pozostałe dwie legendy, osobne pełne kampanie postaci, konta, z
 - `backend/` i `frontend/` to osobne podserwisy. Backend ma własny `docker-compose.yaml` (API + baza), `.env.example` i `README.md`; frontend uruchamiany lokalnie. Nie konteneryzuj frontendu tylko dla symetrii.
 - Konfiguracja przez pliki `.env` (kopie `.env.example`), nie przez ręcznie eksportowane zmienne środowiskowe.
 - Baza może trzymać wiele historii: tabela `stories(id TEXT PRIMARY KEY, payload JSONB NOT NULL)`, jeden wiersz na historię.
-- API: `GET /api/stories` (lista `{id, title, intro: {title, paragraphs}}`) i `GET /api/stories/{id}` (pełna historia, 404 dla nieznanego id). Niedostępna baza: kontrolowany 503. Kontrakt odpowiedzi opisuje Swagger (`/docs`).
+- API: `GET /api/stories` (lista `{id, title, location: {name, center}, intro: {title, paragraphs}}`) i `GET /api/stories/{id}` (pełna historia, 404 dla nieznanego id). Niedostępna baza: kontrolowany 503. Kontrakt odpowiedzi opisuje Swagger (`/docs`).
 - Import (`python -m app.import_story`) bierze `content/*.json` (jeden plik = jedna historia), waliduje je i robi upsert po `id` w jednej transakcji. Bez ORM i frameworka migracji.
 - Frontend pobiera wybraną historię raz i wykonuje wszystkie przejścia lokalnie. Nie wysyłaj wyborów do serwera.
 - Proxy `/api` musi działać zarówno w development, jak i podglądzie produkcyjnego buildu. Nie dodawaj niepotrzebnej konfiguracji CORS.

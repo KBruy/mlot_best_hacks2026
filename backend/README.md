@@ -23,7 +23,7 @@ Sprawdzenie: `curl http://localhost:8000/api/health`, dokumentacja endpointów: 
 
 | Endpoint                | Zwraca                                                           |
 | ----------------------- | ---------------------------------------------------------------- |
-| `GET /api/stories`      | lista `[{id, title, intro: {title, paragraphs}}]` (pusta przed importem) |
+| `GET /api/stories`      | lista `[{id, title, location: {name, center}, intro: {title, paragraphs}}]` (pusta przed importem) |
 | `GET /api/stories/{id}` | pełna historia zgodna z `app/models.py`; 404 dla nieznanego `id` |
 
 Niedostępna baza daje 503 na obu endpointach. Frontend pobiera wybraną historię raz i gra lokalnie.
