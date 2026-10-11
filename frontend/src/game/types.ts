@@ -168,4 +168,5 @@ export interface GameState {
   gpsGranted: boolean | null
   demoMode: boolean
   muted: boolean
+  lastStop: string | null
 }
