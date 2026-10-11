@@ -1,7 +1,7 @@
 import { PixelButton, PixelCard } from '@pxlkit/ui-kit'
 import { useGame } from '../game/useGame'
 import { GameLayout } from '../components/GameLayout'
-import { NarrativeText } from '../components/NarrativeText'
+import { NarrativeKaraoke } from '../components/NarrativeKaraoke'
 import { HintText } from '../components/HintText'
 import { resolveParagraphs } from '../game/textUtils'
 import { UI } from '../strings'
@@ -19,9 +19,7 @@ export function EndingScreen() {
       <div className="w-full max-w-xl">
         <HintText className="mb-4">{UI.ending.hint}</HintText>
         <PixelCard title={ending.title}>
-          {paragraphs.map((p, i) => (
-            <NarrativeText key={i} className="mb-3">{p}</NarrativeText>
-          ))}
+          <NarrativeKaraoke paragraphs={paragraphs} />
           <PixelButton
             tone="gold"
             className="w-full mt-3"
