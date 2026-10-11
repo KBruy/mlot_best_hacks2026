@@ -7,6 +7,7 @@ export type GameAction =
   | { type: 'START_STORY'; payload: Story }
   | { type: 'SELECT_OPTION'; payload: Option }
   | { type: 'ADVANCE_SCENE' }
+  | { type: 'DISMISS_ARRIVAL' }
   | { type: 'RESTART' }
   | { type: 'RETRY_FETCH' }
   | { type: 'GPS_UPDATE'; payload: GpsPosition }
@@ -20,6 +21,7 @@ export const initialState: GameState = {
   currentSceneId: null,
   gameFields: {},
   decisionCount: 0,
+  legendScore: 0,
   pendingOption: null,
   choiceLocked: false,
   errorMessage: null,
@@ -46,8 +48,12 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'START_STORY': {
       const story = action.payload
-      const widok = state.gpsPosition
-        ? resolveWidok(state.gpsPosition.lat, state.gpsPosition.lon, story)
+      const effectivePos = state.gpsPosition
+        ?? (state.demoMode && story.demo_start
+          ? { lat: story.demo_start[0], lon: story.demo_start[1] }
+          : null)
+      const widok = effectivePos
+        ? resolveWidok(effectivePos.lat, effectivePos.lon, story)
         : story.location.default_view
       return {
         ...initialState,
@@ -71,6 +77,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         gameFields: { ...state.gameFields, ...action.payload.set },
         choiceLocked: true,
         decisionCount: state.decisionCount + 1,
+        legendScore: state.legendScore + (action.payload.legend ? 1 : 0),
       }
 
     case 'ADVANCE_SCENE': {
@@ -116,8 +123,27 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (state.story) {
         newFields.widok = resolveWidok(action.payload.lat, action.payload.lon, state.story)
       }
-      return { ...state, gpsPosition: action.payload, gpsGranted: true, gameFields: newFields }
+
+      let newScreen = state.screen
+      if (state.screen === 'scene' && state.currentSceneId && state.story && !state.demoMode) {
+        const scene = state.story.scenes[state.currentSceneId]
+        const stop = scene?.before ? state.story.stops[scene.before] : null
+        if (stop) {
+          const prevDist = state.gpsPosition
+            ? haversineDistance(state.gpsPosition.lat, state.gpsPosition.lon, stop.lat, stop.lon)
+            : Infinity
+          const nextDist = haversineDistance(action.payload.lat, action.payload.lon, stop.lat, stop.lon)
+          if (prevDist > stop.radius_m && nextDist <= stop.radius_m) {
+            newScreen = 'arrive'
+          }
+        }
+      }
+
+      return { ...state, screen: newScreen, gpsPosition: action.payload, gpsGranted: true, gameFields: newFields }
     }
+
+    case 'DISMISS_ARRIVAL':
+      return { ...state, screen: 'scene' }
 
     case 'GPS_DENIED':
       return { ...state, gpsGranted: false }

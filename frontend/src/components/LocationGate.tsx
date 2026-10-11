@@ -1,14 +1,14 @@
-import { useEffect, useRef } from 'react'
 import { PixelCard } from '@pxlkit/ui-kit'
 import { NarrativeText } from './NarrativeText'
 import { HintText } from './HintText'
+import { NavMap } from './NavMap'
+import { StreetViewEmbed } from './StreetViewEmbed'
 import { useGame } from '../game/useGame'
-import { bearingDeg } from '../map/distance'
 import type { Stop, StreetViewShot } from '../game/types'
 
 interface Props {
   stop: Stop
-  shot: StreetViewShot
+  shot?: StreetViewShot | null
   distanceM: number | null
 }
 
@@ -19,83 +19,27 @@ function formatDistance(m: number): string {
 
 export function LocationGate({ stop, shot, distanceM }: Props) {
   const { state } = useGame()
-  const { gpsPosition } = state
-
-  const svRef0 = useRef<HTMLIFrameElement>(null)
-  const svRef1 = useRef<HTMLIFrameElement>(null)
-  const mapRef = useRef<HTMLIFrameElement>(null)
-  const frontRef = useRef(0)
-  const prevSvUrlRef = useRef('')
-
-  const svLat = gpsPosition?.lat ?? shot.lat
-  const svLon = gpsPosition?.lon ?? shot.lon
-  const heading = gpsPosition
-    ? bearingDeg(gpsPosition.lat, gpsPosition.lon, stop.lat, stop.lon)
-    : shot.heading
-
-  const svUrl = `https://maps.google.com/maps?layer=c&cbll=${svLat},${svLon}&cbp=12,${heading},0,0,0&output=svembed`
-  const mapUrl = `https://maps.google.com/maps?q=${svLat},${svLon}&z=17&t=k&output=embed`
-
-  useEffect(() => {
-    if (svUrl === prevSvUrlRef.current) return
-
-    if (!prevSvUrlRef.current) {
-      prevSvUrlRef.current = svUrl
-      if (svRef0.current) svRef0.current.src = svUrl
-      return
-    }
-
-    prevSvUrlRef.current = svUrl
-    const backIdx = 1 - frontRef.current
-    const back = backIdx === 0 ? svRef0.current : svRef1.current
-    const front = frontRef.current === 0 ? svRef0.current : svRef1.current
-    if (!back) return
-
-    const handleLoad = () => {
-      back.style.opacity = '1'
-      back.style.pointerEvents = 'auto'
-      if (front) {
-        front.style.opacity = '0'
-        front.style.pointerEvents = 'none'
-      }
-      frontRef.current = backIdx
-      back.removeEventListener('load', handleLoad)
-    }
-
-    back.addEventListener('load', handleLoad)
-    back.src = svUrl
-  }, [svUrl])
-
-  useEffect(() => {
-    if (mapRef.current) mapRef.current.src = mapUrl
-  }, [mapUrl])
+  const gps = state.gpsPosition
 
   return (
     <PixelCard title={`Idź do: ${stop.label}`}>
-      <div className="relative h-52 rounded overflow-hidden mb-4">
-        <iframe
-          ref={svRef0}
-          title={`Street View: ${stop.label}`}
-          allowFullScreen
-          className="absolute inset-0 w-full h-full border-0"
-          style={{ opacity: 1, transition: 'opacity 0.5s' }}
+      {shot && (
+        <StreetViewEmbed
+          point={shot}
+          title={stop.label}
+          className="h-52 mb-3"
         />
-        <iframe
-          ref={svRef1}
-          title={`Street View 2: ${stop.label}`}
-          allowFullScreen
-          className="absolute inset-0 w-full h-full border-0"
-          style={{ opacity: 0, pointerEvents: 'none', transition: 'opacity 0.5s' }}
+      )}
+      <div className="h-36 mb-3 overflow-hidden border border-retro-border">
+        <NavMap
+          stopLat={stop.lat}
+          stopLon={stop.lon}
+          stopLabel={stop.label}
+          userLat={gps?.lat}
+          userLon={gps?.lon}
         />
       </div>
-      <iframe
-        ref={mapRef}
-        title={`Mapa: ${stop.label}`}
-        className="w-full h-32 rounded mb-4 border-0"
-      />
-      <NarrativeText className="mb-2">
-        Aby odblokować tę scenę, musisz się tu udać.
-      </NarrativeText>
+      <NarrativeText className="mb-2">{stop.walk}</NarrativeText>
       {distanceM !== null ? (
         <HintText>Jesteś w odległości {formatDistance(distanceM)} od celu</HintText>
       ) : (

@@ -6,7 +6,7 @@ interface Props {
 
 export function SceneLayout({ story, location, choices }: Props) {
   return (
-    <div className="h-screen overflow-hidden border-2 border-retro-border-strong grid [grid-template-areas:'location'_'story'_'choices'] grid-rows-[35vh_1fr_25vh] grid-cols-1 md:[grid-template-areas:'story_location'_'choices_choices'] md:grid-rows-[70vh_30vh] md:grid-cols-[35%_65%]">
+    <div className="h-dvh overflow-hidden border-2 border-retro-border-strong grid [grid-template-areas:'location'_'story'_'choices'] grid-rows-[35dvh_1fr_auto] grid-cols-1 md:[grid-template-areas:'story_location'_'choices_choices'] md:grid-rows-[70dvh_30dvh] md:grid-cols-[35%_65%]">
       <div className="[grid-area:story] min-h-0 overflow-hidden">
         {story}
       </div>
