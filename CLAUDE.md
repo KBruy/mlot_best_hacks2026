@@ -91,7 +91,7 @@ Testuj service worker i instalację na produkcyjnym buildzie, przez localhost lu
 
 - A: komponenty, stan gry, integracja API.
 - B: backend, baza, Compose, importer i walidator.
-- C: własne teksty i finalny `content/legenda-czarownica.json` (`content/legend.json` to neutralny fixture testów).
+- C: własne teksty i finalny `content/legenda-czarownica.json` (`backend/tests/fixtures/legend.json` to neutralny fixture testów, poza importem).
 - D: szkielet frontendu, neutralny fixture, konfiguracja PWA, osobny CSS, odbiór i README.
 
 Nie nadpisuj pracy innych osób. Zmiana kontraktu wymaga skoordynowania wszystkich używających go modułów. Wybieraj jeden atomowy task i kończ jego kryterium akceptacji. Nie rozszerzaj zakresu „przy okazji”.
