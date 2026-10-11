@@ -34,8 +34,8 @@ Backend trzyma historie w tabeli `stories(id, payload JSONB)`, a przed importem 
 
 ```text
 frontend/        aplikacja React, nagrania i grafiki w public/
-backend/         API, baza, importer i walidator historii, testy
-content/*.json   historie (jeden plik = jedna historia; legend.json to neutralny fixture testów)
+backend/         API, baza, importer i walidator historii, testy (fixture: tests/fixtures/legend.json)
+content/*.json   historie (jeden plik = jedna historia)
 voice-service/   wewnętrzny serwis TTS, z którego przygotowano nagrania lektora
 terminal-game/   prototyp terminalowy i opis formatu historii
 docs/            dokumentacja API, one-pager, materiały
