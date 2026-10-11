@@ -149,3 +149,29 @@ def test_option_text_is_not_spoken(story_dict):
     assert errors(story_dict) == [
         "Scena 's4', opcja 1: tekst nie jest czytany, nie może mieć audio_url"
     ]
+
+
+def test_art_is_accepted(story_dict):
+    story_dict["scenes"]["s1"]["bg"] = "/art/legenda-fixture/tlo.png"
+    story_dict["scenes"]["s1"]["scene"][0]["chars"] = {
+        "left": "/art/legenda-fixture/gracz.webp", "right": None
+    }
+    assert errors(story_dict) == []
+
+
+def test_art_must_follow_story_path(story_dict):
+    story_dict["scenes"]["s1"]["bg"] = "/art/inna/tlo.png"
+    story_dict["scenes"]["s1"]["scene"][0]["chars"] = {"right": "/art/legenda-fixture/x.gif"}
+    assert errors(story_dict) == [
+        "Scena 's1': grafika '/art/inna/tlo.png' spoza /art/legenda-fixture/*.png|webp",
+        "Scena 's1', akapit 1: grafika '/art/legenda-fixture/x.gif' spoza /art/legenda-fixture/*.png|webp",
+    ]
+
+
+def test_option_text_cannot_change_chars(story_dict):
+    story_dict["scenes"]["s4"]["options"][0]["text"] = {
+        "text": "Opcja", "chars": {"left": "/art/legenda-fixture/gracz.png"}
+    }
+    assert errors(story_dict) == [
+        "Scena 's4', opcja 1: tekst nie jest czytany, nie może zmieniać postaci"
+    ]
