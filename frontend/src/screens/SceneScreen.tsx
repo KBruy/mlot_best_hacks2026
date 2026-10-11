@@ -86,7 +86,6 @@ export function SceneScreen() {
 
   if (!scene) return null
 
-  // Live mode: blocked by GPS
   if (blocked && beforeStop) {
     return (
       <GameLayout>
@@ -102,7 +101,7 @@ export function SceneScreen() {
     )
   }
 
-  const sceneText = resolveParagraphs(scene.scene, state.gameFields).join('\n\n')
+  const sceneParagraphs = resolveParagraphs(scene.scene, state.gameFields)
 
   return (
     <SceneLayout
@@ -111,7 +110,7 @@ export function SceneScreen() {
           {walkDone && (
             <NarrativeKaraoke
               key={state.currentSceneId ?? undefined}
-              text={sceneText}
+              paragraphs={sceneParagraphs}
               onComplete={handleKaraokeComplete}
             />
           )}

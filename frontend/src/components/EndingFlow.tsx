@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PixelButton, PixelCard } from '@pxlkit/ui-kit'
+import { NarrativeKaraoke } from './NarrativeKaraoke'
 import { NarrativeText } from './NarrativeText'
 import { HintText } from './HintText'
 import { PanelHeader } from './PanelHeader'
@@ -49,9 +50,7 @@ export function EndingFlow({ endingKey, story, fields, legendScore, onRestart }:
       <>
         <HintText className="mb-4">{UI.ending.hint}</HintText>
         <PixelCard title={ending?.title ?? ''}>
-          {endingParagraphs.map((p, i) => (
-            <NarrativeText key={i} className="mb-3">{p}</NarrativeText>
-          ))}
+          <NarrativeKaraoke paragraphs={endingParagraphs} />
           <PixelButton tone="gold" className="w-full mt-3" onClick={advance}>
             {UI.ending.continueButton}
           </PixelButton>
@@ -65,9 +64,7 @@ export function EndingFlow({ endingKey, story, fields, legendScore, onRestart }:
       <>
         {story.finale.act && <HintText className="mb-4">{story.finale.act}</HintText>}
         <PixelCard title="">
-          {finaleParagraphs.map((p, i) => (
-            <NarrativeText key={i} className="mb-3">{p}</NarrativeText>
-          ))}
+          <NarrativeKaraoke paragraphs={finaleParagraphs} />
           <PixelButton tone="gold" className="w-full mt-3" onClick={advance}>
             {UI.ending.continueButton}
           </PixelButton>
@@ -80,9 +77,7 @@ export function EndingFlow({ endingKey, story, fields, legendScore, onRestart }:
     return (
       <>
         <PixelCard title={story.reveal.title}>
-          {revealParagraphs.map((p, i) => (
-            <NarrativeText key={i} className="mb-3">{p}</NarrativeText>
-          ))}
+          <NarrativeKaraoke paragraphs={revealParagraphs} />
           <PixelButton tone="gold" className="w-full mt-3" onClick={advance}>
             {UI.ending.continueButton}
           </PixelButton>
