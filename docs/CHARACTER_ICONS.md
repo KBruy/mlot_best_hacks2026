@@ -1,4 +1,11 @@
-# Grafiki postaci
+# Grafiki postaci i tła
+
+Plik opisuje grafiki do każdej historii. Spis:
+
+- [Mostek Czarownic](#mostek-czarownic)
+- [Kamienna głowa](#kamienna-głowa)
+
+# Mostek Czarownic
 
 Grafiki postaci z legendy „Mostek Czarownic” (`content/legenda-czarownica.json`).
 Pliki leżą płasko w `frontend/public/art/mostek-czarownic/` jako PNG z przezroczystym tłem; w historii są adresowane jako `/art/mostek-czarownic/<plik>.png`.
@@ -97,3 +104,65 @@ Pliki leżą w `frontend/public/art/mostek-czarownic/` jako PNG 1920x1072 (16:9)
 | `tlo-rynek-dzien.png` | `plotka` |
 | `tlo-mostek.png` | `mostek`; zakończenia `wolna`, `rok`, `zamiana` |
 | `tlo-rynek-noc.png` | `starzec`, `zyczenie`, `kradziez`, `uklad`; zakończenia `moc`, `ucieczka`, `podstep` |
+
+# Kamienna głowa
+
+Grafiki do legendy „Kamienna głowa” (`content/kamienna-glowa.json`).
+Pliki leżą płasko w `frontend/public/art/kamienna-glowa/` jako PNG; w historii są adresowane jako `/art/kamienna-glowa/<plik>.png`.
+Postacie: kadr pionowy 3:4 (896x1200), od bioder w górę, przezroczyste tło.
+Przypisanie do akapitów robi się w JSON tak samo jak w Mostku Czarownic: `bg` sceny i zakończenia oraz `chars: {left, right}` akapitu (lewo = gracz, prawo = rozmówca).
+
+Kolumna „Scena” podaje id sceny z JSON. Jeśli grafika dotyczy konkretnej opcji, opcja jest podana po dwukropku.
+
+## Czeladnik (gracz, faza 1–2)
+
+| Plik | Scena |
+|---|---|
+| `czeladnik-neutral.png` | `warsztat`; `mistrz`; `kolega` |
+| `czeladnik-zakochany.png` | `warsztat`: skutek opcji „Potajemnie wykuć dla niej srebrny pierścień” (`sciezka: pierscien`); `ogrod` |
+| `czeladnik-przysiega.png` | `przysiega` |
+
+## Zbójnik (gracz po latach, faza 3–4)
+
+| Plik | Scena |
+|---|---|
+| `zbojnik-neutral.png` | `szlak`; `powrot`; zakończenia `odejscie`, `ucieczka` |
+| `zbojnik-gniew.png` | `odmowa`; `ofiara` i `rozmowa`: skutek opcji prowadzącej do `los: glowa` |
+| `zbojnik-skrucha.png` | `ofiara`; `odmowa`: skutek opcji „Oddać całe zrabowane złoto…” (`los: ofiara`); zakończenia `ofiara`, `sad`, `pokuta` |
+
+## Córka mistrza
+
+| Plik | Scena |
+|---|---|
+| `corka-neutral.png` | `warsztat`: skutek opcji z pierścieniem; `ogrod` |
+| `corka-starsza-odraza.png` | `odmowa`; `rozmowa` |
+
+## Mistrz złotnik
+
+| Plik | Scena |
+|---|---|
+| `mistrz-neutral.png` | `warsztat` |
+| `mistrz-gniew.png` | `mistrz`; skutki opcji w `ogrod` i `kolega` (wyrzuca czeladnika) |
+| `mistrz-chciwy.png` | `odmowa`: mistrz zaślepiony złotem |
+
+## Pozostali
+
+| Plik | Scena |
+|---|---|
+| `rywal-neutral.png` | `warsztat`; `kolega`; `ogrod` (zdradza sekret) |
+| `opiekunka-neutral.png` | `ogrod` |
+| `ksiadz-odmowa.png` | `ofiara`; `powrot`: skutek opcji „Najpierw wejść do katedry…” (`powrot: ofiara`) |
+
+## Tła
+
+PNG 1920x1072 (16:9), środek dołu pusty pod postać; na telefonie tło przycina się po bokach. `tlo-kamienna-glowa.png` to obraz zakończenia, bez miejsca na postać.
+
+| Plik | Scena |
+|---|---|
+| `tlo-warsztat-zlotnika.png` | `warsztat`, `kolega` |
+| `tlo-ogrod-noc.png` | `ogrod`, `rozmowa` |
+| `tlo-izba-mistrza.png` | `mistrz`, `odmowa`; zakończenie `ofiara` |
+| `tlo-most.png` | `przysiega` |
+| `tlo-szlak-zima.png` | `szlak`; zakończenia `odejscie`, `ucieczka` |
+| `tlo-ostrow-tumski.png` | `powrot`, `ofiara`; zakończenia `sad`, `pokuta` |
+| `tlo-kamienna-glowa.png` | zakończenie `glowa` |
