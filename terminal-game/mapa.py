@@ -169,6 +169,8 @@ class MappedGps:
         self.sv = story.get("streetview", {})
         self.last = None
         self.view = None
+        self.anchors = self.ordered_anchors()
+        self.reached = None  # indeks ostatniej pokazanej panoramy: widok idzie tylko do przodu
 
     def __call__(self, target):
         position = self.gps(target)
@@ -195,19 +197,52 @@ class MappedGps:
             fixed = self.sv.get("stops", {}).get(self.stop_name(target))
             if left <= target["radius_m"] and fixed:
                 return dict(fixed)
-        anchors = self.sv.get("anchors", [])
-        if not anchors:
+        if target is None:  # start (także nowej gry): trasa od początku
+            self.reached = None
+        first = self.reached or 0
+        ahead = [i for i in range(first, len(self.anchors))
+                 if self.distance(*position, *self.anchors[i]) <= self.ANCHOR_RANGE_M]
+        if not ahead:
             return None
-        anchor = min(anchors, key=lambda a: self.distance(*position, *a))
-        if self.distance(*position, *anchor) > self.ANCHOR_RANGE_M:
-            return None
+        index = min(ahead, key=lambda i: self.distance(*position, *self.anchors[i]))
+        self.reached = index
+        anchor = self.anchors[index]
         if target is None:  # start: patrz na kościół
             heading = bearing_deg(*anchor, *self.story["location"]["center"])
-        elif self.last and self.distance(*self.last, *position) > 2:  # patrz tam, dokąd idziesz
-            heading = bearing_deg(*self.last, *position)
+        elif index + 1 < len(self.anchors):  # patrz wzdłuż trasy, na następną panoramę
+            heading = bearing_deg(*anchor, *self.anchors[index + 1])
         else:
             heading = bearing_deg(*anchor, target["lat"], target["lon"])
         return {"lat": anchor[0], "lon": anchor[1], "heading": heading, "pitch": 0}
+
+    def ordered_anchors(self):
+        """Panoramy w kolejności marszu: rzutowane na trasę (start, odcinki, przystanki)."""
+        anchors = [tuple(a) for a in self.sv.get("anchors", [])]
+        route = self.story.get("route")
+        if not route or not anchors:
+            return anchors
+        line = [tuple(route["start"])]
+        for name, points in route["legs"].items():
+            stop = self.story["stops"][name]
+            line += [tuple(p) for p in points] + [(stop["lat"], stop["lon"])]
+        along, total = [], 0.0
+        for a, b in zip(line, line[1:]):
+            along.append((a, b, total))
+            total += self.distance(*a, *b)
+
+        def position_on_route(point):
+            best = None
+            for a, b, start in along:
+                length = self.distance(*a, *b)
+                for k in range(0, int(length) + 1):
+                    t = k / length if length else 0
+                    q = (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+                    d = self.distance(*point, *q)
+                    if best is None or d < best[0]:
+                        best = (d, start + k)
+            return best[1]
+
+        return sorted(anchors, key=position_on_route)
 
     def describe(self, position, target):
         if target is None:

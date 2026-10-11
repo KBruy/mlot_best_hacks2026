@@ -450,7 +450,7 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
         say_paragraphs(ending["paragraphs"])
         say_paragraphs(resolve_all(story["finale"]["paragraphs"], state))
         say(story["reveal"]["title"], style="1;35")
-        say_paragraphs(story["reveal"]["paragraphs"])
+        say_paragraphs(resolve_all(story["reveal"]["paragraphs"], state))
         say("Twoja wersja a legenda:", style="1")
         output_fn("")
         for o in recap:
@@ -463,8 +463,8 @@ def play(story, input_fn=input, output_fn=print, width=None, color=False, gps=No
         say(f"Zgodność z legendą: {bar} {score}/{DECISIONS}", style="1;35")
         say(f"{ending['rank']['title']}. {ending['rank']['text']}", style="1")
         output_fn("")
-        say(story["heritage"])
-        say(f"👀 {story['look_up']}", style="1;36")
+        say(resolve(story["heritage"], state))
+        say(f"👀 {resolve(story['look_up'], state)}", style="1;36")
         output_fn("")
         return True
 
@@ -560,6 +560,47 @@ def parse_position(text):
     return lat, lon
 
 
+def preview_route(story, gps, input_fn=input, output_fn=print, observer=None):
+    """Sam spacer bez historii: start, kolejne przystanki i ujęcie finału (do sprawdzania tras)."""
+    def wait(prompt):
+        answer = input_fn(f"{prompt} [Enter - dalej, q - koniec] ")
+        output_fn("")
+        if answer.strip().lower() == "q":
+            raise QuitGame
+
+    legs = route_legs(story)
+    length = sum(path_length_m(points) for points in legs.values())
+    output_fn(f"🧭 Podgląd trasy: {story.get('title') or story['intro']['title']}, "
+              f"{len(legs)} przystanki, ok. {format_distance(length)}, ok. {walk_minutes(story):.0f} min marszu")
+    output_fn("")
+    try:
+        position = gps(None)
+        output_fn(f"📍 Start: {position[0]:.6f}, {position[1]:.6f}")
+        wait("Widok startowy.")
+        for number, name in enumerate(legs, 1):
+            stop = story["stops"][name]
+            output_fn(f"🚶 {number}/{len(legs)} → {stop['label']} ({format_distance(path_length_m(legs[name]))})")
+            shown = None
+            while True:
+                position = gps(stop)
+                left = distance_m(*position, stop["lat"], stop["lon"])
+                if left <= stop["radius_m"]:
+                    break
+                line = f"   jeszcze ok. {format_distance(left)}"
+                if line != shown:
+                    output_fn(line)
+                    shown = line
+            output_fn(f"📍 Przystanek „{name}”: {stop['lat']}, {stop['lon']} (promień {stop['radius_m']} m)")
+            wait("Ujęcie przystanku.")
+        if observer:
+            observer("finale", {"act": story["finale"].get("act") or ""})
+        output_fn("🏁 Ujęcie finału.")
+        wait("Koniec trasy.")
+    except (QuitGame, EOFError, KeyboardInterrupt):
+        output_fn("")
+    output_fn("Koniec podglądu trasy.")
+
+
 def main(argv=None, input_fn=input, output_fn=print):
     parser = argparse.ArgumentParser(description="Mostek Czarownic: legenda na spacer.")
     group = parser.add_mutually_exclusive_group()
@@ -569,10 +610,13 @@ def main(argv=None, input_fn=input, output_fn=print):
                        help="tryb prezentacji: start pod kościołem, przystanki zaliczane od razu")
     group.add_argument("--trasa", action="store_true",
                        help="odtwarza prawdziwy spacer po trasie zapisanej w story.json")
+    group.add_argument("--tylko-trasa", action="store_true",
+                       help="sam spacer po trasie bez historii (do sprawdzania punktów i Street View)")
     group.add_argument("--no-gps", action="store_true",
                        help="symuluje brak zgody na lokalizację")
     parser.add_argument("--tempo", type=float, default=None, metavar="SEKUNDY",
-                        help="przy --trasa: przerwa między odczytami GPS (domyślnie 1 s, 0 = od razu)")
+                        help="przy --trasa: przerwa między odczytami GPS co 10 m (domyślnie 0,5 s,"
+                             " 0 = od razu)")
     parser.add_argument("--mapa", action="store_true",
                         help="pokazuje spacer na żywo w Street View i na mapie Google w przeglądarce")
     parser.add_argument("--story", type=Path, default=STORY_PATH, metavar="PLIK",
@@ -589,7 +633,9 @@ def main(argv=None, input_fn=input, output_fn=print):
     elif args.demo:
         gps = demo_gps(story)
     elif args.trasa:
-        gps = RouteGps(story, tempo=1.0 if args.tempo is None else args.tempo)
+        gps = RouteGps(story, step_m=10, tempo=0.5 if args.tempo is None else args.tempo)
+    elif args.tylko_trasa:
+        gps = RouteGps(story, step_m=10, tempo=0.5 if args.tempo is None else args.tempo)
     else:
         gps = menu_gps(story, input_fn, output_fn, first=args.gps)
     live_map = None
@@ -605,6 +651,9 @@ def main(argv=None, input_fn=input, output_fn=print):
     color = output_fn is print and sys.stdout.isatty() and "NO_COLOR" not in os.environ
     observer = getattr(gps, "notify", None)
     try:
+        if args.tylko_trasa:
+            preview_route(story, gps, input_fn, output_fn, observer)
+            return 0
         status = play(story, input_fn, output_fn, color=color, gps=gps, observer=observer)
     finally:
         if live_map:

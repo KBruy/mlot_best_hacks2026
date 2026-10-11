@@ -60,7 +60,7 @@ Silnik nie wie, skąd pochodzi pozycja. Woła `gps(cel)`, gdzie cel to przystane
 |---|---|---|
 | domyślny | `menu_gps` | Przy każdym odczycie gracz wybiera punkt testowy z menu. |
 | `--gps LAT,LON` | `menu_gps(first=...)` | Pierwsza pozycja z argumentu, potem menu. |
-| `--trasa` | `RouteGps` | Odtwarza prawdziwą trasę pieszą co ok. 20 m (1 s na krok, `--tempo`). Atrybut `live = True`: spacer idzie sam, bez Entera. |
+| `--trasa` | `RouteGps` | Odtwarza prawdziwą trasę pieszą co ok. 10 m (0,5 s na krok, `--tempo`). Atrybut `live = True`: spacer idzie sam, bez Entera. |
 | `--demo` | `demo_gps` | Start pod wieżami, każdy przystanek zaliczony od razu. Do prezentacji. |
 | `--no-gps` | `lambda: None` | Brak zgody na lokalizację: gra zablokowana. |
 
