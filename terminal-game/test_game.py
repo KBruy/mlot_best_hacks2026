@@ -493,6 +493,20 @@ class CommandLine(unittest.TestCase):
         self.assertNotIn("Symulacja GPS", out)
         self.assertIn("jesteś na miejscu", out)
 
+    def test_route_only_walks_every_stop_without_story(self):
+        code, out = self.run_main(["--tylko-trasa", "--tempo", "0"], [""] * 5)
+        self.assertEqual(code, 0)
+        for name in STORY["route"]["legs"]:
+            self.assertIn(f"Przystanek „{name}”", out)
+        self.assertIn("Ujęcie finału", out)
+        self.assertNotIn("Decyzja 1/6", out)
+
+    def test_route_only_quits_on_q(self):
+        code, out = self.run_main(["--tylko-trasa", "--tempo", "0"], ["q"])
+        self.assertEqual(code, 0)
+        self.assertNotIn("Ujęcie finału", out)
+        self.assertIn("Koniec podglądu trasy", out)
+
     def test_map_flag_prints_local_address(self):
         code, out = self.run_main(["--trasa", "--tempo", "0", "--mapa", "--port", "0"],
                                   script(ALL_LEGEND))
