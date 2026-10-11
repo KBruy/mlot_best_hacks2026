@@ -1,18 +1,21 @@
 import { useGame } from '../game/useGame'
 import { haversineDistance } from './distance'
-import type { DecisionNode } from '../game/types'
+import type { Scene } from '../game/types'
 
 interface LocationGateResult {
   blocked: boolean
   distanceM: number | null
 }
 
-export function useLocationGate(node: DecisionNode): LocationGateResult {
+export function useLocationGate(scene: Scene | null): LocationGateResult {
   const { state } = useGame()
 
-  if (state.demoMode || !node.location) {
+  if (state.demoMode || !scene?.before) {
     return { blocked: false, distanceM: null }
   }
+
+  const stop = state.story?.stops[scene.before]
+  if (!stop) return { blocked: false, distanceM: null }
 
   if (!state.gpsPosition) {
     return { blocked: true, distanceM: null }
@@ -21,12 +24,12 @@ export function useLocationGate(node: DecisionNode): LocationGateResult {
   const distanceM = haversineDistance(
     state.gpsPosition.lat,
     state.gpsPosition.lon,
-    node.location.lat,
-    node.location.lon,
+    stop.lat,
+    stop.lon,
   )
 
   return {
-    blocked: distanceM > node.location.radius_m,
+    blocked: distanceM > stop.radius_m,
     distanceM: Math.round(distanceM),
   }
 }

@@ -1,24 +1,26 @@
 import { PixelStack } from '@pxlkit/ui-kit'
 import { ChoiceButton } from './ChoiceButton'
-import type { Choice } from '../game/types'
+import { resolveText } from '../game/textUtils'
+import type { Option, GameFields } from '../game/types'
 
 interface Props {
-  choices: Choice[]
-  onSelect: (choice: Choice) => void
+  options: Option[]
+  fields: GameFields
+  onSelect: (option: Option) => void
   locked: boolean
 }
 
-export function ChoicePanel({ choices, onSelect, locked }: Props) {
+export function ChoicePanel({ options, fields, onSelect, locked }: Props) {
   return (
     <PixelStack gap={2}>
-      {choices.map((choice, index) => (
+      {options.map((option, index) => (
         <ChoiceButton
-          key={choice.id}
+          key={index}
           disabled={locked}
-          onClick={() => onSelect(choice)}
+          onClick={() => onSelect(option)}
           shortcut={index + 1}
         >
-          {choice.text}
+          {resolveText(option.text, fields) ?? ''}
         </ChoiceButton>
       ))}
     </PixelStack>
