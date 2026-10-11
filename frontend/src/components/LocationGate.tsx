@@ -1,12 +1,10 @@
 import { useEffect, useRef, useMemo, useState } from 'react'
 import { PixelButton, PixelCard } from '@pxlkit/ui-kit'
 import { NarrativeText } from './NarrativeText'
-import { HintText } from './HintText'
 import { NavMap } from './NavMap'
 import { useGame } from '../game/useGame'
 import { haversineDistance, bearingDeg } from '../map/distance'
 import type { Stop, StreetViewShot } from '../game/types'
-import { UI } from '../strings'
 
 interface Props {
   stop: Stop
@@ -30,7 +28,7 @@ function svUrl(lat: number, lon: number, heading: number, pitch: number): string
 }
 
 export function LocationGate({ stop, shot, anchors, skippable, distanceM, onSkip }: Props) {
-  const { state } = useGame()
+  const { state, dispatch } = useGame()
   const gps = state.gpsPosition
 
   // Demo: cycle through anchors as slideshow
@@ -150,14 +148,21 @@ export function LocationGate({ stop, shot, anchors, skippable, distanceM, onSkip
       <NarrativeText className="mb-3">{stop.walk}</NarrativeText>
       {skippable ? (
         <PixelButton tone="gold" className="w-full" onClick={onSkip}>
-          {UI.consequence.nextButton}
+          Dalej
         </PixelButton>
       ) : (
-        distanceM !== null ? (
-          <HintText>Jesteś w odległości {formatDistance(distanceM)} od celu</HintText>
-        ) : (
-          <HintText>Oczekiwanie na sygnał GPS…</HintText>
-        )
+        <PixelButton
+          tone="gold"
+          className="w-full"
+          disabled={distanceM === null || distanceM > stop.radius_m}
+          onClick={() => dispatch({ type: 'MANUAL_ARRIVE' })}
+        >
+          {distanceM === null
+            ? 'Oczekiwanie na GPS…'
+            : distanceM > stop.radius_m
+              ? `Dojdź bliżej (${formatDistance(distanceM)})`
+              : 'Wejdź →'}
+        </PixelButton>
       )}
     </PixelCard>
   )

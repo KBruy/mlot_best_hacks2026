@@ -59,6 +59,7 @@ export interface StreetView {
   anchors: [number, number][]
   stops: Record<string, StreetViewShot>
   finale: StreetViewShot
+  start?: StreetViewShot | null
 }
 
 // ── Scene & Option ────────────────────────────────────────────────────────────
