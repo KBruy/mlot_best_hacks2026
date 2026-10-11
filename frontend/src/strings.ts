@@ -45,12 +45,20 @@ export const UI = {
     panelChoices: 'Wybierz odpowiedź',
   },
 
+  narration: {
+    mute: 'Wycisz lektora',
+    unmute: 'Włącz lektora',
+    play: 'Odtwórz',
+  },
+
   consequence: {
     nextButton: 'Dalej',
   },
 
   ending: {
     hint: 'Koniec legendy',
+    continueButton: 'Dalej',
     restartButton: 'Zagraj ponownie',
+    scoreLabel: 'Twój wynik',
   },
 } as const

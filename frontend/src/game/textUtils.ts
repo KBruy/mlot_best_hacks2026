@@ -1,4 +1,4 @@
-import type { Text, Paragraphs, GameFields, Condition } from './types'
+import type { Text, Paragraphs, GameFields, Condition, Variant } from './types'
 
 function conditionMatches(condition: Condition = {}, fields: GameFields): boolean {
   return Object.entries(condition).every(([field, values]) =>
@@ -6,20 +6,21 @@ function conditionMatches(condition: Condition = {}, fields: GameFields): boolea
   )
 }
 
-export function resolveText(text: Text, fields: GameFields): string | null {
-  if (typeof text === 'string') return text
+export function resolveVariant(text: Text, fields: GameFields): Variant | null {
+  if (typeof text === 'string') return { text }
   if (Array.isArray(text)) {
-    for (const variant of text) {
-      if (conditionMatches(variant.if, fields)) return variant.text
-    }
-    return null
+    return text.find(variant => conditionMatches(variant.if, fields)) ?? null
   }
-  return conditionMatches(text.if, fields) ? text.text : null
+  return conditionMatches(text.if, fields) ? text : null
 }
 
-export function resolveParagraphs(paragraphs: Paragraphs, fields: GameFields): string[] {
+export function resolveText(text: Text, fields: GameFields): string | null {
+  return resolveVariant(text, fields)?.text ?? null
+}
+
+export function resolveParagraphs(paragraphs: Paragraphs, fields: GameFields): Variant[] {
   return paragraphs.flatMap(p => {
-    const resolved = resolveText(p, fields)
+    const resolved = resolveVariant(p, fields)
     return resolved !== null ? [resolved] : []
   })
 }

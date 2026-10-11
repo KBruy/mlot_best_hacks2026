@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from 'react'
 import { useGame } from '../game/useGame'
 import { GameLayout } from '../components/GameLayout'
 import { ConsequenceView } from '../components/ConsequenceView'
@@ -5,6 +6,21 @@ import { resolveParagraphs, resolveText } from '../game/textUtils'
 
 export function ConsequenceScreen() {
   const { state, dispatch } = useGame()
+
+  const advance = useCallback(() => {
+    dispatch({ type: 'ADVANCE_SCENE' })
+  }, [dispatch])
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.code === 'Enter' || e.code === 'Space') {
+        e.preventDefault()
+        advance()
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [advance])
 
   if (!state.pendingOption) return null
 
@@ -17,7 +33,7 @@ export function ConsequenceScreen() {
         <ConsequenceView
           choiceText={choiceText}
           result={result}
-          onNext={() => dispatch({ type: 'ADVANCE_SCENE' })}
+          onNext={advance}
         />
       </div>
     </GameLayout>

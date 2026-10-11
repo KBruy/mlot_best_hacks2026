@@ -43,12 +43,12 @@
   },
   "stops": {
     "wieze": {
-      "label": "Pod wieżami",
+      "label": "Kościół Marii Magdaleny",
       "lat": 51.109666,
       "lon": 17.034503,
       "radius_m": 30,
       "walk": "Obejdź kościół i stań od zachodu, na ulicy Szewskiej, naprzeciw dwóch wież. To najwyżej minuta spacerem.",
-      "arrive": "Jesteś pod wieżami. Zatrzymaj się na chwilę."
+      "arrive": "Stoisz pod wieżami kościoła Marii Magdaleny. Zatrzymaj się na chwilę."
     },
     "rynek": {
       "label": "Rynek, pod pręgierzem",
@@ -188,7 +188,7 @@
       "wieze": {
         "lat": 51.109593,
         "lon": 17.034374,
-        "heading": 85,
+        "heading": 265,
         "pitch": -60
       },
       "rynek": {
@@ -368,7 +368,7 @@
       ],
       "options": [
         {
-          "text": "Uciec na bal",
+          "text": "Ignoruję obowiązki, wymykam się z domu i rzucam w wir wielkiego balu.",
           "legend": true,
           "set": {
             "sciezka": "proznosc"
@@ -382,7 +382,7 @@
           ]
         },
         {
-          "text": "Zajrzeć do warsztatu, do czeladnika",
+          "text": "Schodzę cicho do warsztatu, by odpowiedzieć na spojrzenia młodego czeladnika.",
           "legend": false,
           "set": {
             "sciezka": "milosc"
@@ -396,7 +396,7 @@
           ]
         },
         {
-          "text": "Zostać i pomóc matce",
+          "text": "Zostaję w kuchni i odciążam zmęczoną matkę w jej pracach.",
           "legend": false,
           "set": {
             "sciezka": "intryga"
@@ -422,7 +422,7 @@
       ],
       "options": [
         {
-          "text": "Roześmiać się: — Na cóż mi mąż?",
+          "text": "Wybucham śmiechem i zbywam go: – Na cóż mi małżeńskie więzy, gdy mam wolność??",
           "legend": true,
           "set": {
             "odpowiedz": "smiech"
@@ -436,7 +436,7 @@
           ]
         },
         {
-          "text": "Zwodzić go latami",
+          "text": "Utrzymuję go w słodkiej niepewności, przez długie lata.",
           "legend": true,
           "set": {
             "odpowiedz": "zwodzic"
@@ -450,7 +450,7 @@
           ]
         },
         {
-          "text": "Zgodzić się",
+          "text": "Kapituluję przed losem i zgadzam się",
           "legend": false,
           "set": {
             "odpowiedz": "zgoda"
@@ -476,7 +476,7 @@
       ],
       "options": [
         {
-          "text": "Odmówić kupcowi: — Na cóż mi taki mąż?",
+          "text": "Odmawiam kupcowi, rzucając krótko: – Na cóż mi taki mąż?",
           "legend": true,
           "set": {
             "odpowiedz": "odmowa"
@@ -490,7 +490,7 @@
           ]
         },
         {
-          "text": "Uciec nocą z czeladnikiem",
+          "text": "Pod osłoną nocy uciekam z Wrocławia u boku ukochanego czeladnika.",
           "legend": false,
           "set": {
             "odpowiedz": "ucieczka"
@@ -504,7 +504,7 @@
           ]
         },
         {
-          "text": "Spotykać się z nim potajemnie",
+          "text": "Decyduję się na niebezpieczną grę, zaczynam spotykać się z nim potajemnie.",
           "legend": false,
           "set": {
             "odpowiedz": "sekret"
@@ -530,7 +530,7 @@
       ],
       "options": [
         {
-          "text": "Zaćmić ją na balu w najpiękniejszej sukni",
+          "text": "Zakładam najpiękniejszą suknię, żeby całkowicie zaćmić ją na balu.",
           "legend": true,
           "set": {
             "odpowiedz": "suknia"
@@ -544,7 +544,7 @@
           ]
         },
         {
-          "text": "Pracować dzień i noc, żeby udowodnić, że to nieprawda",
+          "text": "Pracuję dzień i noc, żeby udowodnić, że to nieprawda.",
           "legend": false,
           "set": {
             "odpowiedz": "praca"
@@ -558,7 +558,7 @@
           ]
         },
         {
-          "text": "Zignorować plotkę",
+          "text": "Po prostu ignoruję krążące po mieście plotki. ",
           "legend": false,
           "set": {
             "odpowiedz": "cisza"
@@ -620,7 +620,7 @@
       ],
       "options": [
         {
-          "text": "Wybuchnąć śmiechem",
+          "text": "Wybucham śmiechem, nie mogąc uwierzyć w to, co właśnie usłyszałam",
           "legend": true,
           "set": {
             "reakcja": "smiech"
@@ -638,7 +638,7 @@
           ]
         },
         {
-          "text": "Paść na kolana i błagać o litość",
+          "text": "Padam na kolana i błagam o litość.",
           "legend": false,
           "set": {
             "reakcja": "blaganie"
@@ -656,7 +656,7 @@
           ]
         },
         {
-          "text": "Krzyknąć, że to niesprawiedliwe",
+          "text": "Krzyczę, że to wszystko jest niesprawiedliwe.",
           "legend": false,
           "set": {
             "reakcja": "bunt"
@@ -697,7 +697,7 @@
       ],
       "options": [
         {
-          "text": "Zapytać, za co ją ukarano",
+          "text": "Pytam cicho, za jaki występek spotkała ją tak surowa kara.",
           "legend": true,
           "set": {
             "czarownica": "pytac"
@@ -744,7 +744,7 @@
           ]
         },
         {
-          "text": "Zamiatać w milczeniu",
+          "text": "Spuszczam wzrok i kontynuuję zamiatanie, nie chcąc zwracać na siebie niepotrzebnej uwagi.",
           "legend": false,
           "set": {
             "czarownica": "milczec"
@@ -791,7 +791,7 @@
           ]
         },
         {
-          "text": "Wyśmiać leniwą pannę",
+          "text": "Wyśmiewam tę leniwą pannę.",
           "legend": false,
           "set": {
             "czarownica": "smiac"
@@ -861,7 +861,7 @@
       ],
       "options": [
         {
-          "text": "Podać mu różdżkę",
+          "text": "Bez wahania wyciągam dłoń i wręczam mu różdżkę.",
           "legend": true,
           "set": {
             "rynek": "pomoc"
@@ -875,7 +875,7 @@
           ]
         },
         {
-          "text": "Zabrać różdżkę dla siebie",
+          "text": "Mocniej zaciskam różdżkę, decydując się zachować tę moc wyłącznie dla siebie.",
           "legend": false,
           "set": {
             "rynek": "kradziez"
@@ -889,7 +889,7 @@
           ]
         },
         {
-          "text": "Najpierw się potargować",
+          "text": "Posyłam mu chytre spojrzenie i zaczynam się targować.",
           "legend": false,
           "set": {
             "rynek": "targ"
@@ -915,7 +915,7 @@
       ],
       "options": [
         {
-          "text": "Uwolnij pannę z mostka",
+          "text": "Żądam, by natychmiast zdjął klątwę i uwolnił nieszczęsną pannę z Mostka Pokutnic.",
           "legend": true,
           "set": {
             "los": "wolna"
@@ -929,7 +929,7 @@
           ]
         },
         {
-          "text": "Uczyń mnie najpotężniejszą czarownicą",
+          "text": "Twardo stawiam warunek: – Masz mnie uczynić najpotężniejszą czarownicą w całym Wrocławiu!",
           "legend": false,
           "set": {
             "los": "moc"
@@ -943,7 +943,7 @@
           ]
         },
         {
-          "text": "Niech panna odpracuje jeszcze rok",
+          "text": "Orzekam surowo, że ta dziewczyna powinna za karę odpracować tam jeszcze jeden rok.",
           "legend": false,
           "set": {
             "los": "rok"
@@ -969,7 +969,7 @@
       ],
       "options": [
         {
-          "text": "Oddać ją i poprosić o pomoc dla panny",
+          "text": "Oddaję ją i proszę o pomoc dla nieszczęsnej panny.",
           "legend": true,
           "set": {
             "los": "wolna"
@@ -983,7 +983,7 @@
           ]
         },
         {
-          "text": "Spróbować samej zdjąć klątwę",
+          "text": "Postanawiam zaryzykować i samodzielnie przełamać klątwę.",
           "legend": false,
           "set": {
             "los": "zamiana"
@@ -997,7 +997,7 @@
           ]
         },
         {
-          "text": "Uciec z różdżką",
+          "text": "Uciekam stamtąd z różdżką w dłoni.",
           "legend": false,
           "set": {
             "los": "ucieczka"
@@ -1023,7 +1023,7 @@
       ],
       "options": [
         {
-          "text": "Zgodzić się",
+          "text": "Po prostu się zgadzam.",
           "legend": false,
           "set": {
             "los": "zamiana"
@@ -1037,7 +1037,7 @@
           ]
         },
         {
-          "text": "Odpuścić i po prostu oddać różdżkę",
+          "text": "Rezygnuję z walki i po prostu oddaję mu potężną różdżkę",
           "legend": true,
           "set": {
             "los": "wolna"
@@ -1051,7 +1051,7 @@
           ]
         },
         {
-          "text": "Przechytrzyć go",
+          "text": "Zaczynam knuć plan, by przechytrzyć go w jego własnej grze",
           "legend": false,
           "set": {
             "los": "podstep"

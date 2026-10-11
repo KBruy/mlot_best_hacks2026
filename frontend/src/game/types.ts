@@ -145,7 +145,7 @@ export interface StorySummary {
 // ── Game state ────────────────────────────────────────────────────────────────
 
 
-export type Screen = 'loading' | 'error' | 'start' | 'scene' | 'consequence' | 'ending'
+export type Screen = 'loading' | 'error' | 'start' | 'scene' | 'arrive' | 'consequence' | 'ending'
 
 export interface GpsPosition {
   lat: number
@@ -160,10 +160,12 @@ export interface GameState {
   currentSceneId: string | null
   gameFields: GameFields
   decisionCount: number
+  legendScore: number
   pendingOption: Option | null
   choiceLocked: boolean
   errorMessage: string | null
   gpsPosition: GpsPosition | null
   gpsGranted: boolean | null
   demoMode: boolean
+  muted: boolean
 }
