@@ -40,13 +40,12 @@ export function SceneScreen() {
   const segmentAnchors = useMemo<[number, number][] | null>(() => {
     if (!isDemoWalk || !allAnchors || !beforeStop) return null
     const prevStop = state.lastStop ? state.story?.stops[state.lastStop] : null
-    const startPos: [number, number] = prevStop
-      ? [prevStop.lat, prevStop.lon]
-      : state.story?.demo_start
-        ? [state.story.demo_start[0], state.story.demo_start[1]]
-        : [allAnchors[0][0], allAnchors[0][1]]
-    const startIdx = nearestAnchorIdx(allAnchors, startPos[0], startPos[1])
     const endIdx = nearestAnchorIdx(allAnchors, beforeStop.lat, beforeStop.lon)
+    // First walk (no lastStop): always start from anchor 0 — demo_start sits at the
+    // destination, so nearest-anchor logic would collapse the segment to a single frame.
+    const startIdx = prevStop
+      ? nearestAnchorIdx(allAnchors, prevStop.lat, prevStop.lon)
+      : 0
     return allAnchors.slice(startIdx, endIdx + 1)
   }, [isDemoWalk, allAnchors, beforeStop, state.lastStop, state.story])
 
