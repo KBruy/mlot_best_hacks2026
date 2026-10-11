@@ -12,6 +12,9 @@ każde wymienione pole stanu ma jedną z podanych wartości; brak `if` pasuje za
 Nagrania: każdy czytany akapit (i każdy jego wariant) ma własne `audio_url`. Akapit bez
 warunku z nagraniem zapisujemy jako wariant bez `if`: {"text": ..., "audio_url": ...}.
 Teksty opcji nie są czytane.
+
+Grafiki: scena i zakończenie mają tło `bg`, a czytany akapit (wariant) może zmienić postacie
+w dwóch miejscach sceny (`chars.left`, `chars.right`). Pliki leżą w frontend/public/art/<id historii>/.
 """
 from typing import Annotated
 
@@ -24,6 +27,14 @@ class _Model(BaseModel):
 
 Condition = dict[str, list[str]]
 LatLon = Annotated[list[float], Field(min_length=2, max_length=2, description="[lat, lon]")]
+
+
+class Chars(_Model):
+    """Postacie na scenie od tego akapitu. Brak klucza = postać w tym miejscu bez zmian,
+    `null` = postać schodzi. Każdy ekran (scena, skutek, zakończenie) zaczyna bez postaci."""
+
+    left: str | None = Field(None, description="Gracz: /art/<id historii>/<plik>.png.")
+    right: str | None = Field(None, description="Rozmówca: /art/<id historii>/<plik>.png.")
 
 
 class Variant(_Model):
@@ -40,6 +51,7 @@ class Variant(_Model):
         description="Nagranie tego akapitu lub wariantu: MP3 serwowany statycznie przez frontend,"
         " /audio/<id historii>/<plik>.mp3. Obok może leżeć <plik>.json ze znacznikami czasu słów (karaoke).",
     )
+    chars: Chars | None = Field(None, description="Zmiana postaci na scenie od tego akapitu.")
 
 
 Text = str | Variant | list[Variant]
@@ -136,11 +148,13 @@ class Scene(_Model):
     before: str | None = Field(None, description="Id przystanku, do którego gracz dochodzi przed sceną.")
     keypoint: str | None = Field(None, description="Oznaczenie punktu kluczowego fabuły.")
     art: list[str] | None = Field(None, description="Linie grafiki ASCII.")
+    bg: str | None = Field(None, description="Tło sceny i jej skutków: /art/<id historii>/<plik>.png.")
 
 
 class Ending(_Model):
     title: str
     paragraphs: Paragraphs
+    bg: str | None = Field(None, description="Tło zakończenia: /art/<id historii>/<plik>.png.")
 
 
 class Finale(_Model):

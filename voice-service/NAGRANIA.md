@@ -11,7 +11,7 @@ Kto co nagrywa, pod jaką nazwą pliku i jaki tekst czyta. Wymagania techniczne 
 | Andrzej  | `andrzej_neutral.wav` ✅, `andrzej_ojciec.wav` ✅                                                   |
 | Ola      | `ola_neutral.wav` ✅, `ola_panna.wav` ✅, `ola_stara_panna.wav` ✅, `ola_wiedzma.wav` ✅, `ola_kuzynka.wav` ✅ |
 
-Wszystkie 11 próbek jest nagranych. Profile postaci są w `characters.yaml`. Przypisanie głosów do akapitów legendy i plików audio: [NARRACJA.md](NARRACJA.md).
+Wszystkie 11 próbek jest nagranych. Profile postaci są w `characters.yaml`. Przypisanie głosów do akapitów legendy i plików audio: [NARRACJA.md](NARRACJA.md) (Mostek Czarownic) i [NARRACJA-kamienna-glowa.md](NARRACJA-kamienna-glowa.md).
 
 ## Kto gra kogo
 

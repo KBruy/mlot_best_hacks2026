@@ -1,7 +1,7 @@
 """Generuje nagrania narracji legendy: WAV (master), MP3 dla frontu i znaczniki czasu słów (karaoke).
 
-Źródła: skrypty `[Głos, postać] Kwestia` z NARRACJA.md i teksty akapitów z legendy
-(`audio_url`). Wyniki:
+Źródła: skrypty `[Głos, postać] Kwestia` z pliku narracji legendy (NARRATIONS) i teksty
+akapitów z legendy (`audio_url`). Wyniki:
     outputs/<id historii>/<plik>.wav                    master, PCM 16-bit 24 kHz mono
     ../frontend/public/audio/<id historii>/<plik>.mp3   MP3 CBR 64 kb/s mono
     ../frontend/public/audio/<id historii>/<plik>.json  {"words": [{text, start, end}]}
@@ -13,13 +13,14 @@ szumu lub bełkotu, którego nie da się odróżnić od mowy samą głośności�
 Gotowe pliki są pomijane, więc przerwane generowanie można wznowić. Nie wymaga
 uruchomionego serwisu ani klucza API (silnik działa w tym procesie) ani ffmpeg.
 
-Użycie (z katalogu voice-service/):
+Użycie (z katalogu voice-service/); bez --story legenda to mostek-czarownic:
     uv run python narrate.py                  # wszystko, czego brakuje
+    uv run python narrate.py --story kamienna-glowa   # inna legenda (pozostałe flagi jak niżej)
     uv run python narrate.py dom-1 bal-1      # tylko wybrane pliki
-    uv run python narrate.py --force dom-1    # wygeneruj ponownie (nowe audio i znaczniki)
+    uv run python narrate.py --force dom-1    # wygeneruj ponownie z pominięciem cache (nowe podejście)
     uv run python narrate.py --align-only     # tylko znaczniki czasu do istniejących WAV
     uv run python narrate.py --retrim dom-1   # przytnij ogony w istniejącym WAV bez generowania
-    uv run python narrate.py --check          # tylko spójność NARRACJA.md z legendą
+    uv run python narrate.py --check          # tylko spójność skryptów z legendą
 """
 import quiet  # noqa: F401  (musi byc pierwszy)
 
@@ -39,8 +40,12 @@ import torchaudio as ta
 from script import parse_script
 
 ROOT = Path(__file__).parent
-STORY = ROOT.parent / "content" / "legenda-czarownica.json"
-NARRACJA = ROOT / "NARRACJA.md"
+CONTENT = ROOT.parent / "content"
+# id historii -> plik ze skryptami nagrań (bloki ### `<plik>.mp3`)
+NARRATIONS = {
+    "mostek-czarownic": ROOT / "NARRACJA.md",
+    "kamienna-glowa": ROOT / "NARRACJA-kamienna-glowa.md",
+}
 LINE_PAUSE_S = 0.5  # jak w app.py (/tts/script)
 MP3_LEVEL = 0.6  # libsndfile: 0.6 = CBR 64 kb/s; stały bitrate trzyma currentTime w przeglądarce
 MIN_PAUSE_S = 0.2  # pauzy między zdaniami (0,25 s) i kwestiami (0,5 s) to dokładne zera
@@ -76,29 +81,40 @@ def story_texts(story: dict) -> dict[str, str]:
     return found
 
 
-def load_jobs() -> tuple[str, dict[str, tuple[str, str]]]:
-    """Zwraca (id historii, {plik: (skrypt, tekst akapitu)}); przerywa przy niespójności."""
-    story = json.loads(STORY.read_text(encoding="utf-8"))
-    texts = story_texts(story)
-    scripts = dict(_BLOCK.findall(NARRACJA.read_text(encoding="utf-8")))
-    problems = [f"brak skryptu w NARRACJA.md: {n}" for n in sorted(texts.keys() - scripts.keys())]
+def load_story(story_id: str) -> dict:
+    for path in sorted(CONTENT.glob("*.json")):
+        story = json.loads(path.read_text(encoding="utf-8"))
+        if story.get("id") == story_id:
+            return story
+    sys.exit(f"Brak historii {story_id!r} w {CONTENT}")
+
+
+def load_jobs(story_id: str) -> dict[str, tuple[str, str]]:
+    """Zwraca {plik: (skrypt, tekst akapitu)}; przerywa przy niespójności."""
+    narration = NARRATIONS[story_id]
+    texts = story_texts(load_story(story_id))
+    scripts = dict(_BLOCK.findall(narration.read_text(encoding="utf-8")))
+    problems = [f"brak skryptu w {narration.name}: {n}" for n in sorted(texts.keys() - scripts.keys())]
     problems += [f"skrypt bez audio_url w legendzie: {n}" for n in sorted(scripts.keys() - texts.keys())]
     for name in sorted(texts.keys() & scripts.keys()):
         spoken = " ".join(line.text for line in parse_script(scripts[name]))
         if words(spoken) != words(texts[name]):
             problems.append(f"{name}: słowa skryptu różnią się od tekstu w legendzie")
     if problems:
-        sys.exit("Niespójność NARRACJA.md z legendą:\n" + "\n".join(f"- {p}" for p in problems))
-    return story["id"], {n: (scripts[n], texts[n]) for n in texts}
+        sys.exit(f"Niespójność {narration.name} z legendą:\n" + "\n".join(f"- {p}" for p in problems))
+    return {n: (scripts[n], texts[n]) for n in texts}
 
 
 # --- synteza ------------------------------------------------------------------
 
-def synthesize(engine, script: str) -> torch.Tensor:
+def synthesize(engine, script: str, fresh: bool = False) -> torch.Tensor:
+    """fresh: pomiń cache serwisu, żeby dostać nowe podejście (generacja jest losowa)."""
     pause = torch.zeros(1, int(LINE_PAUSE_S * engine.sr))
     pieces: list[torch.Tensor] = []
     for line in parse_script(script):
-        pieces += [engine.synthesize(line.voice, line.character, line.text), pause]
+        if fresh:
+            engine.forget(line.voice, line.character, line.text)
+        pieces +=[engine.synthesize(line.voice, line.character, line.text), pause]
     return torch.cat(pieces[:-1], dim=-1)
 
 
@@ -230,16 +246,19 @@ class Aligner:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Nagrania narracji legendy (WAV, MP3, znaczniki karaoke).")
     parser.add_argument("names", nargs="*", help="nazwy plików bez .mp3 (domyślnie wszystkie)")
-    parser.add_argument("--force", action="store_true", help="generuj ponownie, nawet gdy pliki istnieją")
+    parser.add_argument("--story", default="mostek-czarownic", choices=sorted(NARRATIONS), help="id legendy")
+    parser.add_argument("--force", action="store_true",
+                        help="generuj ponownie z pominięciem cache, nawet gdy pliki istnieją")
     parser.add_argument("--retrim", action="store_true", help="przytnij ogony w istniejących WAV (bez generowania)")
     parser.add_argument("--align-only", action="store_true", help="tylko znaczniki czasu do istniejących WAV")
     parser.add_argument("--no-align", action="store_true", help="bez plików .json ze znacznikami czasu")
-    parser.add_argument("--check", action="store_true", help="tylko sprawdź spójność NARRACJA.md z legendą")
+    parser.add_argument("--check", action="store_true", help="tylko sprawdź spójność skryptów z legendą")
     args = parser.parse_args(argv)
 
-    story_id, jobs = load_jobs()
+    story_id = args.story
+    jobs = load_jobs(story_id)
     if args.check:
-        print(f"OK: {len(jobs)} plików, skrypty zgodne z legendą.")
+        print(f"OK {story_id}: {len(jobs)} plików, skrypty zgodne z legendą.")
         return
     unknown = set(args.names) - jobs.keys()
     if unknown:
@@ -270,7 +289,7 @@ def main(argv: list[str] | None = None) -> None:
                 print("Ładowanie modelu TTS...", flush=True)
                 from engine import Engine
                 engine = Engine()
-            audio, sr = synthesize(engine, script)[0].numpy(), engine.sr
+            audio, sr = synthesize(engine, script, fresh=args.force)[0].numpy(), engine.sr
             done.append("wav")
         else:
             audio, sr = read_mono(wav)

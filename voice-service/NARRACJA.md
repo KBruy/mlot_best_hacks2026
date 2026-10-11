@@ -23,13 +23,13 @@ Propozycja: kto czyta który akapit legendy. Każdy plik poniżej odpowiada jedn
 
 ## Generowanie
 
-Skrypt `narrate.py` generuje wszystko na podstawie bloków z tego pliku i tekstów z legendy. Nie potrzebuje uruchomionego serwisu, klucza API ani ffmpeg. Uruchamiaj z katalogu `voice-service/`:
+Skrypt `narrate.py` generuje wszystko na podstawie bloków z tego pliku i tekstów z legendy. Nie potrzebuje uruchomionego serwisu, klucza API ani ffmpeg. Uruchamiaj z katalogu `voice-service/`. Inne legendy wybiera `--story <id>` ze skryptami we własnym pliku, np. `--story kamienna-glowa` i [NARRACJA-kamienna-glowa.md](NARRACJA-kamienna-glowa.md):
 
 ```bash
 uv run python narrate.py --check          # spójność skryptów z legendą (szybko, bez modeli)
 uv run python narrate.py dom-1            # próba na jednym pliku: odsłuchaj przed całością
 uv run python narrate.py                  # wszystkie brakujące pliki
-uv run python narrate.py --force bal-1    # ponowne generowanie wybranego pliku (np. po złym podejściu)
+uv run python narrate.py --force bal-1    # nowe podejście do wybranego pliku (pomija cache)
 uv run python narrate.py --align-only     # tylko znaczniki czasu do istniejących WAV
 uv run python narrate.py --retrim         # przytnij ogony w istniejących WAV (bez generowania)
 ```
@@ -50,7 +50,7 @@ Wyniki:
 | MP3 dla frontu (CBR 64 kb/s, mono) | `frontend/public/audio/mostek-czarownic/<plik>.mp3` | tak |
 | Znaczniki czasu słów | `frontend/public/audio/mostek-czarownic/<plik>.json` | tak |
 
-- Gotowe pliki są pomijane, więc przerwane generowanie wznawia się od miejsca przerwania. Kwestie trafiają też do cache serwisu (`cache/`), więc `--force` na pliku bez zmian w skrypcie zwróci to samo nagranie; żeby dostać inne podejście, wyczyść odpowiednie pliki z `cache/` albo zmień tekst kwestii.
+- Gotowe pliki są pomijane, więc przerwane generowanie wznawia się od miejsca przerwania. Kwestie trafiają też do cache serwisu (`cache/`), więc powtórzone kwestie generują się raz. `--force` usuwa kwestie pliku z cache i generuje nowe podejście (generacja jest losowa).
 - Pierwsze uruchomienie pobiera modele: TTS (Chatterbox) i dopasowania (MMS_FA, ok. 1,2 GB do `~/.cache/torch`).
 - Czas: TTS na CPU to ok. 10× czasu nagrania, więc całość (kilka minut audio) to rząd godziny lub dłużej. Dopasowanie to ok. 6 s na 16 s nagrania.
 - Bardzo krótkie kwestie (np. „Śmiej się” i „Posłuchaj.” w `mostek-o3-1`) warto odsłuchać, bo model bywa na nich niestabilny.

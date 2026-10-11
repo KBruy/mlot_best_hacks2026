@@ -668,7 +668,8 @@
               "plac"
             ]
           },
-          "text": "Stań na placu, twarzą do katedry, i spójrz wysoko na jej wieże. Gdzieś w murze, w małym okienku, tkwi kamienna twarz."
+          "text": "Stań na placu, twarzą do katedry, i spójrz wysoko na jej wieże. Gdzieś w murze, w małym okienku, tkwi kamienna twarz.",
+          "audio_url": "/audio/kamienna-glowa/intro-1-plac.mp3"
         },
         {
           "if": {
@@ -676,14 +677,13 @@
               "ogolny"
             ]
           },
-          "text": "Rozejrzyj się za wieżami katedry na Ostrowie Tumskim. Gdzieś wysoko w murze, w małym okienku, tkwi kamienna twarz."
+          "text": "Rozejrzyj się za wieżami katedry na Ostrowie Tumskim. Gdzieś wysoko w murze, w małym okienku, tkwi kamienna twarz.",
+          "audio_url": "/audio/kamienna-glowa/intro-1-ogolny.mp3"
         }
       ],
       {
-        "text": "Wrocławianie od wieków opowiadają, czyja to twarz i dlaczego nie może się stamtąd ruszyć."
-      },
-      {
-        "text": "Wpisz numer i Enter, a q kończy grę."
+        "text": "Wrocławianie od wieków opowiadają, czyja to twarz i dlaczego nie może się stamtąd ruszyć.",
+        "audio_url": "/audio/kamienna-glowa/intro-2.mp3"
       }
     ]
   },
@@ -694,10 +694,12 @@
       "title": "Warsztat złotnika",
       "scene": [
         {
-          "text": "Jesteś czeladnikiem w warsztacie jednego z najpotężniejszych wrocławskich złotników. Córka mistrza mogłaby poślubić każdego patrycjusza w mieście, lecz ku twojemu zdumieniu i radości, to właśnie na ciebie patrzy z czułością, którą odwzajemniasz."
+          "text": "Jesteś czeladnikiem w warsztacie jednego z najpotężniejszych wrocławskich złotników. Córka mistrza mogłaby poślubić każdego patrycjusza w mieście, lecz ku twojemu zdumieniu i radości, to właśnie na ciebie patrzy z czułością, którą odwzajemniasz.",
+          "audio_url": "/audio/kamienna-glowa/warsztat-1.mp3"
         },
         {
-          "text": "Mistrz nie wie o niczym i nie byłby zadowolony z jej wyboru. W warsztacie pracuje obok ciebie jeszcze jeden czeladnik, który też często zerka w stronę mistrzowskiego domu."
+          "text": "Mistrz nie wie o niczym i nie byłby zadowolony z jej wyboru. W warsztacie pracuje obok ciebie jeszcze jeden czeladnik, który też często zerka w stronę mistrzowskiego domu.",
+          "audio_url": "/audio/kamienna-glowa/warsztat-2.mp3"
         }
       ],
       "options": [
@@ -710,7 +712,8 @@
           "next": "ogrod",
           "result": [
             {
-              "text": "Całą noc pracujesz w tajemnicy przed mistrzem. Gdy nad ranem pierścień jest wreszcie gotowy i jej go wręczasz, ona w zamian obdarowuje cię własnoręcznie wyhaftowaną chustką."
+              "text": "Całą noc pracujesz w tajemnicy przed mistrzem. Gdy nad ranem pierścień jest wreszcie gotowy i jej go wręczasz, ona w zamian obdarowuje cię własnoręcznie wyhaftowaną chustką.",
+              "audio_url": "/audio/kamienna-glowa/warsztat-o1-1.mp3"
             }
           ]
         },
@@ -723,7 +726,8 @@
           "next": "mistrz",
           "result": [
             {
-              "text": "Zbierasz się na odwagę i stajesz przed mistrzem. Serce wali ci tak, że ledwie słyszysz własne słówa."
+              "text": "Zbierasz się na odwagę i stajesz przed mistrzem. Serce wali ci tak, że ledwie słyszysz własne słowa.",
+              "audio_url": "/audio/kamienna-glowa/warsztat-o2-1.mp3"
             }
           ]
         },
@@ -736,7 +740,8 @@
           "next": "kolega",
           "result": [
             {
-              "text": "Siadacie razem przy warsztacie. Szybko orientujesz się, że drugi czeladnik od dawna wzdycha do córki mistrza i z rosnącą podejrzliwością wypytuje, gdzie spędzasz wieczory."
+              "text": "Siadacie razem przy warsztacie. Szybko orientujesz się, że drugi czeladnik od dawna wzdycha do córki mistrza i z rosnącą podejrzliwością wypytuje, gdzie spędzasz wieczory.",
+              "audio_url": "/audio/kamienna-glowa/warsztat-o3-1.mp3"
             }
           ]
         }
@@ -747,10 +752,12 @@
       "title": "Schadzki w ogrodzie",
       "scene": [
         {
-          "text": "Wieczorami wymykacie się do ogrodu, podczas gdy opiekunka dziewczyny dba o to, by nikt was nie nakrył. Srebrny pierścień lśni na jej dłoni, a schowana przy tobie chustka pachnie lawendą. "
+          "text": "Wieczorami wymykacie się do ogrodu, podczas gdy opiekunka dziewczyny dba o to, by nikt was nie nakrył. Srebrny pierścień lśni na jej dłoni, a schowana przy tobie chustka pachnie lawendą. ",
+          "audio_url": "/audio/kamienna-glowa/ogrod-1.mp3"
         },
         {
-          "text": "Wiesz jednak, że stąpacie po kruchym lodzie - wasz sekret znają tylko zaufana piastunka oraz ten drugi, uważnie obserwujący cię czeladnik."
+          "text": "Wiesz jednak, że stąpacie po kruchym lodzie - wasz sekret znają tylko zaufana piastunka oraz ten drugi, uważnie obserwujący cię czeladnik.",
+          "audio_url": "/audio/kamienna-glowa/ogrod-2.mp3"
         }
       ],
       "options": [
@@ -763,10 +770,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "Pilnujesz się na każdym kroku, lecz zazdrosny czeladnik od dawna patrzył i w końcu zdradza wasz sekret mistrzowi."
+              "text": "Pilnujesz się na każdym kroku, lecz zazdrosny czeladnik od dawna patrzył i w końcu zdradza wasz sekret mistrzowi.",
+              "audio_url": "/audio/kamienna-glowa/ogrod-o1-1.mp3"
             },
             {
-              "text": "Tego samego wieczoru złotnik osobiście zakrada się do ogrodu. Gdy was nakrywa, wpada w furię, wyrzuca cię za bramę. Córce zapowiada zaś, że nie opuści domu bez straży aż do dnia, w którym on sam wybierze jej męża."
+              "text": "Tego samego wieczoru złotnik osobiście zakrada się do ogrodu. Gdy was nakrywa, wpada w furię, wyrzuca cię za bramę. Córce zapowiada zaś, że nie opuści domu bez straży aż do dnia, w którym on sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/ogrod-o1-2.mp3"
             }
           ]
         },
@@ -779,10 +788,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "Naiwnie ufasz rywalowi i zdradzasz mu swój sekret. Ten z fałszywym uśmiechem natychmiast wydaje cię mistrzowi."
+              "text": "Naiwnie ufasz rywalowi i zdradzasz mu swój sekret. Ten z fałszywym uśmiechem natychmiast wydaje cię mistrzowi.",
+              "audio_url": "/audio/kamienna-glowa/ogrod-o2-1.mp3"
             },
             {
-              "text": "Wieczorem wściekły złotnik osobiście wkracza do ogrodu. Z krzykiem i laską w dłoni wyrzuca cię z domu. Córce grozi strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Wieczorem wściekły złotnik osobiście wkracza do ogrodu. Z krzykiem i laską w dłoni wyrzuca cię z domu. Córce grozi strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/ogrod-o2-2.mp3"
             }
           ]
         },
@@ -795,10 +806,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "List wpada w ręce zazdrosnego czeladnika, który zamiast przekazać go adresatce, zanosi go prosto do mistrza."
+              "text": "List wpada w ręce zazdrosnego czeladnika, który zamiast przekazać go adresatce, zanosi go prosto do mistrza.",
+              "audio_url": "/audio/kamienna-glowa/ogrod-o3-1.mp3"
             },
             {
-              "text": "Wieczorem wściekły złotnik osobiście wkracza do ogrodu. Z krzykiem i laską w dłoni wyrzuca cię z domu. Córce grozi strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Wieczorem wściekły złotnik osobiście wkracza do ogrodu. Z krzykiem i laską w dłoni wyrzuca cię z domu. Córce grozi strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/ogrod-o3-2.mp3"
             }
           ]
         }
@@ -809,10 +822,12 @@
       "title": "Rozmowa z mistrzem",
       "scene": [
         {
-          "text": "Mistrz słucha w milczeniu, a jego twarz niebezpiecznie ciemnieje z gniewu. Za drzwiami słychać cichy szmer – to drugi czeladnik, który podsłuchuje z wyraźnym zadowoleniem."
+          "text": "Mistrz słucha w milczeniu, a jego twarz niebezpiecznie ciemnieje z gniewu. Za drzwiami słychać cichy szmer – to drugi czeladnik, który podsłuchuje z wyraźnym zadowoleniem.",
+          "audio_url": "/audio/kamienna-glowa/mistrz-1.mp3"
         },
         {
-          "text": "– Ty? Nędzny czeladnik ośmiela się prosić o rękę mojej córki?! – grzmi pryncypał, a jego dłoń gwałtownie zaciska się na rękojeści ciężkiej laski."
+          "text": "– Ty? Nędzny czeladnik ośmiela się prosić o rękę mojej córki?! – grzmi pryncypał, a jego dłoń gwałtownie zaciska się na rękojeści ciężkiej laski.",
+          "audio_url": "/audio/kamienna-glowa/mistrz-2.mp3"
         }
       ],
       "options": [
@@ -825,10 +840,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "— Kocham ją i nie ustąpię — mówisz. Mistrz wymachuje laską i wyprasza cię z domu, wrzeszcząc."
+              "text": "— Kocham ją i nie ustąpię — mówisz. Mistrz wymachuje laską i wyprasza cię z domu, wrzeszcząc.",
+              "audio_url": "/audio/kamienna-glowa/mistrz-o1-1.mp3"
             },
             {
-              "text": "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/mistrz-o1-2.mp3"
             }
           ]
         },
@@ -841,10 +858,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "— Czas? Ona ma męża wtedy, kiedy ja zdecyduję! — krzyczy mistrz i przegania cię laską."
+              "text": "— Czas? Ona ma męża wtedy, kiedy ja zdecyduję! — krzyczy mistrz i przegania cię laską.",
+              "audio_url": "/audio/kamienna-glowa/mistrz-o2-1.mp3"
             },
             {
-              "text": "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/mistrz-o2-2.mp3"
             }
           ]
         },
@@ -857,10 +876,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "Mistrz robi się purpurowy. Biegnie do ogrodu, wymachując laską, a ciebie przegania z domu, zanim zdążysz cokolwiek dodać."
+              "text": "Mistrz robi się purpurowy. Biegnie do ogrodu, wymachując laską, a ciebie przegania z domu, zanim zdążysz cokolwiek dodać.",
+              "audio_url": "/audio/kamienna-glowa/mistrz-o3-1.mp3"
             },
             {
-              "text": "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/mistrz-o3-2.mp3"
             }
           ]
         }
@@ -871,7 +892,8 @@
       "title": "Zazdrosny przyjaciel",
       "scene": [
         {
-          "text": "– Wymykasz się dokądś po zmroku, prawda? – pyta twój rywal, a na jego twarz wypełza nieszczery, lodowaty uśmiech, podczas gdy oczy pozostają czujne. – Nie musisz się ukrywać, przecież mnie możesz zaufać."
+          "text": "– Wymykasz się dokądś po zmroku, prawda? – pyta twój rywal, a na jego twarz wypełza nieszczery, lodowaty uśmiech, podczas gdy oczy pozostają czujne. – Nie musisz się ukrywać, przecież mnie możesz zaufać.",
+          "audio_url": "/audio/kamienna-glowa/kolega-1.mp3"
         }
       ],
       "options": [
@@ -884,10 +906,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "Śmiejesz się i zmieniasz temat. Czeladnik jednak nie daje za wygraną i cierpliwie czeka na dogodną okazję. Pewnego wieczoru śledzi cię aż do ogrodu, po czym natychmiast sprowadza mistrza."
+              "text": "Śmiejesz się i zmieniasz temat. Czeladnik jednak nie daje za wygraną i cierpliwie czeka na dogodną okazję. Pewnego wieczoru śledzi cię aż do ogrodu, po czym natychmiast sprowadza mistrza.",
+              "audio_url": "/audio/kamienna-glowa/kolega-o1-1.mp3"
             },
             {
-              "text": "Mistrz wrzeszczy i wymachując laską przegania cię z ogrodu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Mistrz wrzeszczy i wymachując laską przegania cię z ogrodu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/kolega-o1-2.mp3"
             }
           ]
         },
@@ -900,10 +924,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "Mówisz wszystko, bo uważasz go za przyjaciela. Czeladnik kiwa głową i tego samego dnia idzie do mistrza."
+              "text": "Mówisz wszystko, bo uważasz go za przyjaciela. Czeladnik kiwa głową i tego samego dnia idzie do mistrza.",
+              "audio_url": "/audio/kamienna-glowa/kolega-o2-1.mp3"
             },
             {
-              "text": "Mistrz wrzeszczy i wymachując laską przegania cię z domu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Mistrz wrzeszczy i wymachując laską przegania cię z domu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/kolega-o2-2.mp3"
             }
           ]
         },
@@ -916,10 +942,12 @@
           "next": "przysiega",
           "result": [
             {
-              "text": "Poniesiony gniewem tracisz nad sobą kontrolę i w kłótni wykrzykujesz o wiele więcej, niż zamierzałeś. Twój rywal z satysfakcją łowi każde nierozważne słowo, a zanim zdążysz ochłonąć i pożałować swojej porywczości, mistrz już zna wasz sekret."
+              "text": "Poniesiony gniewem tracisz nad sobą kontrolę i w kłótni wykrzykujesz o wiele więcej, niż zamierzałeś. Twój rywal z satysfakcją łowi każde nierozważne słowo, a zanim zdążysz ochłonąć i pożałować swojej porywczości, mistrz już zna wasz sekret.",
+              "audio_url": "/audio/kamienna-glowa/kolega-o3-1.mp3"
             },
             {
-              "text": "Mistrz wrzeszczy i wymachując laską przegania cię z domu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża."
+              "text": "Mistrz wrzeszczy i wymachując laską przegania cię z domu. Córkę zamyka pod strażą aż do dnia, w którym sam wybierze jej męża.",
+              "audio_url": "/audio/kamienna-glowa/kolega-o3-2.mp3"
             }
           ]
         }
@@ -933,7 +961,8 @@
       "title": "Przysięga",
       "scene": [
         {
-          "text": "Stajesz na środku mostu. To tędy opuszcza się miasto. Po raz ostatni patrzysz na Wrocław, zanim na zawsze zniknie ci z oczu za zakrętem rzeki."
+          "text": "Stajesz na środku mostu. To tędy opuszcza się miasto. Po raz ostatni patrzysz na Wrocław, zanim na zawsze zniknie ci z oczu za zakrętem rzeki.",
+          "audio_url": "/audio/kamienna-glowa/przysiega-1.mp3"
         },
         [
           {
@@ -942,7 +971,8 @@
                 "pierscien"
               ]
             },
-            "text": "Wiesz, że w tamtym ogrodzie na zawsze zostało twoje szczęście i ukochana z pierścieniem na palcu. Tobie na pamiątkę została jedynie schowana w kieszeni chustka."
+            "text": "Wiesz, że w tamtym ogrodzie na zawsze zostało twoje szczęście i ukochana z pierścieniem na palcu. Tobie na pamiątkę została jedynie schowana w kieszeni chustka.",
+            "audio_url": "/audio/kamienna-glowa/przysiega-2-pierscien.mp3"
           },
           {
             "if": {
@@ -950,7 +980,8 @@
                 "prosba"
               ]
             },
-            "text": "Wiesz, że mistrz nigdy ci nie wybaczy, że ubogi czeladnik śmiał prosić o jego córkę."
+            "text": "Wiesz, że mistrz nigdy ci nie wybaczy, że ubogi czeladnik śmiał prosić o jego córkę.",
+            "audio_url": "/audio/kamienna-glowa/przysiega-2-prosba.mp3"
           },
           {
             "if": {
@@ -958,11 +989,13 @@
                 "zazdrosc"
               ]
             },
-            "text": "Świadomość, że wydał cię człowiek, którego uważałeś za przyjaciela, dodaje tej porażce jedynie goryczy."
+            "text": "Świadomość, że wydał cię człowiek, którego uważałeś za przyjaciela, dodaje tej porażce jedynie goryczy.",
+            "audio_url": "/audio/kamienna-glowa/przysiega-2-zazdrosc.mp3"
           }
         ],
         {
-          "text": "Opuszczasz miasto, uciekając przed groźbami mistrza. Jednak zanim za tobą zniknie ostatni wrocławski dach, musisz złożyć sobie obietnicę."
+          "text": "Opuszczasz miasto, uciekając przed groźbami mistrza. Jednak zanim za tobą zniknie ostatni wrocławski dach, musisz złożyć sobie obietnicę.",
+          "audio_url": "/audio/kamienna-glowa/przysiega-3.mp3"
         }
       ],
       "options": [
@@ -975,10 +1008,12 @@
           "next": "szlak",
           "result": [
             {
-              "text": " – Wrócę bogaty – mówisz cicho do rzeki. – Tak bogaty, że mistrz sam poprosi mnie o jej rękę."
+              "text": " – Wrócę bogaty – mówisz cicho do rzeki. – Tak bogaty, że mistrz sam poprosi mnie o jej rękę.",
+              "audio_url": "/audio/kamienna-glowa/przysiega-o1-1.mp3"
             },
             {
-              "text": "Odwracasz się i odchodzisz z miasta. Nie masz przy sobie ani uncji złota, ale masz jasny cel."
+              "text": "Odwracasz się i odchodzisz z miasta. Nie masz przy sobie ani uncji złota, ale masz jasny cel.",
+              "audio_url": "/audio/kamienna-glowa/przysiega-o1-2.mp3"
             }
           ]
         },
@@ -991,10 +1026,12 @@
           "next": "szlak",
           "result": [
             {
-              "text": "— Obaj tego pożałują — szepczysz, zaciskając pięści na poręczy mostu."
+              "text": "— Obaj tego pożałują — szepczysz, zaciskając pięści na poręczy mostu.",
+              "audio_url": "/audio/kamienna-glowa/przysiega-o2-1.mp3"
             },
             {
-              "text": "Odwracasz się i odchodzisz z miasta. Nie masz przy sobie ani uncji złota, ale masz jasny cel."
+              "text": "Odwracasz się i odchodzisz z miasta. Nie masz przy sobie ani uncji złota, ale masz jasny cel.",
+              "audio_url": "/audio/kamienna-glowa/przysiega-o2-2.mp3"
             }
           ]
         },
@@ -1007,10 +1044,12 @@
           "next": "szlak",
           "result": [
             {
-              "text": "Nie składasz żadnych przysiąg. Rzucasz miastu ostatnie spojrzenie i odwracasz się w stronę drogi."
+              "text": "Nie składasz żadnych przysiąg. Rzucasz miastu ostatnie spojrzenie i odwracasz się w stronę drogi.",
+              "audio_url": "/audio/kamienna-glowa/przysiega-o3-1.mp3"
             },
             {
-              "text": "Odchodzisz z Wrocławia w milczeniu – nie masz ani uncji złota, ani jasnego celu, a twoim jedynym majątkiem jest ukryta w kieszeni chustka"
+              "text": "Odchodzisz z Wrocławia w milczeniu – nie masz ani uncji złota, ani jasnego celu, a twoim jedynym majątkiem jest ukryta w kieszeni chustka.",
+              "audio_url": "/audio/kamienna-glowa/przysiega-o3-2.mp3"
             }
           ]
         }
@@ -1027,10 +1066,12 @@
       ],
       "scene": [
         {
-          "text": "Przez długie miesiące tułasz się po okolicznych miasteczkach i wsiach. Nikt nie ufa przybyszowi znikąd, więc nikt nie chce dać ci pracy. Zbliża się sroga zima, a ty wciąż nie masz dachu nad głową."
+          "text": "Przez długie miesiące tułasz się po okolicznych miasteczkach i wsiach. Nikt nie ufa przybyszowi znikąd, więc nikt nie chce dać ci pracy. Zbliża się sroga zima, a ty wciąż nie masz dachu nad głową.",
+          "audio_url": "/audio/kamienna-glowa/szlak-1.mp3"
         },
         {
-          "text": "Wtedy właśnie na twojej drodze staje banda zbójców. Nie masz przy sobie absolutnie niczego, czym mógłbyś okupić swoje życie. Twój los wisi na włosku: mogą cię zabić na miejscu albo przyjąć do swojej watahy"
+          "text": "Wtedy właśnie na twojej drodze staje banda zbójców. Nie masz przy sobie absolutnie niczego, czym mógłbyś okupić swoje życie. Twój los wisi na włosku: mogą cię zabić na miejscu albo przyjąć do swojej watahy.",
+          "audio_url": "/audio/kamienna-glowa/szlak-2.mp3"
         }
       ],
       "options": [
@@ -1043,10 +1084,12 @@
           "next": "powrot",
           "result": [
             {
-              "text": "Dołączasz do bandy. Napadasz na podróżnych kupców i wieśniaków niosących sakwy ze złotem, a przed snem powtarzasz sobie: to wszystko dla niej."
+              "text": "Dołączasz do bandy. Napadasz na podróżnych kupców i wieśniaków niosących sakwy ze złotem, a przed snem powtarzasz sobie: to wszystko dla niej.",
+              "audio_url": "/audio/kamienna-glowa/szlak-o1-1.mp3"
             },
             {
-              "text": "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi."
+              "text": "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi.",
+              "audio_url": "/audio/kamienna-glowa/szlak-o1-2.mp3"
             }
           ]
         },
@@ -1059,10 +1102,12 @@
           "next": "powrot",
           "result": [
             {
-              "text": "— Do wiosny — mówisz. Ale wiosną łup jest zbyt dobry, a drogi powrotnej nie ma."
+              "text": "— Do wiosny — mówisz. Ale wiosną łup jest zbyt dobry, a drogi powrotnej nie ma.",
+              "audio_url": "/audio/kamienna-glowa/szlak-o2-1.mp3"
             },
             {
-              "text": "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi."
+              "text": "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi.",
+              "audio_url": "/audio/kamienna-glowa/szlak-o2-2.mp3"
             }
           ]
         },
@@ -1075,10 +1120,12 @@
           "next": "powrot",
           "result": [
             {
-              "text": "Nie zostawiasz świadków, nie okazujesz litości, dlatego bandyci szybko zaczynają cię słuchać."
+              "text": "Nie zostawiasz świadków, nie okazujesz litości, dlatego bandyci szybko zaczynają cię słuchać.",
+              "audio_url": "/audio/kamienna-glowa/szlak-o3-1.mp3"
             },
             {
-              "text": "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi."
+              "text": "Obiecujesz Bogu, że gdy połączysz się z ukochaną, złożysz do kościoła ogromną ofiarę. Mijają lata, a imię rozbójnika powtarza się na całym szlaku z Wrocławia do Pragi.",
+              "audio_url": "/audio/kamienna-glowa/szlak-o3-2.mp3"
             }
           ]
         }
@@ -1092,7 +1139,8 @@
       "title": "Powrót",
       "scene": [
         {
-          "text": "Minęło kilkanaście lat. Zatrzymujesz się na Ostrowie Tumskim, w cieniu katedry. Bujna broda sprawia, że nikt w mieście cię nie poznaje. Jesteś teraz bezwzględnym przywódcą zbójeckiej bandy, a w twoich sakwach wreszcie ciąży upragnione złoto."
+          "text": "Minęło kilkanaście lat. Zatrzymujesz się na Ostrowie Tumskim, w cieniu katedry. Bujna broda sprawia, że nikt w mieście cię nie poznaje. Jesteś teraz bezwzględnym przywódcą zbójeckiej bandy, a w twoich sakwach wreszcie ciąży upragnione złoto.",
+          "audio_url": "/audio/kamienna-glowa/powrot-1.mp3"
         },
         [
           {
@@ -1101,7 +1149,8 @@
                 "bogactwo"
               ]
             },
-            "text": "Przysiągłeś sobie kiedyś, że wrócisz tak bogaty, iż mistrz sam poprosi cię o poślubienie jego córki. Dziś masz w sakwach dość złota, żeby dosłownie kupić jej rękę."
+            "text": "Przysiągłeś sobie kiedyś, że wrócisz tak bogaty, iż mistrz sam poprosi cię o poślubienie jego córki. Dziś masz w sakwach dość złota, żeby dosłownie kupić jej rękę.",
+            "audio_url": "/audio/kamienna-glowa/powrot-2-bogactwo.mp3"
           },
           {
             "if": {
@@ -1109,7 +1158,8 @@
                 "zemsta"
               ]
             },
-            "text": "Przysiągłeś zemstę i nie zapomniałeś o niej ani na jeden dzień."
+            "text": "Przysiągłeś zemstę i nie zapomniałeś o niej ani na jeden dzień.",
+            "audio_url": "/audio/kamienna-glowa/powrot-2-zemsta.mp3"
           },
           {
             "if": {
@@ -1117,11 +1167,13 @@
                 "cisza"
               ]
             },
-            "text": "Wróciłeś, sam do końca nie wiedząc po co: może szukasz odkupienia win, a może po prostu chcesz jeszcze raz ujrzeć jej twarz."
+            "text": "Wróciłeś, sam do końca nie wiedząc po co: może szukasz odkupienia win, a może po prostu chcesz jeszcze raz ujrzeć jej twarz.",
+            "audio_url": "/audio/kamienna-glowa/powrot-2-cisza.mp3"
           }
         ],
         {
-          "text": "Mistrz wciąż mieszka w swojej kamienicy na Rynku, ale to katedra wznosi się tuż przed tobą, a przecież obiecałeś Bogu złożyć ofiarę za swoje czyny."
+          "text": "Mistrz wciąż mieszka w swojej kamienicy na Rynku, ale to katedra wznosi się tuż przed tobą, a przecież obiecałeś Bogu złożyć ofiarę za swoje czyny.",
+          "audio_url": "/audio/kamienna-glowa/powrot-3.mp3"
         }
       ],
       "options": [
@@ -1134,7 +1186,8 @@
           "next": "odmowa",
           "result": [
             {
-              "text": "Zostawiasz katedrę za plecami i idziesz na Rynek. Stajesz przed dawnym mistrzem i oznajmiasz, że jesteś tym samym chłopcem, którego przed laty przegnał."
+              "text": "Zostawiasz katedrę za plecami i idziesz na Rynek. Stajesz przed dawnym mistrzem i oznajmiasz, że jesteś tym samym chłopcem, którego przed laty przegnał.",
+              "audio_url": "/audio/kamienna-glowa/powrot-o1-1.mp3"
             }
           ]
         },
@@ -1147,7 +1200,8 @@
           "next": "ofiara",
           "result": [
             {
-              "text": "Wchodzisz do katedry z sakwami. Zatrzymuje cię ksiądz, zaciekawiony ciężarem."
+              "text": "Wchodzisz do katedry z sakwami. Zatrzymuje cię ksiądz, zaciekawiony ciężarem.",
+              "audio_url": "/audio/kamienna-glowa/powrot-o2-1.mp3"
             }
           ]
         },
@@ -1160,7 +1214,8 @@
           "next": "rozmowa",
           "result": [
             {
-              "text": "Idziesz na Rynek i zatrzymujesz się przy znajomym ogrodzie. Czekasz tam do wieczora, zupełnie jak za dawnych lat, kiedy oboje musieliście ukrywać się przed światem."
+              "text": "Idziesz na Rynek i zatrzymujesz się przy znajomym ogrodzie. Czekasz tam do wieczora, zupełnie jak za dawnych lat, kiedy oboje musieliście ukrywać się przed światem.",
+              "audio_url": "/audio/kamienna-glowa/powrot-o3-1.mp3"
             }
           ]
         }
@@ -1171,10 +1226,12 @@
       "title": "Odmowa",
       "scene": [
         {
-          "text": "Mistrz, całkowicie zaślepiony widokiem złota, sam biegnie po córkę do jej pokoju. Ona jednak słyszała waszą rozmowę, a gdy uświadamia sobie, skąd pochodzi ten majątek, patrzy na ciebie z odrazą."
+          "text": "Mistrz, całkowicie zaślepiony widokiem złota, sam biegnie po córkę do jej pokoju. Ona jednak słyszała waszą rozmowę, a gdy uświadamia sobie, skąd pochodzi ten majątek, patrzy na ciebie z odrazą.",
+          "audio_url": "/audio/kamienna-glowa/odmowa-1.mp3"
         },
         {
-          "text": "– Nie chcę ani ciebie, ani bogactwa zrabowanego innym – mówi twardo. Nie potrafisz przyjąć tej odmowy. Wpadając w gniew, zrzucasz całą winę na dawnego pryncypała i warczysz w jego stronę: – Jeszcze pożałujesz swojej decyzji sprzed lat!"
+          "text": "– Nie chcę ani ciebie, ani bogactwa zrabowanego innym – mówi twardo. Nie potrafisz przyjąć tej odmowy. Wpadając w gniew, zrzucasz całą winę na dawnego pryncypała i warczysz w jego stronę: – Jeszcze pożałujesz swojej decyzji sprzed lat!",
+          "audio_url": "/audio/kamienna-glowa/odmowa-2.mp3"
         }
       ],
       "options": [
@@ -1187,13 +1244,16 @@
           "next": null,
           "result": [
             {
-              "text": "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry."
+              "text": "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry.",
+              "audio_url": "/audio/kamienna-glowa/odmowa-o1-1.mp3"
             },
             {
-              "text": "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej."
+              "text": "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej.",
+              "audio_url": "/audio/kamienna-glowa/odmowa-o1-2.mp3"
             },
             {
-              "text": "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze."
+              "text": "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze.",
+              "audio_url": "/audio/kamienna-glowa/odmowa-o1-3.mp3"
             }
           ]
         },
@@ -1206,7 +1266,8 @@
           "next": null,
           "result": [
             {
-              "text": "Kłaniasz się mistrzowi, odwracasz się i wychodzisz z kamienicy. Nikt nie próbuje cię zatrzymać."
+              "text": "Kłaniasz się mistrzowi, odwracasz się i wychodzisz z kamienicy. Nikt nie próbuje cię zatrzymać.",
+              "audio_url": "/audio/kamienna-glowa/odmowa-o2-1.mp3"
             }
           ]
         },
@@ -1219,7 +1280,8 @@
           "next": null,
           "result": [
             {
-              "text": "Wysypujesz całe przyniesione złoto na stół i z ciężkim westchnieniem padasz na kolana. Ona milczy, a dawny mistrz patrzy na ciebie z nieukrywaną zgrozą."
+              "text": "Wysypujesz całe przyniesione złoto na stół i z ciężkim westchnieniem padasz na kolana. Ona milczy, a dawny mistrz patrzy na ciebie z nieukrywaną zgrozą.",
+              "audio_url": "/audio/kamienna-glowa/odmowa-o3-1.mp3"
             }
           ]
         }
@@ -1230,10 +1292,12 @@
       "title": "Ofiara",
       "scene": [
         {
-          "text": "Składasz w katedrze zrabowane złoto. Ksiądz długo przygląda się sakwom, a potem odsuwa je od siebie. — Takiej ofiary Bóg nie przyjmie — mówi cicho. — Na tym złocie nadal schnie cudza krew."
+          "text": "Składasz w katedrze zrabowane złoto. Ksiądz długo przygląda się sakwom, a potem odsuwa je od siebie. — Takiej ofiary Bóg nie przyjmie — mówi cicho. — Na tym złocie nadal schnie cudza krew.",
+          "audio_url": "/audio/kamienna-glowa/ofiara-1.mp3"
         },
         {
-          "text": "Wychodzisz na plac. Złoto ciąży ci bardziej niż przedtem."
+          "text": "Wychodzisz na plac. Złoto ciąży ci bardziej niż przedtem.",
+          "audio_url": "/audio/kamienna-glowa/ofiara-2.mp3"
         }
       ],
       "options": [
@@ -1246,16 +1310,20 @@
           "next": null,
           "result": [
             {
-              "text": "Mistrz i jego córka odmawiają ci, wiedząc, skąd masz złoto. Zaślepiony, nie wybaczasz."
+              "text": "Mistrz i jego córka odmawiają ci, wiedząc, skąd masz złoto. Zaślepiony, nie wybaczasz.",
+              "audio_url": "/audio/kamienna-glowa/ofiara-o1-1.mp3"
             },
             {
-              "text": "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry."
+              "text": "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry.",
+              "audio_url": "/audio/kamienna-glowa/ofiara-o1-2.mp3"
             },
             {
-              "text": "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej."
+              "text": "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej.",
+              "audio_url": "/audio/kamienna-glowa/ofiara-o1-3.mp3"
             },
             {
-              "text": "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze."
+              "text": "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze.",
+              "audio_url": "/audio/kamienna-glowa/ofiara-o1-4.mp3"
             }
           ]
         },
@@ -1268,7 +1336,8 @@
           "next": null,
           "result": [
             {
-              "text": "Klękasz, wyznajesz wszystko i sam prosisz o to, żeby wezwano straż miejską."
+              "text": "Klękasz, wyznajesz wszystko i sam prosisz o to, żeby wezwano straż miejską.",
+              "audio_url": "/audio/kamienna-glowa/ofiara-o2-1.mp3"
             }
           ]
         },
@@ -1281,7 +1350,8 @@
           "next": null,
           "result": [
             {
-              "text": "Zdejmujesz płaszcz herszta i prosisz o miejsce przy klasztornej furcie."
+              "text": "Zdejmujesz płaszcz herszta i prosisz o miejsce przy klasztornej furcie.",
+              "audio_url": "/audio/kamienna-glowa/ofiara-o3-1.mp3"
             }
           ]
         }
@@ -1292,13 +1362,16 @@
       "title": "Wieczór w ogrodzie",
       "scene": [
         {
-          "text": "Z domu wychodzi ona. Jest widocznie starsza, ale od razu poznaje twoje spojrzenie, kiedy wyciągasz z kieszeni starą, wyhaftowaną chustkę. Przez krótką chwilę znów dostrzegasz w niej tamtą dziewczynę sprzed lat"
+          "text": "Z domu wychodzi ona. Jest widocznie starsza, ale od razu poznaje twoje spojrzenie, kiedy wyciągasz z kieszeni starą, wyhaftowaną chustkę. Przez krótką chwilę znów dostrzegasz w niej tamtą dziewczynę sprzed lat.",
+          "audio_url": "/audio/kamienna-glowa/rozmowa-1.mp3"
         },
         {
-          "text": "Zaraz potem jednak mruży podejrzliwie oczy. – To ty jesteś tym zbójem z gościńca do Pragi? – pyta chłodno."
+          "text": "Zaraz potem jednak mruży podejrzliwie oczy. – To ty jesteś tym zbójem z gościńca do Pragi? – pyta chłodno.",
+          "audio_url": "/audio/kamienna-glowa/rozmowa-2.mp3"
         },
         {
-          "text": "– Cały Wrocław o tobie słyszał."
+          "text": "– Cały Wrocław o tobie słyszał.",
+          "audio_url": "/audio/kamienna-glowa/rozmowa-3.mp3"
         }
       ],
       "options": [
@@ -1311,16 +1384,20 @@
           "next": null,
           "result": [
             {
-              "text": "Odsuwa się od ciebie z odrazą. W tej chwili zrozumiałeś, że nie odzyskasz niczego, co straciłeś."
+              "text": "Odsuwa się od ciebie z odrazą. W tej chwili zrozumiałeś, że nie odzyskasz niczego, co straciłeś.",
+              "audio_url": "/audio/kamienna-glowa/rozmowa-o1-1.mp3"
             },
             {
-              "text": "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry."
+              "text": "Tej samej nocy podkładasz ogień pod jego kamienicę na Rynku. Płomienie pną się po ścianach, a ty biegniesz przez Most Piaskowy na Ostrów Tumski i wspinasz się na wieżę katedry.",
+              "audio_url": "/audio/kamienna-glowa/rozmowa-o1-2.mp3"
             },
             {
-              "text": "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej."
+              "text": "Wychylasz się przez małe okienko i patrzysz na pożar. Kamienica spłonie prawie cała. Zadowolony chcesz się cofnąć, ale głowa nie ruszy się z miejsca. Mur zaciska się wokół niej coraz mocniej.",
+              "audio_url": "/audio/kamienna-glowa/rozmowa-o1-3.mp3"
             },
             {
-              "text": "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze."
+              "text": "Szarpiesz się i krzyczysz, ale szczelina okienka nie chce cię wypuścić. Zostajesz tam na zawsze.",
+              "audio_url": "/audio/kamienna-glowa/rozmowa-o1-4.mp3"
             }
           ]
         },
@@ -1333,7 +1410,8 @@
           "next": null,
           "result": [
             {
-              "text": "Chowasz chustkę, kiwasz głową w ciemności i znikasz w uliczkach, zanim zdąży zawołać straż."
+              "text": "Chowasz chustkę, kiwasz głową w ciemności i znikasz w uliczkach, zanim zdąży zawołać straż.",
+              "audio_url": "/audio/kamienna-glowa/rozmowa-o2-1.mp3"
             }
           ]
         },
@@ -1346,7 +1424,8 @@
           "next": null,
           "result": [
             {
-              "text": "Mówisz cicho i długo. Ona nie odpowiada, tylko patrzy, a potem zamyka furtkę."
+              "text": "Mówisz cicho i długo. Ona nie odpowiada, tylko patrzy, a potem zamyka furtkę.",
+              "audio_url": "/audio/kamienna-glowa/rozmowa-o3-1.mp3"
             }
           ]
         }
@@ -1362,7 +1441,8 @@
       "title": "Kamienna głowa",
       "paragraphs": [
         {
-          "text": "Wrocławianie powtarzają, że do dziś w katedralnej wieży widać twarz zbójnika wpatrzonego w ogień, który sam podłożył. Jego skamieniała głowa pozostała tam na zawsze, służąc jako przestroga dla wszystkich, którzy w imię miłości gotowi są krzywdzić innych."
+          "text": "Wrocławianie powtarzają, że do dziś w katedralnej wieży widać twarz zbójnika wpatrzonego w ogień, który sam podłożył. Jego skamieniała głowa pozostała tam na zawsze, służąc jako przestroga dla wszystkich, którzy w imię miłości gotowi są krzywdzić innych.",
+          "audio_url": "/audio/kamienna-glowa/koniec-glowa-1.mp3"
         }
       ]
     },
@@ -1370,7 +1450,8 @@
       "title": "Pusta droga",
       "paragraphs": [
         {
-          "text": "Odchodzisz z Wrocławia tak samo cicho, jak do niego wróciłeś. Nikt nie wie, dokąd ostatecznie udał się słynny zbój z bujną brodą, a w oknie wieży katedry nie ma żadnej skamieniałej twarzy."
+          "text": "Odchodzisz z Wrocławia tak samo cicho, jak do niego wróciłeś. Nikt nie wie, dokąd ostatecznie udał się słynny zbój z bujną brodą, a w oknie wieży katedry nie ma żadnej skamieniałej twarzy.",
+          "audio_url": "/audio/kamienna-glowa/koniec-odejscie-1.mp3"
         }
       ]
     },
@@ -1378,7 +1459,8 @@
       "title": "Ofiara bez przebaczenia",
       "paragraphs": [
         {
-          "text": "Mistrz nie przyjmuje twojego złota, a ona nie przyjmuje ciebie. Złoto trafia w końcu do kościoła, ale w kronikach nikt nie zapisał, czy Bóg je przyjął."
+          "text": "Mistrz nie przyjmuje twojego złota, a ona nie przyjmuje ciebie. Złoto trafia w końcu do kościoła, ale w kronikach nikt nie zapisał, czy Bóg je przyjął.",
+          "audio_url": "/audio/kamienna-glowa/koniec-ofiara-1.mp3"
         }
       ]
     },
@@ -1386,7 +1468,8 @@
       "title": "Wyrok sprawiedliwości",
       "paragraphs": [
         {
-          "text": "Straż prowadzi cię na ratusz, a z gościńca do Pragi ludzie wreszcie mogą odetchnąć. Kamienna głowa w oknie wieży to tylko legenda: ty swoją karę odbyłeś zwyczajnie, jak każdy zbójca."
+          "text": "Straż prowadzi cię na ratusz, a z gościńca do Pragi ludzie wreszcie mogą odetchnąć. Kamienna głowa w oknie wieży to tylko legenda: ty swoją karę odbyłeś zwyczajnie, jak każdy zbójca.",
+          "audio_url": "/audio/kamienna-glowa/koniec-sad-1.mp3"
         }
       ]
     },
@@ -1394,7 +1477,8 @@
       "title": "Pokutnik z Ostrowa",
       "paragraphs": [
         {
-          "text": "Do końca życia pomagasz przy klasztornej furcie i nie wspominasz nikomu, kim byłeś. Ponoć w oknie wieży nigdy nie pojawiła się żadna głowa."
+          "text": "Do końca życia pomagasz przy klasztornej furcie i nie wspominasz nikomu, kim byłeś. Ponoć w oknie wieży nigdy nie pojawiła się żadna głowa.",
+          "audio_url": "/audio/kamienna-glowa/koniec-pokuta-1.mp3"
         }
       ]
     },
@@ -1402,7 +1486,8 @@
       "title": "Złoto na wietrze",
       "paragraphs": [
         {
-          "text": "Uciekasz z całym łupem, ale na gościńcu do Pragi czekają już na ciebie inni zbóje. Złoto, na które pracowałeś kilkanaście lat, rozchodzi się w kilka nocy."
+          "text": "Uciekasz z całym łupem, ale na gościńcu do Pragi czekają już na ciebie inni zbóje. Złoto, na które pracowałeś kilkanaście lat, rozchodzi się w kilka nocy.",
+          "audio_url": "/audio/kamienna-glowa/koniec-ucieczka-1.mp3"
         }
       ]
     }
@@ -1411,10 +1496,12 @@
     "act": "FAZA 4/4: GŁOWA W OKNIE",
     "paragraphs": [
       {
-        "text": "A teraz zadrzyj głowę i poszukaj wzrokiem okienka w wieży katedry. Według legendy tkwi w nim do dziś kamienna twarz, która patrzy w stronę Rynku."
+        "text": "A teraz zadrzyj głowę i poszukaj wzrokiem okienka w wieży katedry. Według legendy tkwi w nim do dziś kamienna twarz, która patrzy w stronę Rynku.",
+        "audio_url": "/audio/kamienna-glowa/finale-1.mp3"
       },
       {
-        "text": "Tak przez wieki patrzył na Wrocław zbójnik, który chciał kupić miłość."
+        "text": "Tak przez wieki patrzył na Wrocław zbójnik, który chciał kupić miłość.",
+        "audio_url": "/audio/kamienna-glowa/finale-2.mp3"
       }
     ]
   },
@@ -1422,10 +1509,12 @@
     "title": "Kim byli bohaterowie?",
     "paragraphs": [
       {
-        "text": "Legenda nie podaje imion. Był młody czeladnik bogatego złotnika, jego ukochana, córka mistrza, jej opiekunka i drugi czeladnik, który z zazdrości wydał sekret. Czeladnik został rozbójnikiem, a po latach wrócił do Wrocławia."
+        "text": "Legenda nie podaje imion. Był młody czeladnik bogatego złotnika, jego ukochana, córka mistrza, jej opiekunka i drugi czeladnik, który z zazdrości wydał sekret. Czeladnik został rozbójnikiem, a po latach wrócił do Wrocławia.",
+        "audio_url": "/audio/kamienna-glowa/reveal-1.mp3"
       },
       {
-        "text": "Wszyscy pochodzą z wrocławskiej legendy o kamiennej głowie, opowiadanej od pokoleń."
+        "text": "Wszyscy pochodzą z wrocławskiej legendy o kamiennej głowie, opowiadanej od pokoleń.",
+        "audio_url": "/audio/kamienna-glowa/reveal-2.mp3"
       }
     ]
   },
@@ -1452,9 +1541,11 @@
     }
   ],
   "heritage": {
-    "text": "Legendy żyją, dopóki ktoś je opowiada. Opowiedz tę komuś, kto stoi obok."
+    "text": "Legendy żyją, dopóki ktoś je opowiada. Opowiedz tę komuś, kto stoi obok.",
+    "audio_url": "/audio/kamienna-glowa/heritage.mp3"
   },
   "look_up": {
-    "text": "Wracając, spójrz jeszcze raz na wieże katedry: gdzieś w murze tkwi kamienna głowa. Poszukaj okienka, w którym według legendy utknął zbójnik."
+    "text": "Wracając, spójrz jeszcze raz na wieże katedry: gdzieś w murze tkwi kamienna głowa. Poszukaj okienka, w którym według legendy utknął zbójnik.",
+    "audio_url": "/audio/kamienna-glowa/look-up.mp3"
   }
 }

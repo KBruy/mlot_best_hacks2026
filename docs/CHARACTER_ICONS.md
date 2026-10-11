@@ -1,7 +1,8 @@
 # Grafiki postaci
 
 Grafiki postaci z legendy „Mostek Czarownic” (`content/legenda-czarownica.json`).
-Pliki leżą w `assets/<postać>/` jako PNG z przezroczystym tłem: Tekla w `assets/tekla/mloda/` i `assets/tekla/stara/`, postacie epizodyczne w `assets/inne/`.
+Pliki leżą płasko w `frontend/public/art/mostek-czarownic/` jako PNG z przezroczystym tłem; w historii są adresowane jako `/art/mostek-czarownic/<plik>.png`.
+Przypisanie do akapitów jest w JSON: `bg` sceny i zakończenia oraz `chars: {left, right}` akapitu (lewo = gracz, prawo = rozmówca). Brak klucza = postać bez zmian, `null` = postać schodzi.
 Kadr: pionowy 3:4, postać od bioder w górę.
 
 Kolumna „Scena” podaje id sceny z JSON. Jeśli poza dotyczy konkretnej opcji, opcja jest podana po dwukropku.
@@ -87,7 +88,7 @@ Kolumna „Scena” podaje id sceny z JSON. Jeśli poza dotyczy konkretnej opcji
 
 ## Tła
 
-Pliki leżą w `assets/tla/` jako PNG 1920x1072 (16:9). Środek dołu każdego tła jest pusty, bo tam stoi postać; na telefonie tło przycina się po bokach.
+Pliki leżą w `frontend/public/art/mostek-czarownic/` jako PNG 1920x1072 (16:9). Środek dołu każdego tła jest pusty, bo tam stoi postać; na telefonie tło przycina się po bokach.
 
 | Plik | Scena |
 |---|---|

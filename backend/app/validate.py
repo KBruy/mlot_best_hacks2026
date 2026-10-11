@@ -46,12 +46,23 @@ def check_graph(story: Story) -> list[str]:
 
     audio_prefix = f"/audio/{story.id}/"
     audio_texts: dict[str, str] = {}
+    art_prefix = f"/art/{story.id}/"
+
+    def check_art(url: str, where: str) -> None:
+        if not (url.startswith(art_prefix) and url.endswith((".png", ".webp"))):
+            errors.append(f"{where}: grafika {url!r} spoza {art_prefix}*.png|webp")
 
     def check_text(text: Text, where: str, spoken: bool = True) -> None:
         for variant in _variants(text):
             for key, allowed in variant.if_.items():
                 if key not in domains or not set(allowed) <= set(domains[key]):
                     errors.append(f"{where}: zły warunek {key}={allowed}")
+            if variant.chars is not None:
+                if not spoken:
+                    errors.append(f"{where}: tekst nie jest czytany, nie może zmieniać postaci")
+                for url in (variant.chars.left, variant.chars.right):
+                    if url is not None:
+                        check_art(url, where)
             url = variant.audio_url
             if url is None:
                 continue
@@ -89,6 +100,8 @@ def check_graph(story: Story) -> list[str]:
     for sid, scene in scenes.items():
         if scene.before is not None and scene.before not in story.stops:
             errors.append(f"Scena {sid!r}: nieznany przystanek {scene.before!r}")
+        if scene.bg is not None:
+            check_art(scene.bg, f"Scena {sid!r}")
         if not MIN_OPTIONS <= len(scene.options) <= MAX_OPTIONS:
             errors.append(
                 f"Scena {sid!r} ma {len(scene.options)} opcji"
@@ -110,6 +123,8 @@ def check_graph(story: Story) -> list[str]:
         if field not in domains:
             errors.append(f"ending_by: pole {field!r} spoza state")
     for key, ending in story.endings.items():
+        if ending.bg is not None:
+            check_art(ending.bg, f"Zakończenie {key!r}")
         for item in ending.paragraphs:
             check_text(item, f"Zakończenie {key!r}")
     if not any(r.min == 0 for r in story.ranks):
