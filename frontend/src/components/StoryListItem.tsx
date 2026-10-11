@@ -17,7 +17,7 @@ export function StoryListItem({ title, locationName, selected, onClick }: Props)
           : 'border-retro-border bg-retro-surface hover:border-retro-border-strong hover:bg-retro-card',
       ].join(' ')}
     >
-      <div className="font-pixel text-retro-secondary text-sm leading-snug">{title}</div>
+      <div className="font-mono text-retro-secondary text-sm leading-snug">{title}</div>
       <div className="text-retro-muted text-xs mt-1">{locationName}</div>
     </button>
   )
