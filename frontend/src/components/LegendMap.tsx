@@ -33,9 +33,10 @@ export function LegendMap({ summaries, selectedId, focusKey, onSelect }: Props) 
   }, [onSelect])
 
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return
+    const container = containerRef.current
+    if (!container || mapRef.current) return
 
-    const map = L.map(containerRef.current, {
+    const map = L.map(container, {
       center: WROCLAW_CENTER,
       zoom: DEFAULT_ZOOM,
       zoomControl: true,
@@ -49,7 +50,12 @@ export function LegendMap({ summaries, selectedId, focusKey, onSelect }: Props) 
     mapRef.current = map
     const markers = markersRef.current
 
+    // Recalculate map size when the container is revealed after being hidden (tab switch)
+    const obs = new ResizeObserver(() => { mapRef.current?.invalidateSize() })
+    obs.observe(container)
+
     return () => {
+      obs.disconnect()
       map.remove()
       mapRef.current = null
       markers.clear()
