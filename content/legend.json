@@ -1,11 +1,11 @@
 {
   "id": "legenda-fixture",
-  "title": "Legenda (fixture)",
+  "title": "Kamienna Głowa",
   "location": {
-    "name": "Miejsce przykładowe",
+    "name": "Ostrów Tumski, Wrocław",
     "center": [
-      51.11,
-      17.03
+      51.1147,
+      17.0461
     ],
     "unlock_radius_m": 250,
     "default_view": "ogolny",
@@ -44,22 +44,10 @@
     ]
   },
   "intro": {
-    "title": "Legenda (fixture)",
+    "title": "KAMIENNA GŁOWA",
     "paragraphs": [
-      [
-        {
-          "if": {
-            "widok": [
-              "punkt"
-            ]
-          },
-          "text": "Wstęp z punktu widokowego."
-        },
-        {
-          "text": "Wstęp ogólny."
-        }
-      ],
-      "Tekst przykładowy wstępu."
+      "W murze katedry na Ostrowie Tumskim tkwi kamienna głowa. Nie wiadomo, czyja — nie ma podpisu, nie ma daty.",
+      "Starsi mówią, że oczy głowy śledzą każdego, kto przechodzi zbyt blisko po zmroku. I że raz w roku, w noc przed Zaduszkami, usta się otwierają."
     ]
   },
   "start": "s1",
