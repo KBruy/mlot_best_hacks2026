@@ -4,7 +4,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-from app import db, import_story
+from app import db, import_story, voice
 from app.main import app
 
 client = TestClient(app)
@@ -76,3 +76,51 @@ def test_openapi_documents_error_responses():
     paths = client.get("/openapi.json").json()["paths"]
     assert {"200", "503"} <= paths["/api/stories"]["get"]["responses"].keys()
     assert {"200", "404", "503"} <= paths["/api/stories/{story_id}"]["get"]["responses"].keys()
+
+
+def test_voice_tts_forwards_audio(monkeypatch):
+    calls = []
+
+    def fake(method, path, body=None):
+        calls.append((method, path, body))
+        return 200, "audio/wav", b"RIFF"
+
+    monkeypatch.setattr(voice, "request", fake)
+    response = client.post("/api/voice/tts", json={"voice": "adrian", "text": "Hej"})
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "audio/wav"
+    assert response.content == b"RIFF"
+    assert calls == [("POST", "/tts", {"voice": "adrian", "character": "neutral", "text": "Hej"})]
+
+
+def test_voice_passes_upstream_error(monkeypatch):
+    monkeypatch.setattr(voice, "request", lambda *_: (404, "application/json", b'{"detail": "Nieznany glos"}'))
+    response = client.post("/api/voice/tts", json={"voice": "ork", "text": "Hej"})
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Nieznany glos"}
+
+
+def test_voice_rejects_invalid_body_without_calling_service(monkeypatch):
+    monkeypatch.setattr(voice, "request", lambda *_: pytest.fail("nie powinno wołać voice-service"))
+    assert client.post("/api/voice/tts", json={"voice": "adrian", "text": ""}).status_code == 422
+    assert client.post("/api/voice/tts/script", json={"script": "x" * 3001}).status_code == 422
+
+
+def test_voice_bad_backend_key_is_502(monkeypatch):
+    monkeypatch.setattr(voice, "request", lambda *_: (401, "application/json", b'{"detail": "x"}'))
+    assert client.get("/api/voice/voices").status_code == 502
+
+
+@pytest.mark.parametrize("error, status", [(voice.VoiceUnavailable, 503), (voice.VoiceTimeout, 504)])
+def test_voice_service_down(monkeypatch, error, status):
+    def fail(*_):
+        raise error("test")
+
+    monkeypatch.setattr(voice, "request", fail)
+    assert client.get("/api/voice/characters").status_code == status
+
+
+def test_voice_missing_config_is_unavailable(monkeypatch):
+    monkeypatch.delenv("VOICE_SERVICE_URL", raising=False)
+    with pytest.raises(voice.VoiceUnavailable):
+        voice.request("GET", "/health")
