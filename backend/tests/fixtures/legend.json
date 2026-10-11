@@ -1,0 +1,321 @@
+{
+  "id": "legenda-fixture",
+  "title": "Kamienna Głowa",
+  "location": {
+    "name": "Ostrów Tumski, Wrocław",
+    "center": [
+      51.1147,
+      17.0461
+    ],
+    "unlock_radius_m": 250,
+    "default_view": "ogolny",
+    "viewpoints": [
+      {
+        "id": "punkt",
+        "label": "Punkt przykładowy",
+        "lat": 51.11,
+        "lon": 17.03,
+        "radius_m": 30
+      }
+    ]
+  },
+  "stops": {
+    "przystanek": {
+      "label": "Przystanek",
+      "lat": 51.11,
+      "lon": 17.031,
+      "radius_m": 30,
+      "walk": "Idź do przystanku.",
+      "arrive": "Jesteś na przystanku."
+    }
+  },
+  "state": {
+    "widok": [
+      "punkt",
+      "ogolny"
+    ],
+    "sciezka": [
+      "a",
+      "b"
+    ],
+    "los": [
+      "final_1",
+      "final_2"
+    ]
+  },
+  "intro": {
+    "title": "KAMIENNA GŁOWA",
+    "paragraphs": [
+      "W murze katedry na Ostrowie Tumskim tkwi kamienna głowa. Nie wiadomo, czyja — nie ma podpisu, nie ma daty.",
+      "Starsi mówią, że oczy głowy śledzą każdego, kto przechodzi zbyt blisko po zmroku. I że raz w roku, w noc przed Zaduszkami, usta się otwierają."
+    ]
+  },
+  "start": "s1",
+  "scenes": {
+    "s1": {
+      "act": "FAZA 1/2",
+      "title": "Scena 1",
+      "scene": [
+        {
+          "text": "Scena 1: tekst przykładowy.",
+          "audio_url": "/audio/legenda-fixture/s1-1.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Opcja A w scenie 1",
+          "legend": true,
+          "set": {
+            "sciezka": "a"
+          },
+          "next": "s2a",
+          "result": [
+            "Skutek A w scenie 1."
+          ]
+        },
+        {
+          "text": "Opcja B w scenie 1",
+          "legend": false,
+          "set": {
+            "sciezka": "b"
+          },
+          "next": "s2b",
+          "result": [
+            "Skutek B w scenie 1."
+          ]
+        }
+      ],
+      "fact": "Fakt 1.",
+      "before": "przystanek"
+    },
+    "s2a": {
+      "title": "Scena 2a",
+      "scene": [
+        "Scena 2a: tekst przykładowy."
+      ],
+      "options": [
+        {
+          "text": "Opcja A w scenie 2a",
+          "legend": true,
+          "set": {},
+          "next": "s3",
+          "result": [
+            "Skutek A w scenie 2a."
+          ]
+        },
+        {
+          "text": "Opcja B w scenie 2a",
+          "legend": false,
+          "set": {},
+          "next": "s3",
+          "result": [
+            "Skutek B w scenie 2a."
+          ]
+        }
+      ],
+      "fact": "Fakt 2."
+    },
+    "s2b": {
+      "title": "Scena 2b",
+      "scene": [
+        "Scena 2b: tekst przykładowy."
+      ],
+      "options": [
+        {
+          "text": "Opcja A w scenie 2b",
+          "legend": true,
+          "set": {},
+          "next": "s3",
+          "result": [
+            "Skutek A w scenie 2b."
+          ]
+        },
+        {
+          "text": "Opcja B w scenie 2b",
+          "legend": false,
+          "set": {},
+          "next": "s3",
+          "result": [
+            "Skutek B w scenie 2b."
+          ]
+        }
+      ],
+      "fact": "Fakt 2."
+    },
+    "s3": {
+      "act": "FAZA 2/2",
+      "title": "Scena 3",
+      "scene": [
+        "Scena 3: tekst wspólny.",
+        [
+          {
+            "if": {
+              "sciezka": [
+                "a"
+              ]
+            },
+            "text": "Akapit dla ścieżki a.",
+            "audio_url": "/audio/legenda-fixture/s3-2-a.mp3"
+          },
+          {
+            "if": {
+              "sciezka": [
+                "b"
+              ]
+            },
+            "text": "Akapit dla ścieżki b."
+          }
+        ]
+      ],
+      "options": [
+        {
+          "text": "Opcja A w scenie 3",
+          "legend": true,
+          "set": {},
+          "next": "s4",
+          "result": [
+            "Skutek A w scenie 3."
+          ]
+        },
+        {
+          "text": "Opcja B w scenie 3",
+          "legend": false,
+          "set": {},
+          "next": "s4",
+          "result": [
+            "Skutek B w scenie 3."
+          ]
+        }
+      ],
+      "fact": "Fakt 3."
+    },
+    "s4": {
+      "title": "Scena 4",
+      "scene": [
+        "Scena 4: tekst przykładowy."
+      ],
+      "options": [
+        {
+          "text": "Opcja A w scenie 4",
+          "legend": true,
+          "set": {},
+          "next": "s5",
+          "result": [
+            "Skutek A w scenie 4."
+          ]
+        },
+        {
+          "text": "Opcja B w scenie 4",
+          "legend": false,
+          "set": {},
+          "next": "s5",
+          "result": [
+            "Skutek B w scenie 4."
+          ]
+        }
+      ],
+      "fact": "Fakt 4."
+    },
+    "s5": {
+      "title": "Scena 5",
+      "scene": [
+        "Scena 5: tekst przykładowy."
+      ],
+      "options": [
+        {
+          "text": "Opcja A w scenie 5",
+          "legend": true,
+          "set": {},
+          "next": "s6",
+          "result": [
+            "Skutek A w scenie 5."
+          ]
+        },
+        {
+          "text": "Opcja B w scenie 5",
+          "legend": false,
+          "set": {},
+          "next": "s6",
+          "result": [
+            "Skutek B w scenie 5."
+          ]
+        }
+      ],
+      "fact": "Fakt 5."
+    },
+    "s6": {
+      "title": "Scena 6",
+      "scene": [
+        "Scena 6: tekst przykładowy."
+      ],
+      "options": [
+        {
+          "text": "Opcja A w scenie 6",
+          "legend": true,
+          "set": {
+            "los": "final_1"
+          },
+          "next": null,
+          "result": [
+            "Skutek A w scenie 6."
+          ]
+        },
+        {
+          "text": "Opcja B w scenie 6",
+          "legend": false,
+          "set": {
+            "los": "final_2"
+          },
+          "next": null,
+          "result": [
+            "Skutek B w scenie 6."
+          ]
+        }
+      ],
+      "fact": "Fakt 6."
+    }
+  },
+  "ending_by": [
+    "los"
+  ],
+  "endings": {
+    "final_1": {
+      "title": "Finał 1",
+      "paragraphs": [
+        "Finał 1: tekst przykładowy."
+      ]
+    },
+    "final_2": {
+      "title": "Finał 2",
+      "paragraphs": [
+        "Finał 2: tekst przykładowy."
+      ]
+    }
+  },
+  "finale": {
+    "act": "EPILOG",
+    "paragraphs": [
+      "Epilog: tekst przykładowy."
+    ]
+  },
+  "reveal": {
+    "title": "Bohaterowie",
+    "paragraphs": [
+      "Odsłonięcie: tekst przykładowy."
+    ]
+  },
+  "ranks": [
+    {
+      "min": 0,
+      "title": "Ranga 0",
+      "text": "Opis rangi 0."
+    },
+    {
+      "min": 3,
+      "title": "Ranga 3",
+      "text": "Opis rangi 3."
+    }
+  ],
+  "heritage": "Zachęta: tekst przykładowy.",
+  "look_up": "Na koniec: tekst przykładowy."
+}

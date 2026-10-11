@@ -2,11 +2,11 @@
   "id": "kamienna-glowa",
   "title": "Kamienna głowa",
   "location": {
-    "name": "katedra św. Jana Chrzciciela na Ostrowie Tumskim",
+    "name": "Most Piaskowy, Wrocław",
     "_note": "Współrzędne z Google Maps (pinezki i trasa piesza, 2026-10-11), NIE zmierzone na miejscu. Promienie są oszacowane. Okno z kamienną głową: legenda mówi tylko o wieży katedry, warto sprawdzić na miejscu, które to okienko.",
     "center": [
-      51.114137,
-      17.04555
+      51.113083,
+      17.039417
     ],
     "unlock_radius_m": 700,
     "default_view": "ogolny",
@@ -575,6 +575,12 @@
       "heading": 85,
       "pitch": -50,
       "note": "👀 wieże katedry: gdzieś w murze tkwi kamienna głowa"
+    },
+    "start": {
+      "lat": 51.1132329,
+      "lon": 17.039573,
+      "heading": 77,
+      "pitch": 0
     }
   },
   "test_points": [
@@ -1036,7 +1042,7 @@
           ]
         },
         {
-          "text": "Odejść w milczeniu, bez żadnej przysięgi.",
+          "text": "Odejść w milczeniu, ze smutkiem godząc się ze swoim losem.",
           "legend": false,
           "set": {
             "przysiega": "cisza"
