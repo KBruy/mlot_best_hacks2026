@@ -4,10 +4,11 @@ import { NarrativeText } from './NarrativeText'
 import { HintText } from './HintText'
 import { useGame } from '../game/useGame'
 import { bearingDeg } from '../map/distance'
-import type { NodeLocation } from '../game/types'
+import type { Stop, StreetViewShot } from '../game/types'
 
 interface Props {
-  location: NodeLocation
+  stop: Stop
+  shot: StreetViewShot
   distanceM: number | null
 }
 
@@ -16,7 +17,7 @@ function formatDistance(m: number): string {
   return `${(m / 1000).toFixed(1)} km`
 }
 
-export function LocationGate({ location, distanceM }: Props) {
+export function LocationGate({ stop, shot, distanceM }: Props) {
   const { state } = useGame()
   const { gpsPosition } = state
 
@@ -26,11 +27,11 @@ export function LocationGate({ location, distanceM }: Props) {
   const frontRef = useRef(0)
   const prevSvUrlRef = useRef('')
 
-  const svLat = gpsPosition?.lat ?? location.streetview.lat
-  const svLon = gpsPosition?.lon ?? location.streetview.lon
+  const svLat = gpsPosition?.lat ?? shot.lat
+  const svLon = gpsPosition?.lon ?? shot.lon
   const heading = gpsPosition
-    ? bearingDeg(gpsPosition.lat, gpsPosition.lon, location.lat, location.lon)
-    : location.streetview.heading
+    ? bearingDeg(gpsPosition.lat, gpsPosition.lon, stop.lat, stop.lon)
+    : shot.heading
 
   const svUrl = `https://maps.google.com/maps?layer=c&cbll=${svLat},${svLon}&cbp=12,${heading},0,0,0&output=svembed`
   const mapUrl = `https://maps.google.com/maps?q=${svLat},${svLon}&z=17&t=k&output=embed`
@@ -70,18 +71,18 @@ export function LocationGate({ location, distanceM }: Props) {
   }, [mapUrl])
 
   return (
-    <PixelCard title={`Idź do: ${location.label}`}>
+    <PixelCard title={`Idź do: ${stop.label}`}>
       <div className="relative h-52 rounded overflow-hidden mb-4">
         <iframe
           ref={svRef0}
-          title={`Street View: ${location.label}`}
+          title={`Street View: ${stop.label}`}
           allowFullScreen
           className="absolute inset-0 w-full h-full border-0"
           style={{ opacity: 1, transition: 'opacity 0.5s' }}
         />
         <iframe
           ref={svRef1}
-          title={`Street View 2: ${location.label}`}
+          title={`Street View 2: ${stop.label}`}
           allowFullScreen
           className="absolute inset-0 w-full h-full border-0"
           style={{ opacity: 0, pointerEvents: 'none', transition: 'opacity 0.5s' }}
@@ -89,7 +90,7 @@ export function LocationGate({ location, distanceM }: Props) {
       </div>
       <iframe
         ref={mapRef}
-        title={`Mapa: ${location.label}`}
+        title={`Mapa: ${stop.label}`}
         className="w-full h-32 rounded mb-4 border-0"
       />
       <NarrativeText className="mb-2">
