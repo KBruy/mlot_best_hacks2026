@@ -23,13 +23,38 @@ Propozycja: kto czyta który akapit legendy. Każdy plik poniżej odpowiada jedn
 
 ## Generowanie
 
-Dla każdego pliku:
+Skrypt `narrate.py` generuje wszystko na podstawie bloków z tego pliku i tekstów z legendy. Nie potrzebuje uruchomionego serwisu, klucza API ani ffmpeg. Uruchamiaj z katalogu `voice-service/`:
 
-1. `POST /tts/script` z blokiem poniżej jako `script` (linie są sklejane w jedno nagranie z pauzą 0,5 s).
-2. Zachowaj WAV jako master, a do frontu przekonwertuj na MP3: `ffmpeg -i <plik>.wav -ac 1 -b:a 64k frontend/public/audio/mostek-czarownic/<plik>.mp3`.
-3. Opcjonalnie wygeneruj obok `<plik>.json` ze znacznikami czasu słów (karaoke, niżej).
+```bash
+uv run python narrate.py --check          # spójność skryptów z legendą (szybko, bez modeli)
+uv run python narrate.py dom-1            # próba na jednym pliku: odsłuchaj przed całością
+uv run python narrate.py                  # wszystkie brakujące pliki
+uv run python narrate.py --force bal-1    # ponowne generowanie wybranego pliku (np. po złym podejściu)
+uv run python narrate.py --align-only     # tylko znaczniki czasu do istniejących WAV
+uv run python narrate.py --retrim         # przytnij ogony w istniejących WAV (bez generowania)
+```
 
-Przy ok. 10× czasu rzeczywistego na CPU całość (kilka minut audio) to rząd godziny generowania. Serwis cache'uje kwestie, więc powtórka jest szybka. Bardzo krótkie kwestie (np. „Śmiej się” i „Posłuchaj.” w `mostek-o3-1`) warto odsłuchać, bo model bywa na nich niestabilny.
+**Przycinanie śmieci.** Chatterbox po zdaniu potrafi dogenerować kilka sekund szumu, buczenia albo bełkotu, czasem głośnego jak mowa. Dlatego po syntezie skrypt dopasowuje tekst do nagrania (MMS_FA) i:
+
+- tnie każdy odcinek między pauzami 0,15 s za jego ostatnim słowem, a odcinki bez słów usuwa;
+- skraca do ok. 0,3 s ciszę dłuższą niż 0,6 s między słowami wewnątrz odcinka (serwis generuje zdania krótsze niż 25 znaków razem z następnym, więc śmieci po nich nie są oddzielone pauzą);
+- pauzy między zdaniami i kwestiami zostawia bez zmian.
+
+Nowe pliki są przycinane automatycznie. Pliki wygenerowane wcześniejszą wersją skryptu popraw przez `--retrim`.
+
+Wyniki:
+
+| Plik | Gdzie | Commit |
+| --- | --- | --- |
+| WAV master (PCM 16-bit, 24 kHz, mono) | `voice-service/outputs/mostek-czarownic/<plik>.wav` | nie (`*.wav` w `.gitignore`) |
+| MP3 dla frontu (CBR 64 kb/s, mono) | `frontend/public/audio/mostek-czarownic/<plik>.mp3` | tak |
+| Znaczniki czasu słów | `frontend/public/audio/mostek-czarownic/<plik>.json` | tak |
+
+- Gotowe pliki są pomijane, więc przerwane generowanie wznawia się od miejsca przerwania. Kwestie trafiają też do cache serwisu (`cache/`), więc `--force` na pliku bez zmian w skrypcie zwróci to samo nagranie; żeby dostać inne podejście, wyczyść odpowiednie pliki z `cache/` albo zmień tekst kwestii.
+- Pierwsze uruchomienie pobiera modele: TTS (Chatterbox) i dopasowania (MMS_FA, ok. 1,2 GB do `~/.cache/torch`).
+- Czas: TTS na CPU to ok. 10× czasu nagrania, więc całość (kilka minut audio) to rząd godziny lub dłużej. Dopasowanie to ok. 6 s na 16 s nagrania.
+- Bardzo krótkie kwestie (np. „Śmiej się” i „Posłuchaj.” w `mostek-o3-1`) warto odsłuchać, bo model bywa na nich niestabilny.
+- Po zmianie tekstu w legendzie popraw blok w tym pliku. `--check` (i każde uruchomienie) przerwie pracę, gdy słowa skryptu nie zgadzają się z tekstem akapitu.
 
 ## Karaoke: napisy w tempie nagrania
 
@@ -43,13 +68,12 @@ Cel: słowa legendy pojawiają się dokładnie wtedy, gdy lektor je wypowiada (e
 
 `words` to słowa tekstu akapitu w kolejności (podział po spacjach, jak w `NarrativeKaraoke`), czasy w sekundach od początku MP3. Front odsłania słowo, gdy `audio.currentTime >= start`, a akapit kończy na zdarzeniu `ended`.
 
-**Skąd czasy, od najprostszego:**
+**Skąd czasy:**
 
-1. **Bez dodatkowych plików (można zrobić od razu we froncie):** po `loadedmetadata` rozłóż `audio.duration` na słowa proporcjonalnie do ich długości (liczba liter plus dodatkowa waga za `.`, `?`, `!`, `,`, bo serwis wstawia pauzy 0,25 s między zdaniami i 0,5 s między kwestiami). Daje przekonującą synchronizację bez żadnej pracy przy nagraniach.
-2. **Dokładne granice kwestii i zdań:** voice-service zna długość każdego wygenerowanego zdania i pauz przy sklejaniu. Wystarczy, że narzędzie generujące zapisze je obok WAV. W obrębie zdania słowa rozkładamy proporcjonalnie jak w p. 1.
-3. **Dokładnie co do słowa (forced alignment):** gotowy MP3 przepuszczamy przez rozpoznawanie mowy z czasami słów (np. `faster-whisper` z `word_timestamps=True`, język `pl`) i dopasowujemy rozpoznane słowa do znanego tekstu akapitu. Robimy to jednorazowo, offline, przy generowaniu, a front tylko czyta `.json`. Nowa zależność trafia tylko do narzędzia generującego, nie do aplikacji.
+- **Dokładnie co do słowa (zrobione w `narrate.py`):** forced alignment modelem `MMS_FA` wbudowanym w torchaudio (wav2vec2, wielojęzyczny). Znamy tekst akapitu, więc model nie rozpoznaje mowy, tylko dopasowuje znane słowa do nagrania. Bez nowych zależności. Sprawdzone na próbce `krystian_neutral.wav` (16,5 s): słowa trafiają w mowę, przerwy między zdaniami są widoczne w czasach, ostatnie słowo kończy się 0,4 s przed końcem nagrania. Myślniki dialogowe dostają czas następnego słowa.
+- **Fallback we froncie, gdy `.json` nie ma (404):** po `loadedmetadata` rozłóż `audio.duration` na słowa proporcjonalnie do liczby liter, z dodatkową wagą za `.`, `?`, `!`, `,` (pauzy 0,25 s między zdaniami i 0,5 s między kwestiami).
 
-Rekomendacja: front od razu robi wariant 1 jako zachowanie domyślne i używa `.json`, gdy istnieje (`fetch` z fallbackiem przy 404). Wariant 3 dokładamy, jeśli zostanie czas: nie zmienia ani kontraktu, ani frontu.
+Front: dla akapitu z `audio_url` pobiera `.json` obok MP3 (podmiana rozszerzenia), odtwarza nagranie i odsłania słowa według `start`; bez `.json` używa fallbacku, a bez `audio_url` zostaje przy obecnym stałym tempie.
 
 ## Skrypty
 
