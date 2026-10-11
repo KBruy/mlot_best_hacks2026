@@ -1,65 +1,92 @@
 import { useState, useEffect, useCallback } from 'react'
-import { PixelCard } from '@pxlkit/ui-kit'
 import { useGame } from '../game/useGame'
+import { useLocationGate } from '../map/useLocationGate'
+import { resolveParagraphs } from '../game/textUtils'
+import { SceneLayout } from '../components/SceneLayout'
+import { StoryPanel } from '../components/StoryPanel'
+import { LocationPanel } from '../components/LocationPanel'
+import { ChoicesPanel } from '../components/ChoicesPanel'
+import { LocationGate } from '../components/LocationGate'
 import { GameLayout } from '../components/GameLayout'
 import { NarrativeKaraoke } from '../components/NarrativeKaraoke'
-import { ChoicePanel } from '../components/ChoicePanel'
 import { HintText } from '../components/HintText'
 import { UI } from '../strings'
-import type { Choice, DecisionNode } from '../game/types'
+import type { Option } from '../game/types'
 
 export function SceneScreen() {
   const { state, dispatch } = useGame()
-  const [completedNodeId, setCompletedNodeId] = useState<string | null>(null)
+  const [completedSceneId, setCompletedSceneId] = useState<string | null>(null)
 
-  const node = state.story?.nodes.find(n => n.id === state.currentNodeId)
-  const decisionNode = node?.type === 'decision' ? (node as DecisionNode) : null
+  const scene = state.currentSceneId ? state.story?.scenes[state.currentSceneId] ?? null : null
+  const { blocked, distanceM } = useLocationGate(scene)
 
-  const karaokeComplete = completedNodeId === state.currentNodeId
+  const karaokeComplete = completedSceneId === state.currentSceneId
   const choicesLocked = !karaokeComplete || state.choiceLocked
 
   const handleKaraokeComplete = useCallback(() => {
-    setCompletedNodeId(state.currentNodeId)
-  }, [state.currentNodeId])
+    setCompletedSceneId(state.currentSceneId)
+  }, [state.currentSceneId])
 
-  const handleSelect = useCallback((choice: Choice) => {
-    dispatch({ type: 'SELECT_CHOICE', payload: choice })
+  const handleSelect = useCallback((option: Option) => {
+    dispatch({ type: 'SELECT_OPTION', payload: option })
   }, [dispatch])
 
   useEffect(() => {
-    if (!decisionNode || choicesLocked) return
+    if (!scene || choicesLocked) return
     const handleKey = (e: KeyboardEvent) => {
       const index = parseInt(e.key) - 1
-      if (index >= 0 && index < decisionNode.choices.length) {
-        handleSelect(decisionNode.choices[index])
+      if (index >= 0 && index < scene.options.length) {
+        handleSelect(scene.options[index])
       }
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [choicesLocked, decisionNode, handleSelect])
+  }, [choicesLocked, scene, handleSelect])
 
-  if (!decisionNode) return null
+  if (!scene) return null
+
+  const sceneText = resolveParagraphs(scene.scene, state.gameFields).join('\n\n')
+  const beforeStop = scene.before ? state.story?.stops[scene.before] ?? null : null
+  const beforeShot = scene.before ? state.story?.streetview?.stops[scene.before] ?? null : null
+  const locationShot = beforeShot ?? state.story?.streetview?.finale ?? null
+  const locationLabel = beforeStop?.label ?? UI.scene.panelLocation
+
+  if (blocked && beforeStop && beforeShot) {
+    return (
+      <GameLayout>
+        <div className="w-full max-w-xl">
+          <HintText className="mb-4">
+            {UI.scene.decisionHint(state.decisionCount + 1, UI.scene.totalDecisions)}
+          </HintText>
+          <LocationGate stop={beforeStop} shot={beforeShot} distanceM={distanceM} />
+        </div>
+      </GameLayout>
+    )
+  }
 
   return (
-    <GameLayout>
-      <div className="w-full max-w-xl">
-        <HintText className="mb-4">
-          {UI.scene.decisionHint(state.decisionCount + 1, UI.scene.totalDecisions)}
-        </HintText>
-        <PixelCard title={state.story?.title ?? ''}>
+    <SceneLayout
+      story={
+        <StoryPanel>
+          <HintText className="mb-4">
+            {UI.scene.decisionHint(state.decisionCount + 1, UI.scene.totalDecisions)}
+          </HintText>
           <NarrativeKaraoke
-            key={state.currentNodeId ?? undefined}
-            text={decisionNode.text}
+            key={state.currentSceneId ?? undefined}
+            text={sceneText}
             onComplete={handleKaraokeComplete}
-            className="mb-6"
           />
-          <ChoicePanel
-            choices={decisionNode.choices}
-            onSelect={handleSelect}
-            locked={choicesLocked}
-          />
-        </PixelCard>
-      </div>
-    </GameLayout>
+        </StoryPanel>
+      }
+      location={<LocationPanel shot={locationShot} label={locationLabel} />}
+      choices={
+        <ChoicesPanel
+          options={scene.options}
+          fields={state.gameFields}
+          onSelect={handleSelect}
+          locked={choicesLocked}
+        />
+      }
+    />
   )
 }

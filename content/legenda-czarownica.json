@@ -1,0 +1,1186 @@
+{
+  "id": "mostek-czarownic",
+  "title": "Mostek Czarownic",
+  "location": {
+    "name": "kościół św. Marii Magdaleny",
+    "_note": "Współrzędne odczytane z Google Maps (prawy klik na zdjęciu satelitarnym, 2026-10-10). Wieże z mostkiem stoją od zachodu, przy ul. Szewskiej; mostek łączy wieżę północną z południową, więc od północy i południa widać go tylko z boku. Warto jeszcze sprawdzić na miejscu.",
+    "center": [
+      51.109531,
+      17.035053
+    ],
+    "unlock_radius_m": 250,
+    "default_view": "ogolny",
+    "viewpoints": [
+      {
+        "id": "zachod",
+        "label": "od zachodu, z ul. Szewskiej, naprzeciw wież",
+        "lat": 51.109666,
+        "lon": 17.034503,
+        "radius_m": 30
+      },
+      {
+        "id": "poludnie",
+        "label": "od południa, z ul. Św. Marii Magdaleny",
+        "lat": 51.109228,
+        "lon": 17.03504,
+        "radius_m": 30
+      },
+      {
+        "id": "polnoc",
+        "label": "od północy, z placu przy kościele",
+        "lat": 51.109851,
+        "lon": 17.03508,
+        "radius_m": 30
+      },
+      {
+        "id": "wschod",
+        "label": "od wschodu, z ul. Łaciarskiej",
+        "lat": 51.109498,
+        "lon": 17.03563,
+        "radius_m": 30
+      }
+    ]
+  },
+  "stops": {
+    "wieze": {
+      "label": "Pod wieżami",
+      "lat": 51.109666,
+      "lon": 17.034503,
+      "radius_m": 30,
+      "walk": "Obejdź kościół i stań od zachodu, na ulicy Szewskiej, naprzeciw dwóch wież. To najwyżej minuta spacerem.",
+      "arrive": "Jesteś pod wieżami. Zatrzymaj się na chwilę."
+    },
+    "rynek": {
+      "label": "Rynek, pod pręgierzem",
+      "lat": 51.1094653,
+      "lon": 17.0327099,
+      "radius_m": 30,
+      "walk": "Idź przez Kurzy Targ na Rynek i stań przy pręgierzu przed Ratuszem. To ok. 2 minuty spacerem. Nie czytaj po drodze, patrz pod nogi.",
+      "arrive": "Jesteś przy pręgierzu. Rozejrzyj się: tu wszystko się rozstrzygnie."
+    }
+  },
+  "route": {
+    "_note": "Trasa piesza z Google Maps (2026-10-10): ul. Św. Marii Magdaleny → róg Szewskiej → pod wieże → Kurzy Targ → pręgierz, ok. 260 m.",
+    "start": [
+      51.109256,
+      17.035013
+    ],
+    "legs": {
+      "wieze": [
+        [
+          51.10934,
+          17.034651
+        ],
+        [
+          51.109416,
+          17.034297
+        ],
+        [
+          51.109534,
+          17.034351
+        ],
+        [
+          51.109652,
+          17.034396
+        ]
+      ],
+      "rynek": [
+        [
+          51.109534,
+          17.034351
+        ],
+        [
+          51.109416,
+          17.034297
+        ],
+        [
+          51.109475,
+          17.034024
+        ],
+        [
+          51.109551,
+          17.033702
+        ],
+        [
+          51.109626,
+          17.03338
+        ],
+        [
+          51.109694,
+          17.033032
+        ],
+        [
+          51.109626,
+          17.032965
+        ],
+        [
+          51.109497,
+          17.032831
+        ],
+        [
+          51.1094653,
+          17.0327099
+        ]
+      ]
+    }
+  },
+  "streetview": {
+    "_note": "Panoramy Google Street View sprawdzone 2026-10-10 przez osadzenie bez klucza API. anchors: oficjalne panoramy z ulicy na trasie (zdjęcia użytkowników pominięte, bo osadzenie bierze najbliższą panoramę); stops: ujęcia na przystankach; finale: zdjęcie sferyczne z samego mostka (autor: belu p. fly).",
+    "anchors": [
+      [
+        51.109256,
+        17.035013
+      ],
+      [
+        51.109298,
+        17.034832
+      ],
+      [
+        51.10934,
+        17.034651
+      ],
+      [
+        51.109378,
+        17.034474
+      ],
+      [
+        51.109475,
+        17.034324
+      ],
+      [
+        51.109534,
+        17.034351
+      ],
+      [
+        51.109593,
+        17.034374
+      ],
+      [
+        51.109475,
+        17.034024
+      ],
+      [
+        51.109513,
+        17.033863
+      ],
+      [
+        51.109551,
+        17.033702
+      ],
+      [
+        51.109589,
+        17.033541
+      ],
+      [
+        51.109626,
+        17.03338
+      ],
+      [
+        51.10966,
+        17.033206
+      ],
+      [
+        51.109626,
+        17.032965
+      ]
+    ],
+    "stops": {
+      "wieze": {
+        "lat": 51.109593,
+        "lon": 17.034374,
+        "heading": 85,
+        "pitch": -60
+      },
+      "rynek": {
+        "lat": 51.109626,
+        "lon": 17.032965,
+        "heading": 215,
+        "pitch": 0
+      }
+    },
+    "finale": {
+      "lat": 51.109652,
+      "lon": 17.034396,
+      "heading": 290,
+      "pitch": 10,
+      "note": "🌅 widok z mostka między wieżami (przeciągnij, żeby się rozejrzeć)"
+    }
+  },
+  "test_points": [
+    {
+      "label": "Kościół: naprzeciw wież (zachód, ul. Szewska)",
+      "lat": 51.109666,
+      "lon": 17.034503
+    },
+    {
+      "label": "Kościół: boczna ściana (południe)",
+      "lat": 51.109228,
+      "lon": 17.03504
+    },
+    {
+      "label": "Kościół: plac (północ)",
+      "lat": 51.109851,
+      "lon": 17.03508
+    },
+    {
+      "label": "Kościół: za prezbiterium (wschód, ul. Łaciarska)",
+      "lat": 51.109498,
+      "lon": 17.03563
+    },
+    {
+      "label": "W pobliżu kościoła, poza strefami",
+      "lat": 51.1105,
+      "lon": 17.0365
+    },
+    {
+      "label": "Rynek: pod pręgierzem",
+      "lat": 51.1094653,
+      "lon": 17.0327099
+    },
+    {
+      "label": "Daleko: Dworzec Główny",
+      "lat": 51.098,
+      "lon": 17.0365
+    }
+  ],
+  "demo_start": [
+    51.109666,
+    17.034503
+  ],
+  "state": {
+    "widok": [
+      "zachod",
+      "poludnie",
+      "polnoc",
+      "wschod",
+      "ogolny"
+    ],
+    "sciezka": [
+      "proznosc",
+      "milosc",
+      "intryga"
+    ],
+    "odpowiedz": [
+      "smiech",
+      "zwodzic",
+      "zgoda",
+      "odmowa",
+      "ucieczka",
+      "sekret",
+      "suknia",
+      "praca",
+      "cisza"
+    ],
+    "reakcja": [
+      "smiech",
+      "blaganie",
+      "bunt"
+    ],
+    "czarownica": [
+      "pytac",
+      "milczec",
+      "smiac"
+    ],
+    "rynek": [
+      "pomoc",
+      "kradziez",
+      "targ"
+    ],
+    "los": [
+      "wolna",
+      "moc",
+      "rok",
+      "zamiana",
+      "ucieczka",
+      "podstep"
+    ]
+  },
+  "intro": {
+    "title": "MOSTEK CZAROWNIC",
+    "paragraphs": [
+      [
+        {
+          "if": {
+            "widok": [
+              "zachod"
+            ]
+          },
+          "text": "Stań twarzą do kościoła. Dwie ceglane wieże masz na wprost, a wysoko między nimi wisi wąski mostek.",
+          "audio_url": "/audio/mostek-czarownic/intro-1-zachod.mp3"
+        },
+        {
+          "if": {
+            "widok": [
+              "poludnie"
+            ]
+          },
+          "text": "Stań twarzą do kościoła i spójrz w lewo, wzdłuż ulicy: tam wznosi się wieża. Wysoko na niej widać skraj wąskiego mostka, który łączy ją z drugą wieżą.",
+          "audio_url": "/audio/mostek-czarownic/intro-1-poludnie.mp3"
+        },
+        {
+          "if": {
+            "widok": [
+              "polnoc"
+            ]
+          },
+          "text": "Stań twarzą do kościoła. Wieże masz po prawej. Wysoko między nimi wisi wąski mostek, choć stąd widać go tylko z boku.",
+          "audio_url": "/audio/mostek-czarownic/intro-1-polnoc.mp3"
+        },
+        {
+          "if": {
+            "widok": [
+              "wschod"
+            ]
+          },
+          "text": "Stań twarzą do kościoła. Przed tobą długie, ceglane prezbiterium, a nad dachem, w oddali, wystają dwie wieże. Wysoko między nimi wisi wąski mostek.",
+          "audio_url": "/audio/mostek-czarownic/intro-1-wschod.mp3"
+        },
+        {
+          "if": {
+            "widok": [
+              "ogolny"
+            ]
+          },
+          "text": "Rozejrzyj się za dwiema ceglanymi wieżami kościoła. Wysoko między nimi wisi wąski mostek.",
+          "audio_url": "/audio/mostek-czarownic/intro-1-ogolny.mp3"
+        }
+      ],
+      {
+        "text": "Wrocławianie od wieków opowiadają, kto go zamiata i dlaczego. ",
+        "audio_url": "/audio/mostek-czarownic/intro-2.mp3"
+      }
+    ]
+  },
+  "start": "dom",
+  "scenes": {
+    "dom": {
+      "act": "FAZA 1/4: KOŚCIÓŁ",
+      "title": "Dom przy Rynku",
+      "scene": [
+        {
+          "text": "Wyobraź sobie, że jesteś córką bogatego mieszczanina z kamienicy przy Rynku, kilka minut stąd. Wszyscy mówią, że jesteś najpiękniejszą panną we Wrocławiu.",
+          "audio_url": "/audio/mostek-czarownic/dom-1.mp3"
+        },
+        {
+          "text": "Dziś wieczorem jest bal. Matka od rana sama szoruje garnki i prosi cię o pomoc, a w warsztacie ojca młody czeladnik zerka na ciebie znad roboty.",
+          "audio_url": "/audio/mostek-czarownic/dom-2.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Uciec na bal",
+          "legend": true,
+          "set": {
+            "sciezka": "proznosc"
+          },
+          "next": "bal",
+          "result": [
+            {
+              "text": "Zostawiasz matkę z garnkami i biegniesz na bal. Tańczysz do świtu, a kawalerowie nie odstępują cię na krok.",
+              "audio_url": "/audio/mostek-czarownic/dom-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Zajrzeć do warsztatu, do czeladnika",
+          "legend": false,
+          "set": {
+            "sciezka": "milosc"
+          },
+          "next": "czeladnik",
+          "result": [
+            {
+              "text": "Czeladnik czerwienieje, gdy stajesz w drzwiach. Rozmawiacie do zmroku i o balu zapominasz zupełnie.",
+              "audio_url": "/audio/mostek-czarownic/dom-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Zostać i pomóc matce",
+          "legend": false,
+          "set": {
+            "sciezka": "intryga"
+          },
+          "next": "plotka",
+          "result": [
+            {
+              "text": "Pomagasz matce do wieczora. Nie wiesz, że kuzynka, która zawsze ci zazdrościła, właśnie wychodzi na Rynek z nowiną.",
+              "audio_url": "/audio/mostek-czarownic/dom-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Tekla była piękna, ale próżna i leniwa: stroiła się, bawiła na balach i w domu nie kiwnęła palcem."
+    },
+    "bal": {
+      "title": "Kawaler",
+      "scene": [
+        {
+          "text": "Następnego dnia w waszych drzwiach staje syn bogatego kupca, ten, który nie spuszczał z ciebie oczu na balu. — Panno, czy zostanie pani moją żoną? Rodzice wstrzymują oddech.",
+          "audio_url": "/audio/mostek-czarownic/bal-1.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Roześmiać się: — Na cóż mi mąż?",
+          "legend": true,
+          "set": {
+            "odpowiedz": "smiech"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "— Na cóż mi mąż? Żebym robotę jeno miała? — śmiejesz się. Kawaler wychodzi czerwony jak burak, a ojciec zaciska pięści.",
+              "audio_url": "/audio/mostek-czarownic/bal-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Zwodzić go latami",
+          "legend": true,
+          "set": {
+            "odpowiedz": "zwodzic"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Obiecujesz „może kiedyś” i latami zawracasz mu w głowie, aż kawaler żeni się z inną. Ojciec patrzy na ciebie coraz chmurniej.",
+              "audio_url": "/audio/mostek-czarownic/bal-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Zgodzić się",
+          "legend": false,
+          "set": {
+            "odpowiedz": "zgoda"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Mówisz „tak”, ale gdy przyszła teściowa wylicza, ile pracy czeka żonę kupca, zrywasz zaręczyny. Całe miasto plotkuje, a ojciec ma dość.",
+              "audio_url": "/audio/mostek-czarownic/bal-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Tekla zawracała chłopcom w głowach, ale za mąż wyjść nie chciała: „Na cóż mi mąż? Żebym robotę jeno miała?”"
+    },
+    "czeladnik": {
+      "title": "Czeladnik",
+      "scene": [
+        {
+          "text": "Czeladnik wyznaje ci miłość. Ale ojciec już wybrał ci męża: starego, bogatego kupca, który przyjdzie jutro po odpowiedź.",
+          "audio_url": "/audio/mostek-czarownic/czeladnik-1.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Odmówić kupcowi: — Na cóż mi taki mąż?",
+          "legend": true,
+          "set": {
+            "odpowiedz": "odmowa"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Kupiec wychodzi obrażony, a ojciec blednie ze wstydu. Wie już, dla kogo odprawiasz kandydatów.",
+              "audio_url": "/audio/mostek-czarownic/czeladnik-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Uciec nocą z czeladnikiem",
+          "legend": false,
+          "set": {
+            "odpowiedz": "ucieczka"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Uciekacie, ale straż przy bramie miasta poznaje córkę bogatego mieszczanina. Rano ojciec odbiera cię z wartowni.",
+              "audio_url": "/audio/mostek-czarownic/czeladnik-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Spotykać się z nim potajemnie",
+          "legend": false,
+          "set": {
+            "odpowiedz": "sekret"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Przez kilka miesięcy wymykasz się do warsztatu nocami. Aż pewnego wieczoru ojciec wraca wcześniej i zastaje was razem.",
+              "audio_url": "/audio/mostek-czarownic/czeladnik-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Tekla zawracała chłopcom w głowach, ale za mąż wyjść nie chciała: „Na cóż mi mąż? Żebym robotę jeno miała?”"
+    },
+    "plotka": {
+      "title": "Plotka",
+      "scene": [
+        {
+          "text": "Kuzynka rozpuszcza po Rynku plotkę: że jesteś leniwa i próżna, że wyśmiewasz każdego kawalera i całe dnie przesiadujesz przed lustrem. Ludzie zaczynają szeptać, gdy przechodzisz.",
+          "audio_url": "/audio/mostek-czarownic/plotka-1.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Zaćmić ją na balu w najpiękniejszej sukni",
+          "legend": true,
+          "set": {
+            "odpowiedz": "suknia"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Całą noc jesteś królową balu. Kuzynka zgrzyta zębami, a plotka tylko rośnie: przecież widać, że myślisz wyłącznie o strojach.",
+              "audio_url": "/audio/mostek-czarownic/plotka-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Pracować dzień i noc, żeby udowodnić, że to nieprawda",
+          "legend": false,
+          "set": {
+            "odpowiedz": "praca"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Harujesz od świtu do nocy, ale plotka już żyje własnym życiem. Ojciec słyszy ją w cechu, w kościele i na targu.",
+              "audio_url": "/audio/mostek-czarownic/plotka-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Zignorować plotkę",
+          "legend": false,
+          "set": {
+            "odpowiedz": "cisza"
+          },
+          "next": "wyrok",
+          "result": [
+            {
+              "text": "Udajesz, że nie słyszysz. Kuzynka dokłada kolejne historie, aż w końcu trafiają do uszu ojca.",
+              "audio_url": "/audio/mostek-czarownic/plotka-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Tekla zawracała chłopcom w głowach, ale za mąż wyjść nie chciała: „Na cóż mi mąż? Żebym robotę jeno miała?”"
+    },
+    "wyrok": {
+      "act": "FAZA 2/4: WYROK",
+      "keypoint": "wyrok",
+      "before": "wieze",
+      "title": "Wyrok",
+      "scene": [
+        {
+          "text": "Zadrzyj głowę. Ten wąski mostek między wieżami to miejsce, w którym skończy się twoja droga, jakkolwiek się zaczęła.",
+          "audio_url": "/audio/mostek-czarownic/wyrok-1.mp3"
+        },
+        [
+          {
+            "if": {
+              "sciezka": [
+                "proznosc"
+              ]
+            },
+            "text": "Ojciec staje w drzwiach, czerwony z gniewu. — Dość balów, dość śmiechu z kawalerów! Co z ciebie wyrośnie?",
+            "audio_url": "/audio/mostek-czarownic/wyrok-2-proznosc.mp3"
+          },
+          {
+            "if": {
+              "sciezka": [
+                "milosc"
+              ]
+            },
+            "text": "Ojciec staje w drzwiach, czerwony z gniewu. — Wolisz czeladnika od woli ojca? Okryłaś nas wstydem!",
+            "audio_url": "/audio/mostek-czarownic/wyrok-2-milosc.mp3"
+          },
+          {
+            "if": {
+              "sciezka": [
+                "intryga"
+              ]
+            },
+            "text": "Ojciec staje w drzwiach, czerwony z gniewu. — Całe miasto mówi o twoim lenistwie i próżności! Dłużej tego nie zniosę!",
+            "audio_url": "/audio/mostek-czarownic/wyrok-2-intryga.mp3"
+          }
+        ],
+        {
+          "text": "— Przeklinam cię! — grzmi.",
+          "audio_url": "/audio/mostek-czarownic/wyrok-3.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Wybuchnąć śmiechem",
+          "legend": true,
+          "set": {
+            "reakcja": "smiech"
+          },
+          "next": "mostek",
+          "result": [
+            {
+              "text": "Śmiejesz się, bo przecież to tylko słowa. Ojciec odwraca się bez słowa.",
+              "audio_url": "/audio/mostek-czarownic/wyrok-o1-1.mp3"
+            },
+            {
+              "text": "Tej samej nocy coś porywa cię z łóżka. Budzisz się wysoko pod chmurami, na tym mostku nad twoją głową. W rękach trzymasz miotłę. Nie pomagają łzy, prośby ani krzyki: tak wysoko nikt cię nie słyszy.",
+              "audio_url": "/audio/mostek-czarownic/wyrok-o1-2.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Paść na kolana i błagać o litość",
+          "legend": false,
+          "set": {
+            "reakcja": "blaganie"
+          },
+          "next": "mostek",
+          "result": [
+            {
+              "text": "Błagasz, ale słowo się rzekło i nawet ojciec nie może go już cofnąć.",
+              "audio_url": "/audio/mostek-czarownic/wyrok-o2-1.mp3"
+            },
+            {
+              "text": "Tej samej nocy coś porywa cię z łóżka. Budzisz się wysoko pod chmurami, na tym mostku nad twoją głową. W rękach trzymasz miotłę. Nie pomagają łzy, prośby ani krzyki: tak wysoko nikt cię nie słyszy.",
+              "audio_url": "/audio/mostek-czarownic/wyrok-o1-2.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Krzyknąć, że to niesprawiedliwe",
+          "legend": false,
+          "set": {
+            "reakcja": "bunt"
+          },
+          "next": "mostek",
+          "result": [
+            {
+              "text": "— To niesprawiedliwe! — krzyczysz, ale ojciec już zamyka za sobą drzwi.",
+              "audio_url": "/audio/mostek-czarownic/wyrok-o3-1.mp3"
+            },
+            {
+              "text": "Tej samej nocy coś porywa cię z łóżka. Budzisz się wysoko pod chmurami, na tym mostku nad twoją głową. W rękach trzymasz miotłę. Nie pomagają łzy, prośby ani krzyki: tak wysoko nikt cię nie słyszy.",
+              "audio_url": "/audio/mostek-czarownic/wyrok-o1-2.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Rozgniewany ojciec przeklął Teklę za lenistwo i próżność. Tej samej nocy porwano ją na mostek między wieżami kościoła św. Marii Magdaleny i kazano go zamiatać do końca świata."
+    },
+    "mostek": {
+      "title": "Młoda czarownica",
+      "art": [
+        "   /\\            /\\",
+        "  /  \\          /  \\",
+        "  |[]|==========|[]|",
+        "  |  |    ||    |  |",
+        "  |[]|          |[]|"
+      ],
+      "scene": [
+        {
+          "text": "Mijają lata. Panna zamiata mostek każdego dnia. Postarzała się, a twarz ma czarną od kurzu.",
+          "audio_url": "/audio/mostek-czarownic/mostek-1.mp3"
+        },
+        {
+          "text": "Teraz jesteś młodą czarownicą. Przysłano cię, żebyś pomagała starej pannie, bo sama już nie daje rady.",
+          "audio_url": "/audio/mostek-czarownic/mostek-2.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Zapytać, za co ją ukarano",
+          "legend": true,
+          "set": {
+            "czarownica": "pytac"
+          },
+          "next": "starzec",
+          "result": [
+            {
+              "text": "Pytasz łagodnie. Stara panna długo milczy, a potem opowiada.",
+              "audio_url": "/audio/mostek-czarownic/mostek-o1-1.mp3"
+            },
+            [
+              {
+                "if": {
+                  "sciezka": [
+                    "proznosc"
+                  ]
+                },
+                "text": "— Kochałam bale i suknie, śmiałam się z kawalerów — szepcze stara panna. — Ojciec w końcu nie wytrzymał.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-proznosc.mp3"
+              },
+              {
+                "if": {
+                  "sciezka": [
+                    "milosc"
+                  ]
+                },
+                "text": "— Kochałam czeladnika z warsztatu ojca — szepcze stara panna. — Ojciec wolał mnie przekląć, niż na to pozwolić.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-milosc.mp3"
+              },
+              {
+                "if": {
+                  "sciezka": [
+                    "intryga"
+                  ]
+                },
+                "text": "— Kuzynka rozpuściła plotkę, że jestem leniwa i próżna — szepcze stara panna. — Ojciec uwierzył jej, nie mnie.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-intryga.mp3"
+              }
+            ],
+            {
+              "text": "Słuchasz i coś ściska cię w gardle. Postanawiasz jej pomóc.",
+              "audio_url": "/audio/mostek-czarownic/mostek-o1-3.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Zamiatać w milczeniu",
+          "legend": false,
+          "set": {
+            "czarownica": "milczec"
+          },
+          "next": "starzec",
+          "result": [
+            {
+              "text": "Zamiatacie w milczeniu kilka dni, aż stara panna sama zaczyna mówić, jakby nie mogła dłużej tego dźwigać.",
+              "audio_url": "/audio/mostek-czarownic/mostek-o2-1.mp3"
+            },
+            [
+              {
+                "if": {
+                  "sciezka": [
+                    "proznosc"
+                  ]
+                },
+                "text": "— Kochałam bale i suknie, śmiałam się z kawalerów — szepcze stara panna. — Ojciec w końcu nie wytrzymał.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-proznosc.mp3"
+              },
+              {
+                "if": {
+                  "sciezka": [
+                    "milosc"
+                  ]
+                },
+                "text": "— Kochałam czeladnika z warsztatu ojca — szepcze stara panna. — Ojciec wolał mnie przekląć, niż na to pozwolić.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-milosc.mp3"
+              },
+              {
+                "if": {
+                  "sciezka": [
+                    "intryga"
+                  ]
+                },
+                "text": "— Kuzynka rozpuściła plotkę, że jestem leniwa i próżna — szepcze stara panna. — Ojciec uwierzył jej, nie mnie.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-intryga.mp3"
+              }
+            ],
+            {
+              "text": "Słuchasz i coś ściska cię w gardle. Postanawiasz jej pomóc.",
+              "audio_url": "/audio/mostek-czarownic/mostek-o1-3.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Wyśmiać leniwą pannę",
+          "legend": false,
+          "set": {
+            "czarownica": "smiac"
+          },
+          "next": "starzec",
+          "result": [
+            {
+              "text": "— Leniwa panna dostała miotłę? — parskasz. — Śmiej się — odpowiada. — Posłuchaj.",
+              "audio_url": "/audio/mostek-czarownic/mostek-o3-1.mp3"
+            },
+            [
+              {
+                "if": {
+                  "sciezka": [
+                    "proznosc"
+                  ]
+                },
+                "text": "— Kochałam bale i suknie, śmiałam się z kawalerów — szepcze stara panna. — Ojciec w końcu nie wytrzymał.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-proznosc.mp3"
+              },
+              {
+                "if": {
+                  "sciezka": [
+                    "milosc"
+                  ]
+                },
+                "text": "— Kochałam czeladnika z warsztatu ojca — szepcze stara panna. — Ojciec wolał mnie przekląć, niż na to pozwolić.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-milosc.mp3"
+              },
+              {
+                "if": {
+                  "sciezka": [
+                    "intryga"
+                  ]
+                },
+                "text": "— Kuzynka rozpuściła plotkę, że jestem leniwa i próżna — szepcze stara panna. — Ojciec uwierzył jej, nie mnie.",
+                "audio_url": "/audio/mostek-czarownic/mostek-o1-2-intryga.mp3"
+              }
+            ],
+            {
+              "text": "Słuchasz i coś ściska cię w gardle. Postanawiasz jej pomóc.",
+              "audio_url": "/audio/mostek-czarownic/mostek-o1-3.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Gdy Tekla opadła z sił, przysłano jej do pomocy Martynkę, czarownicę o dobrym sercu. Martynka długo wypytywała ją o winy, a los Tekli bardzo ją przejął."
+    },
+    "starzec": {
+      "act": "FAZA 3/4: RYNEK",
+      "keypoint": "rynek",
+      "before": "rynek",
+      "title": "Starzec pod pręgierzem",
+      "scene": [
+        {
+          "text": "Nocą bierzesz po cichu miotłę starej panny i lecisz na Rynek szukać pomocy. Tu, gdzie teraz stoisz.",
+          "audio_url": "/audio/mostek-czarownic/starzec-1.mp3"
+        },
+        {
+          "text": "Rynek jest pusty, tylko pod Ratuszem, przy tym pręgierzu, dziwny starzec łazi na czworaka. — Okulary zgubiłem i różdżkę! Bez różdżki nie mam mocy — burczy. — Pomogłabyś, zamiast się gapić!",
+          "audio_url": "/audio/mostek-czarownic/starzec-2.mp3"
+        },
+        {
+          "text": "Z miotły od razu widzisz różdżkę: leży w cieniu pręgierza, tuż obok niego.",
+          "audio_url": "/audio/mostek-czarownic/starzec-3.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Podać mu różdżkę",
+          "legend": true,
+          "set": {
+            "rynek": "pomoc"
+          },
+          "next": "zyczenie",
+          "result": [
+            {
+              "text": "Podajesz mu różdżkę. Starzec prostuje plecy i nagle wcale nie wygląda na bezradnego.",
+              "audio_url": "/audio/mostek-czarownic/starzec-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Zabrać różdżkę dla siebie",
+          "legend": false,
+          "set": {
+            "rynek": "kradziez"
+          },
+          "next": "kradziez",
+          "result": [
+            {
+              "text": "Chwytasz różdżkę, zanim starzec ją zobaczy. Drewno drży ci w dłoni, jakby było żywe.",
+              "audio_url": "/audio/mostek-czarownic/starzec-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Najpierw się potargować",
+          "legend": false,
+          "set": {
+            "rynek": "targ"
+          },
+          "next": "uklad",
+          "result": [
+            {
+              "text": "Stawiasz stopę na różdżce, zanim starzec ją zobaczy. — Wiem, gdzie jest twoja różdżka. Powiem, jeśli coś dla mnie zrobisz. Starzec mruży oczy.",
+              "audio_url": "/audio/mostek-czarownic/starzec-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Na Rynku Martynka spotkała czarodzieja Michała, który zgubił okulary i różdżkę, a bez różdżki nie miał mocy. Martynka odnalazła ją i mu oddała."
+    },
+    "zyczenie": {
+      "title": "Życzenie",
+      "scene": [
+        {
+          "text": "— Jestem czarodziejem — mówi starzec. — Dobre z ciebie dziecko. W nagrodę spełnię jedno twoje życzenie.",
+          "audio_url": "/audio/mostek-czarownic/zyczenie-1.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Uwolnij pannę z mostka",
+          "legend": true,
+          "set": {
+            "los": "wolna"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "Czarodziej macha różdżką. Gdzieś za dachami, między wieżami kościoła, coś błyska.",
+              "audio_url": "/audio/mostek-czarownic/zyczenie-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Uczyń mnie najpotężniejszą czarownicą",
+          "legend": false,
+          "set": {
+            "los": "moc"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "Czarodziej macha różdżką. Czujesz moc aż w czubkach palców, a z wieży wciąż dobiega szuranie miotły.",
+              "audio_url": "/audio/mostek-czarownic/zyczenie-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Niech panna odpracuje jeszcze rok",
+          "legend": false,
+          "set": {
+            "los": "rok"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "— Sprawiedliwie — mruczy czarodziej i macha różdżką. — Za rok będzie wolna.",
+              "audio_url": "/audio/mostek-czarownic/zyczenie-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Martynka poprosiła o uwolnienie Tekli, a wdzięczny czarodziej spełnił jej życzenie."
+    },
+    "kradziez": {
+      "title": "Cudza różdżka",
+      "scene": [
+        {
+          "text": "— Oddaj! To moja różdżka! — krzyczy starzec. Teraz już wiesz, kim jest: to czarodziej, a ty trzymasz całą jego moc.",
+          "audio_url": "/audio/mostek-czarownic/kradziez-1.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Oddać ją i poprosić o pomoc dla panny",
+          "legend": true,
+          "set": {
+            "los": "wolna"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "Oddajesz różdżkę. Czarodziej kręci głową, ale macha nią w stronę wież: — Niech ci będzie. Za uczciwość, choć spóźnioną.",
+              "audio_url": "/audio/mostek-czarownic/kradziez-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Spróbować samej zdjąć klątwę",
+          "legend": false,
+          "set": {
+            "los": "zamiana"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "Machasz różdżką, a ta wyrywa ci się z ręki. Wiatr porywa cię w górę, ku wieżom. Czarodziej woła coś za tobą, ale już go nie słyszysz.",
+              "audio_url": "/audio/mostek-czarownic/kradziez-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Uciec z różdżką",
+          "legend": false,
+          "set": {
+            "los": "ucieczka"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "Wskakujesz na miotłę i znikasz nad dachami. Czarodziej zostaje bez mocy, a panna na mostku bez nadziei.",
+              "audio_url": "/audio/mostek-czarownic/kradziez-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Martynka poprosiła o uwolnienie Tekli, a wdzięczny czarodziej spełnił jej życzenie."
+    },
+    "uklad": {
+      "title": "Układ",
+      "scene": [
+        {
+          "text": "— Jestem czarodziejem — syczy starzec. — I wiem, po co przyleciałaś: po pannę z mostka. Mogę ją uwolnić, ale ktoś musi zamiatać ten mostek. Zajmiesz jej miejsce?",
+          "audio_url": "/audio/mostek-czarownic/uklad-1.mp3"
+        }
+      ],
+      "options": [
+        {
+          "text": "Zgodzić się",
+          "legend": false,
+          "set": {
+            "los": "zamiana"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "Kiwasz głową. Czarodziej podnosi różdżkę spod twojej stopy i macha nią raz, a potem drugi.",
+              "audio_url": "/audio/mostek-czarownic/uklad-o1-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Odpuścić i po prostu oddać różdżkę",
+          "legend": true,
+          "set": {
+            "los": "wolna"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "Zdejmujesz stopę z różdżki i mu ją podajesz. Czarodziej długo na ciebie patrzy. — Dobre z ciebie dziecko — mówi w końcu i macha nią w stronę wież.",
+              "audio_url": "/audio/mostek-czarownic/uklad-o2-1.mp3"
+            }
+          ]
+        },
+        {
+          "text": "Przechytrzyć go",
+          "legend": false,
+          "set": {
+            "los": "podstep"
+          },
+          "next": null,
+          "result": [
+            {
+              "text": "— Najpierw ona, potem ja — mówisz. Czarodziej uwalnia pannę, a ty w tej samej chwili odlatujesz, zanim zdąży zabrać cię na wieżę.",
+              "audio_url": "/audio/mostek-czarownic/uklad-o3-1.mp3"
+            }
+          ]
+        }
+      ],
+      "fact": "Martynka poprosiła o uwolnienie Tekli, a wdzięczny czarodziej spełnił jej życzenie."
+    }
+  },
+  "ending_by": [
+    "los"
+  ],
+  "endings": {
+    "wolna": {
+      "title": "Pusty mostek",
+      "paragraphs": [
+        {
+          "text": "Wracasz pod wieże, ale panny już tam nie ma. Został tylko kurz na deskach. Dokąd poszła? Tego nie wie nikt. Mostek pozostał jako przestroga dla leniwych panien.",
+          "audio_url": "/audio/mostek-czarownic/koniec-wolna-1.mp3"
+        }
+      ]
+    },
+    "moc": {
+      "title": "Potężna, ale...",
+      "paragraphs": [
+        {
+          "text": "Jesteś najpotężniejszą czarownicą Wrocławia, a jednak każdej nocy słyszysz z wieży szuranie miotły. Moc nie przyniosła ci spokoju.",
+          "audio_url": "/audio/mostek-czarownic/koniec-moc-1.mp3"
+        }
+      ]
+    },
+    "rok": {
+      "title": "Rok pokuty",
+      "paragraphs": [
+        {
+          "text": "Panna zamiata jeszcze rok, ale już bez płaczu. Ostatniego dnia klątwa pęka i panna schodzi z wieży. Ponoć do końca życia pomagała każdemu, kto o to poprosił.",
+          "audio_url": "/audio/mostek-czarownic/koniec-rok-1.mp3"
+        }
+      ]
+    },
+    "zamiana": {
+      "title": "Mostek Czarownic",
+      "paragraphs": [
+        {
+          "text": "Panna jest wolna, ale to ty budzisz się na mostku z miotłą w ręku. Może właśnie dlatego wrocławianie mówią na niego Mostek Czarownic.",
+          "audio_url": "/audio/mostek-czarownic/koniec-zamiana-1.mp3"
+        }
+      ]
+    },
+    "ucieczka": {
+      "title": "Skradziona moc",
+      "paragraphs": [
+        {
+          "text": "Masz różdżkę, ale nie umiesz jej używać. Czarodziej bez mocy wciąż szuka cię po Rynku, a panna wciąż zamiata. Ta wersja legendy nie ma szczęśliwego końca.",
+          "audio_url": "/audio/mostek-czarownic/koniec-ucieczka-1.mp3"
+        }
+      ]
+    },
+    "podstep": {
+      "title": "Podstęp",
+      "paragraphs": [
+        {
+          "text": "Panna jest wolna, a ty umknęłaś czarodziejowi. Od tamtej nocy nie możesz pokazać się na Rynku, bo starzec wciąż wypatruje cię pod pręgierzem.",
+          "audio_url": "/audio/mostek-czarownic/koniec-podstep-1.mp3"
+        }
+      ]
+    }
+  },
+  "finale": {
+    "act": "FAZA 4/4: WIDOK Z KOŚCIOŁA",
+    "paragraphs": [
+      {
+        "text": "A teraz wyobraź sobie, że stoisz na samym mostku, wysoko między wieżami. Pod tobą czerwone dachy Starego Miasta, a dalej całe miasto aż po horyzont.",
+        "audio_url": "/audio/mostek-czarownic/finale-1.mp3"
+      },
+      {
+        "text": "Tak przez lata widziała Wrocław panna z miotłą.",
+        "audio_url": "/audio/mostek-czarownic/finale-2.mp3"
+      }
+    ]
+  },
+  "reveal": {
+    "title": "Kim byli bohaterowie?",
+    "paragraphs": [
+      {
+        "text": "Panna z kamienicy miała na imię Tekla. Młoda czarownica to Martynka, a dziwny starzec z Rynku to czarodziej Michał.",
+        "audio_url": "/audio/mostek-czarownic/reveal-1.mp3"
+      },
+      {
+        "text": "Wszyscy pochodzą z wrocławskiej legendy o Mostku Czarownic, opowiadanej od pokoleń.",
+        "audio_url": "/audio/mostek-czarownic/reveal-2.mp3"
+      }
+    ]
+  },
+  "ranks": [
+    {
+      "min": 0,
+      "title": "Totalny remiks",
+      "text": "To zupełnie nowa legenda. Też się liczy."
+    },
+    {
+      "min": 2,
+      "title": "Własna wersja",
+      "text": "Coś się zgadza, ale kronikarze by się kłócili."
+    },
+    {
+      "min": 4,
+      "title": "Prawie jak w legendzie",
+      "text": "Niewiele brakowało. Zagraj jeszcze raz i trafisz w każdy szczegół."
+    },
+    {
+      "min": 6,
+      "title": "Kronikarz legend",
+      "text": "Znasz tę historię lepiej niż przewodnik."
+    }
+  ],
+  "heritage": {
+    "text": "Legendy żyją, dopóki ktoś je opowiada. Opowiedz tę komuś, kto stoi obok.",
+    "audio_url": "/audio/mostek-czarownic/heritage.mp3"
+  },
+  "look_up": {
+    "text": "Wracając, spójrz jeszcze raz na mostek między wieżami: to Mostek Czarownic, zwany też Mostkiem Pokutnic. Zwykle można na niego wejść, godziny sprawdź przy kościele.",
+    "audio_url": "/audio/mostek-czarownic/look-up.mp3"
+  }
+}

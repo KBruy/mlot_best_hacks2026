@@ -5,6 +5,26 @@ export const UI = {
     subtitle: 'Wybierz legendę i rozpocznij przygodę',
     beginButton: 'Rozpocznij',
     resetHint: 'Odświeżenie strony resetuje grę',
+    listPanel: 'Legendy',
+    noSelection: 'Wybierz legendę z listy lub mapy',
+    aboutLabel: 'O aplikacji',
+    welcomeHeadline: 'Odkryj Wrocław na nowo',
+    welcomeBody: 'Żywy Bestiariusz to interaktywny spacer śladami wrocławskich legend. Dojdź na miejsce, wysłuchaj historii i podejmuj decyzje — Twoje wybory kształtują zakończenie.',
+    welcomeHint: 'Spacery trwają około 10 minut.',
+    locationHintDemo: 'Wersja demo umożliwia zagranie z dowolnego miejsca.',
+    locationHintLive: 'Gra odblokowuje się po dojściu w pobliże miejsca legendy — zabierz telefon i wyjdź na miasto.',
+  },
+
+  demo: {
+    on: 'Tryb demo: włączony',
+    off: 'Tryb demo: wyłączony',
+    gpsWarning: 'GPS niedostępny',
+  },
+
+  gps: {
+    granted: 'GPS: aktywny',
+    denied: 'GPS: brak dostępu',
+    unknown: 'GPS: oczekiwanie…',
   },
 
   loading: {
@@ -20,6 +40,9 @@ export const UI = {
   scene: {
     decisionHint: (current: number, total: number) => `Decyzja ${current} z ${total}`,
     totalDecisions: 6,
+    panelStory: 'Opowieść',
+    panelLocation: 'Lokalizacja',
+    panelChoices: 'Wybierz odpowiedź',
   },
 
   consequence: {

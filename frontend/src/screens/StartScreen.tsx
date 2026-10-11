@@ -1,37 +1,47 @@
-import { PixelButton, PixelCard, PixelStack } from '@pxlkit/ui-kit'
-import { useGame } from '../game/useGame'
-import { GameTitle } from '../components/GameTitle'
-import { NarrativeText } from '../components/NarrativeText'
-import { HintText } from '../components/HintText'
-import { UI } from '../strings'
-import type { Story } from '../game/types'
+import { useState, useCallback } from 'react'
+import { StartLayout } from '../components/StartLayout'
+import { StartPanel } from '../components/StartPanel'
+import { LegendMap } from '../components/LegendMap'
+import { StartBottomBar } from '../components/StartBottomBar'
+import type { StorySummary } from '../game/types'
 
 interface Props {
-  stories: Story[]
+  summaries: StorySummary[]
+  onStart: (id: string) => void
 }
 
-export function StartScreen({ stories }: Props) {
-  const { dispatch } = useGame()
+export function StartScreen({ summaries, onStart }: Props) {
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [focusKey, setFocusKey] = useState(0)
+
+  const handleSelect = useCallback((id: string) => {
+    setSelectedId(id)
+    setFocusKey(k => k + 1)
+  }, [])
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4">
-      <GameTitle className="mb-2">{UI.appTitle}</GameTitle>
-      <NarrativeText center className="mb-10">{UI.start.subtitle}</NarrativeText>
-      <PixelStack gap={4} className="w-full max-w-xl">
-        {stories.map(story => (
-          <PixelCard key={story.id} title={story.title}>
-            <NarrativeText className="mb-4">{story.intro}</NarrativeText>
-            <PixelButton
-              tone="gold"
-              className="w-full"
-              onClick={() => dispatch({ type: 'START_STORY', payload: story })}
-            >
-              {UI.start.beginButton}
-            </PixelButton>
-          </PixelCard>
-        ))}
-      </PixelStack>
-      <HintText className="mt-8">{UI.start.resetHint}</HintText>
-    </main>
+    <StartLayout
+      list={
+        <StartPanel
+          summaries={summaries}
+          selectedId={selectedId}
+          onSelect={handleSelect}
+        />
+      }
+      map={
+        <LegendMap
+          summaries={summaries}
+          selectedId={selectedId}
+          focusKey={focusKey}
+          onSelect={handleSelect}
+        />
+      }
+      bottomBar={
+        <StartBottomBar
+          selectedId={selectedId}
+          onStart={() => { if (selectedId) onStart(selectedId) }}
+        />
+      }
+    />
   )
 }

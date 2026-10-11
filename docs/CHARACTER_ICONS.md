@@ -1,0 +1,98 @@
+# Grafiki postaci
+
+Grafiki postaci z legendy „Mostek Czarownic” (`content/legenda-czarownica.json`).
+Pliki leżą w `assets/<postać>/` jako PNG z przezroczystym tłem: Tekla w `assets/tekla/mloda/` i `assets/tekla/stara/`, postacie epizodyczne w `assets/inne/`.
+Kadr: pionowy 3:4, postać od bioder w górę.
+
+Kolumna „Scena” podaje id sceny z JSON. Jeśli poza dotyczy konkretnej opcji, opcja jest podana po dwukropku.
+
+## Martynka
+
+| Plik | Scena |
+|---|---|
+| `martynka-neutral.png` | `mostek` |
+| `martynka-wspolczucie.png` | `mostek`: skutek opcji „Zapytać, za co ją ukarano” (`czarownica: pytac`), gdy słucha historii Tekli |
+| `martynka-determinacja.png` | `mostek`: „Postanawiasz jej pomóc”; `starzec` |
+| `martynka-radosc.png` | zakończenie `wolna` |
+
+## Tekla
+
+### Młoda Tekla (faza 1–2)
+
+| Plik | Scena |
+|---|---|
+| `tekla-neutral.png` | `dom` |
+| `tekla-smiech.png` | `bal`: opcja „Roześmiać się: — Na cóż mi mąż?” (`odpowiedz: smiech`) |
+| `tekla-kokieteria.png` | `bal`: opcja „Zwodzić go latami” (`odpowiedz: zwodzic`) |
+| `tekla-zakochana.png` | `czeladnik` |
+| `tekla-przerazenie.png` | `wyrok`: „— Przeklinam cię!” |
+| `tekla-blaganie.png` | `wyrok`: opcja „Paść na kolana i błagać o litość” (`reakcja: blaganie`) |
+
+### Stara Tekla (faza 2–3)
+
+| Plik | Scena |
+|---|---|
+| `tekla-stara-neutral.png` | `mostek` |
+| `tekla-stara-opowiesc.png` | `mostek`: skutek każdej opcji, gdy stara panna opowiada swoją historię |
+| `tekla-stara-ulga.png` | zakończenie `rok` |
+
+## Michał
+
+| Plik | Scena |
+|---|---|
+| `michal-neutral.png` | `starzec` |
+| `michal-moc.png` | `starzec`: skutek opcji „Podać mu różdżkę” (`rynek: pomoc`); `zyczenie`; zakończenia `wolna` i `rok` |
+| `michal-gniew.png` | `kradziez` |
+| `michal-chytry.png` | `uklad` |
+
+## Ojciec
+
+| Plik | Scena |
+|---|---|
+| `ojciec-neutral.png` | wzmianki w `dom`, `bal`, `czeladnik`, `plotka` |
+| `ojciec-klatwa.png` | `wyrok`: „— Przeklinam cię!” |
+| `ojciec-odwrocony.png` | `wyrok`: skutek opcji „Wybuchnąć śmiechem” (odwraca się bez słowa) i „Krzyknąć, że to niesprawiedliwe” (zamyka za sobą drzwi) |
+
+## Matka
+
+| Plik | Scena |
+|---|---|
+| `matka-neutral.png` | `dom`: prosi o pomoc przy garnkach |
+| `matka-napiecie.png` | `bal`: wstrzymuje oddech przy oświadczynach |
+
+## Kawaler
+
+| Plik | Scena |
+|---|---|
+| `kawaler-neutral.png` | `bal`: oświadczyny |
+| `kawaler-upokorzony.png` | `bal`: skutek opcji „Roześmiać się: — Na cóż mi mąż?” (`odpowiedz: smiech`) i „Zgodzić się” (`odpowiedz: zgoda`) |
+| `kawaler-zawiedziony.png` | `bal`: skutek opcji „Zwodzić go latami” (`odpowiedz: zwodzic`) |
+
+## Czeladnik
+
+| Plik | Scena |
+|---|---|
+| `czeladnik-neutral.png` | `dom`: skutek opcji „Zajrzeć do warsztatu, do czeladnika” (`sciezka: milosc`) |
+| `czeladnik-wyznanie.png` | `czeladnik`: wyznaje miłość |
+| `czeladnik-przylapany.png` | `czeladnik`: skutek opcji „Uciec nocą z czeladnikiem” (`odpowiedz: ucieczka`) i „Spotykać się z nim potajemnie” (`odpowiedz: sekret`) |
+
+## Postacie epizodyczne
+
+| Plik | Scena |
+|---|---|
+| `kupiec-obrazony.png` | `czeladnik`: skutek opcji „Odmówić kupcowi: — Na cóż mi taki mąż?” (`odpowiedz: odmowa`) |
+| `kuzynka-plotka.png` | `dom`: skutek opcji „Zostać i pomóc matce” (`sciezka: intryga`); `plotka` |
+| `tesciowa-wylicza.png` | `bal`: skutek opcji „Zgodzić się” (`odpowiedz: zgoda`) |
+| `straznik-przy-bramie.png` | `czeladnik`: skutek opcji „Uciec nocą z czeladnikiem” (`odpowiedz: ucieczka`) |
+
+## Tła
+
+Pliki leżą w `assets/tla/` jako PNG 1920x1072 (16:9). Środek dołu każdego tła jest pusty, bo tam stoi postać; na telefonie tło przycina się po bokach.
+
+| Plik | Scena |
+|---|---|
+| `tlo-izba.png` | `dom`, `bal`, `wyrok` |
+| `tlo-warsztat.png` | `czeladnik` |
+| `tlo-rynek-dzien.png` | `plotka` |
+| `tlo-mostek.png` | `mostek`; zakończenia `wolna`, `rok`, `zamiana` |
+| `tlo-rynek-noc.png` | `starzec`, `zyczenie`, `kradziez`, `uklad`; zakończenia `moc`, `ucieczka`, `podstep` |

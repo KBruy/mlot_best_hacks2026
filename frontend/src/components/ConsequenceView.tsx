@@ -4,15 +4,17 @@ import { UI } from '../strings'
 
 interface Props {
   choiceText: string
-  consequence: string
+  result: string[]
   onNext: () => void
 }
 
-export function ConsequenceView({ choiceText, consequence, onNext }: Props) {
+export function ConsequenceView({ choiceText, result, onNext }: Props) {
   return (
     <PixelCard title={choiceText}>
-      <NarrativeText className="mb-6">{consequence}</NarrativeText>
-      <PixelButton tone="gold" className="w-full" onClick={onNext}>
+      {result.map((paragraph, i) => (
+        <NarrativeText key={i} className="mb-3">{paragraph}</NarrativeText>
+      ))}
+      <PixelButton tone="gold" className="w-full mt-3" onClick={onNext}>
         {UI.consequence.nextButton}
       </PixelButton>
     </PixelCard>
