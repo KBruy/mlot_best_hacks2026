@@ -1,11 +1,12 @@
 interface Props {
   title: string
   locationName: string
+  teaser: string | null
   selected: boolean
   onClick: () => void
 }
 
-export function StoryListItem({ title, locationName, selected, onClick }: Props) {
+export function StoryListItem({ title, locationName, teaser, selected, onClick }: Props) {
   return (
     <button
       type="button"
@@ -18,7 +19,15 @@ export function StoryListItem({ title, locationName, selected, onClick }: Props)
       ].join(' ')}
     >
       <div className="font-mono text-retro-secondary text-sm leading-snug">{title}</div>
-      <div className="text-retro-muted text-xs mt-1">{locationName}</div>
+      <div className="font-mono text-retro-muted text-xs mt-1">
+        <span className="text-retro-border-strong uppercase tracking-widest text-[10px]">Start: </span>
+        {locationName}
+      </div>
+      {teaser && (
+        <div className="font-mono text-retro-text text-xs mt-2 leading-relaxed opacity-70 line-clamp-2">
+          {teaser}
+        </div>
+      )}
     </button>
   )
 }

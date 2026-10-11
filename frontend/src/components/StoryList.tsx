@@ -1,5 +1,6 @@
 import { PanelHeader } from './PanelHeader'
 import { StoryListItem } from './StoryListItem'
+import { resolveTeaser } from '../game/textUtils'
 import { UI } from '../strings'
 import type { StorySummary } from '../game/types'
 
@@ -19,6 +20,7 @@ export function StoryList({ summaries, selectedId, onSelect }: Props) {
             key={s.id}
             title={s.title}
             locationName={s.location.name}
+            teaser={resolveTeaser(s.intro.paragraphs)}
             selected={s.id === selectedId}
             onClick={() => onSelect(s.id)}
           />
