@@ -23,3 +23,11 @@ export function resolveParagraphs(paragraphs: Paragraphs, fields: GameFields): s
     return resolved !== null ? [resolved] : []
   })
 }
+
+export function resolveTeaser(paragraphs: Paragraphs): string | null {
+  for (const p of paragraphs) {
+    const resolved = resolveText(p, {})
+    if (resolved) return resolved
+  }
+  return null
+}

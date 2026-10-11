@@ -144,6 +144,7 @@ export interface StorySummary {
 
 // ── Game state ────────────────────────────────────────────────────────────────
 
+
 export type Screen = 'loading' | 'error' | 'start' | 'scene' | 'consequence' | 'ending'
 
 export interface GpsPosition {
@@ -163,5 +164,6 @@ export interface GameState {
   choiceLocked: boolean
   errorMessage: string | null
   gpsPosition: GpsPosition | null
+  gpsGranted: boolean | null
   demoMode: boolean
 }
