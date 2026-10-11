@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { StartLayout } from '../components/StartLayout'
 import { StoryList } from '../components/StoryList'
 import { LegendMap } from '../components/LegendMap'
@@ -12,6 +12,12 @@ interface Props {
 
 export function StartScreen({ summaries, onStart }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [focusKey, setFocusKey] = useState(0)
+
+  const handleSelect = useCallback((id: string) => {
+    setSelectedId(id)
+    setFocusKey(k => k + 1)
+  }, [])
 
   return (
     <StartLayout
@@ -19,14 +25,15 @@ export function StartScreen({ summaries, onStart }: Props) {
         <StoryList
           summaries={summaries}
           selectedId={selectedId}
-          onSelect={setSelectedId}
+          onSelect={handleSelect}
         />
       }
       map={
         <LegendMap
           summaries={summaries}
           selectedId={selectedId}
-          onSelect={setSelectedId}
+          focusKey={focusKey}
+          onSelect={handleSelect}
         />
       }
       bottomBar={

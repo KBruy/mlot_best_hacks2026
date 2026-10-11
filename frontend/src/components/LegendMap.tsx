@@ -5,11 +5,12 @@ import type { StorySummary } from '../game/types'
 interface Props {
   summaries: StorySummary[]
   selectedId: string | null
+  focusKey: number
   onSelect: (id: string) => void
 }
 
 const WROCLAW_CENTER: L.LatLngExpression = [51.1097, 17.0326]
-const DEFAULT_ZOOM = 14
+const DEFAULT_ZOOM = 15
 
 function createPinIcon(selected: boolean) {
   return L.divIcon({
@@ -21,7 +22,7 @@ function createPinIcon(selected: boolean) {
   })
 }
 
-export function LegendMap({ summaries, selectedId, onSelect }: Props) {
+export function LegendMap({ summaries, selectedId, focusKey, onSelect }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<L.Map | null>(null)
   const markersRef = useRef<Map<string, L.Marker>>(new Map())
@@ -88,8 +89,11 @@ export function LegendMap({ summaries, selectedId, onSelect }: Props) {
     const map = mapRef.current
     if (!map || !selectedId) return
     const summary = summaries.find(s => s.id === selectedId)
-    if (summary) map.panTo(summary.location.center, { animate: true, duration: 0.5 })
-  }, [selectedId, summaries])
+    if (summary) {
+      const targetZoom = DEFAULT_ZOOM + 1
+      map.flyTo(summary.location.center, targetZoom, { animate: true, duration: 0.6 })
+    }
+  }, [selectedId, summaries, focusKey])
 
   return <div ref={containerRef} className="h-full w-full" />
 }
