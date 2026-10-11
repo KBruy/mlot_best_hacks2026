@@ -26,7 +26,14 @@ Sprawdzenie: `curl http://localhost:8000/api/health`, dokumentacja endpointów: 
 | `GET /api/stories`      | lista `[{id, title, location: {name, center}, intro: {title, paragraphs}}]` (pusta przed importem) |
 | `GET /api/stories/{id}` | pełna historia zgodna z `app/models.py`; 404 dla nieznanego `id` |
 
-Niedostępna baza daje 503 na obu endpointach. Frontend pobiera wybraną historię raz i gra lokalnie.
+| `GET /api/voice/health`, `/api/voice/voices`, `/api/voice/characters` | odpowiedzi voice-service bez zmian |
+| `POST /api/voice/tts`, `POST /api/voice/tts/script` | nagranie `audio/wav` z voice-service (ciało jak w `voice-service/API.md`) |
+
+Niedostępna baza daje 503 na obu endpointach historii. Frontend pobiera wybraną historię raz i gra lokalnie.
+
+Pełny opis wszystkich połączeń (frontend ↔ backend ↔ voice-service): [`docs/API.md`](../docs/API.md).
+
+Endpointy `/api/voice/*` to furtka dla frontendu do voice-service: backend dokłada klucz `X-API-Key` z `.env` (`VOICE_SERVICE_URL`, `VOICE_API_KEY`), więc klucz nie trafia do przeglądarki. Frontend woła je przez to samo proxy `/api` co historie. Błędy voice-service (404, 422, 500) są przekazywane bez zmian; brak konfiguracji lub niedziałający serwis daje 503, przekroczenie 180 s 504, zły klucz backendu 502. Gra v0 z nich nie korzysta (narracja to gotowe MP3). Uwaga: endpointy pozwalają każdemu, kto ma dostęp do API, zlecać syntezę dowolnego tekstu i obciążać serwis; nie wystawiaj ich publicznie bez ograniczeń.
 
 Format historii pochodzi z prototypu `terminal-game/` (opis pól: `terminal-game/docs/FORMAT_HISTORII.md`), z dodanymi `id` i `title`. Frontend sam rozwiązuje teksty z warunkami `if` na podstawie stanu (`state`, ustawiany przez `set` w opcjach; pole `widok` ustawia z GPS: id punktu widokowego albo `location.default_view`) i wybiera zakończenie po polach `ending_by`, gdy opcja ma `next: null`. Pola zaczynające się od `_` (np. `_note`) to notatki: walidator i import je pomijają.
 

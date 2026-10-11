@@ -21,6 +21,11 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-legend}
+      # voice-service działa na hoście (poza tym Compose).
+      VOICE_SERVICE_URL: http://host.docker.internal:8001
+      VOICE_API_KEY: ${VOICE_API_KEY:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "${API_PORT:-8000}:8000"
     # Tylko „czy uvicorn odpowiada”: przy niedostępnej bazie API ma działać i zwracać 503.

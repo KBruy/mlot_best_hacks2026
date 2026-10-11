@@ -7,7 +7,7 @@ kto z kim rozmawia, jakie błędy się zdarzają, ile to trwa i jak z tego korzy
 ## 1. Kto z kim rozmawia
 
 ```
-React (przeglądarka) ──► backend gry (/api/...) ──► voice-service (:8001)
+React (przeglądarka) ──► backend gry (/api/voice/...) ──► voice-service (:8001)
                           trzyma klucz API            nagłówek X-API-Key
 ```
 
@@ -15,6 +15,8 @@ React (przeglądarka) ──► backend gry (/api/...) ──► voice-service (
 - Klucz trzyma backend gry (np. w `.env`) i dokłada go do każdego zapytania do voice-service.
 - Przy takim układzie CORS w voice-service **nie jest potrzebny** (przeglądarka rozmawia tylko z backendem gry).
 - voice-service powinien być dostępny tylko w sieci wewnętrznej.
+- Backend gry ma gotowe proxy: `GET /api/voice/{health,voices,characters}`, `POST /api/voice/tts`, `POST /api/voice/tts/script`
+  (te same ciała i odpowiedzi, konfiguracja w `backend/.env`; opis w `backend/README.md`). Frontend woła `/api/voice/tts` zamiast `/tts`.
 
 ## 2. Autoryzacja
 
@@ -133,7 +135,9 @@ curl -s -X POST http://localhost:8001/tts \
   -o tts.wav
 ```
 
-### Backend gry (FastAPI + httpx): proxy, który ukrywa klucz
+### Backend gry: proxy, który ukrywa klucz
+
+Zaimplementowane w `backend/app/main.py` i `backend/app/voice.py`. Zasada w skrócie:
 
 ```python
 VOICE_URL = os.environ["VOICE_SERVICE_URL"]     # np. http://localhost:8001
@@ -155,7 +159,7 @@ Backend powinien ograniczyć, co przekazuje (np. tylko `voice`, `character`, `te
 
 ```ts
 async function speak(voice: string, character: string, text: string): Promise<void> {
-  const res = await fetch("/api/tts", {
+  const res = await fetch("/api/voice/tts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ voice, character, text }),
