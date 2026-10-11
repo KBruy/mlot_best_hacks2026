@@ -37,7 +37,7 @@ export function StartPanel({ summaries, selectedId, onSelect }: Props) {
           </p>
         </div>
       </div>
-      <div className="animate-enter-3 shrink-0">
+      <div className="animate-enter-3 flex-1 min-h-0">
         <StoryList
           summaries={summaries}
           selectedId={selectedId}
