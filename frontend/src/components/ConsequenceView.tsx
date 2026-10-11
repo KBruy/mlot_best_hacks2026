@@ -1,19 +1,18 @@
 import { PixelButton, PixelCard } from '@pxlkit/ui-kit'
-import { NarrativeText } from './NarrativeText'
+import { NarrativeKaraoke } from './NarrativeKaraoke'
 import { UI } from '../strings'
+import type { Variant } from '../game/types'
 
 interface Props {
   choiceText: string
-  result: string[]
+  result: Variant[]
   onNext: () => void
 }
 
 export function ConsequenceView({ choiceText, result, onNext }: Props) {
   return (
     <PixelCard title={choiceText}>
-      {result.map((paragraph, i) => (
-        <NarrativeText key={i} className="mb-3">{paragraph}</NarrativeText>
-      ))}
+      <NarrativeKaraoke paragraphs={result} />
       <PixelButton tone="gold" className="w-full mt-3" onClick={onNext}>
         {UI.consequence.nextButton}
       </PixelButton>

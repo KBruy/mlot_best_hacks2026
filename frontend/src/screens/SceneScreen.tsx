@@ -44,7 +44,7 @@ export function SceneScreen() {
 
   if (!scene) return null
 
-  const sceneText = resolveParagraphs(scene.scene, state.gameFields).join('\n\n')
+  const sceneParagraphs = resolveParagraphs(scene.scene, state.gameFields)
   const beforeStop = scene.before ? state.story?.stops[scene.before] ?? null : null
   const beforeShot = scene.before ? state.story?.streetview?.stops[scene.before] ?? null : null
   const locationShot = beforeShot ?? state.story?.streetview?.finale ?? null
@@ -66,7 +66,7 @@ export function SceneScreen() {
         <StoryPanel>
           <NarrativeKaraoke
             key={state.currentSceneId ?? undefined}
-            text={sceneText}
+            paragraphs={sceneParagraphs}
             onComplete={handleKaraokeComplete}
           />
         </StoryPanel>

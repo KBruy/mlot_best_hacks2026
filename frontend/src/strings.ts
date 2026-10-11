@@ -45,6 +45,12 @@ export const UI = {
     panelChoices: 'Wybierz odpowiedź',
   },
 
+  narration: {
+    mute: 'Wycisz lektora',
+    unmute: 'Włącz lektora',
+    play: 'Odtwórz',
+  },
+
   consequence: {
     nextButton: 'Dalej',
   },

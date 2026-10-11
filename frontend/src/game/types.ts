@@ -167,4 +167,5 @@ export interface GameState {
   gpsPosition: GpsPosition | null
   gpsGranted: boolean | null
   demoMode: boolean
+  muted: boolean
 }
