@@ -1036,7 +1036,7 @@
           ]
         },
         {
-          "text": "Odejść w milczeniu, ze smutkiem godząc się ze swoim losem.",
+          "text": "Odejść w milczeniu, bez żadnej przysięgi.",
           "legend": false,
           "set": {
             "przysiega": "cisza"
