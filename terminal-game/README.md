@@ -61,15 +61,16 @@ a gdy GPS nie łapie przystanku, możesz wpisać `j` („jestem na miejscu”).
 
 ```
 uv run python main.py            # symulacja: przy każdym odczycie GPS wybierasz, gdzie stoisz
-uv run python main.py --trasa    # odtwarza prawdziwy spacer (ok. 260 m), krok co ok. 1 s
+uv run python main.py --trasa    # odtwarza prawdziwy spacer (ok. 260 m), krok 10 m co 0,5 s
 uv run python main.py --trasa --mapa        # to samo + spacer na żywo na mapie Google
 uv run python main.py --trasa --tempo 0     # spacer od razu, bez czekania
 uv run python main.py --demo     # prezentacja: start pod wieżami, przystanki zaliczane od razu
 uv run python main.py --gps 51.0980,17.0365   # własna pozycja startowa (tu: daleko, blokada)
 uv run python main.py --no-gps   # brak zgody na lokalizację
+uv run python main.py --tylko-trasa --mapa   # sam spacer bez historii, do sprawdzania punktów w Street View
 ```
 
-`--mapa` uruchamia lokalną stronę (http://127.0.0.1:8765/, port zmienisz przez
+`--mapa` uruchamia lokalną stronę (http://127.0.0.1:8877/, port zmienisz przez
 `--port`) i otwiera ją w przeglądarce. Strona pokazuje **Google Street View** (osadzony
 bez klucza API) i w rogu małą mapę satelitarną, które co chwilę pytają grę o pozycję:
 - w drodze widać najbliższą sprawdzoną panoramę z ulicy, zwróconą w kierunku marszu,
@@ -86,7 +87,7 @@ a wyłączysz je zmienną `NO_COLOR=1`.
 
 **Trasa** (`route` w `story.json`) pochodzi z Google Maps: ul. Św. Marii Magdaleny →
 róg Szewskiej → pod wieże → Kurzy Targ → pręgierz, razem ok. 260 m i 3–4 minuty.
-W trybie `--trasa` gra przesuwa się po niej co ok. 20 m i sama pokazuje postęp,
+W trybie `--trasa` gra przesuwa się po niej co ok. 10 m i sama pokazuje postęp,
 tak jak zrobiłaby to aplikacja z prawdziwym GPS.
 
 **Współrzędne** w `story.json` są odczytane z Google Maps (zdjęcie satelitarne

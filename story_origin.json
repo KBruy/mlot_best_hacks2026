@@ -1,0 +1,21 @@
+{
+    "location": {
+        "name": "katedra św. Jana Chrzciciela na Ostrowie Tumskim",
+        "_note": "Współrzędne katedry i Mostu Piaskowego z OpenStreetMap (Nominatim, 2026-10-10), NIE zmierzone na miejscu. Punkt startu, promienie i punkt widokowy są oszacowane i trzeba je poprawić w terenie (prawy klik w Google Maps, jak w story.json). Okno z kamienną głową: legenda mówi tylko o wieży katedry, warto sprawdzić na miejscu, które to okienko.",
+        "center": [
+            51.1139854,
+            17.0460059
+        ],
+        "unlock_radius_m": 700,
+        "default_view": "ogolny",
+        "viewpoints": [
+            {
+                "id": "plac",
+                "label": "z placu Katedralnego, pod wieżami katedry",
+                "lat": 51.1139854,
+                "lon": 17.0460059,
+                "radius_m": 60
+            }
+        ]
+    }
+}
