@@ -74,6 +74,11 @@ class Engine:
         raw = json.dumps([sample.name, stat.st_mtime_ns, stat.st_size, params, text], sort_keys=True)
         return CACHE_DIR / (hashlib.sha256(raw.encode("utf-8")).hexdigest() + ".wav")
 
+    def forget(self, voice: str, character: str, text: str) -> None:
+        """Usuwa kwestie z cache: nastepne synthesize wygeneruje nowe podejscie."""
+        sample = self._sample(voice, character)
+        self._cache_path(sample, normalize(character), text).unlink(missing_ok=True)
+
     def synthesize(self, voice: str, character: str, text: str) -> torch.Tensor:
         """Zwraca audio [1, probki] (CPU, self.sr). Wyniki sa cache'owane na dysku."""
         sample = self._sample(voice, character)
