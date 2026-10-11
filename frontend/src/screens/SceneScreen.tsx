@@ -160,28 +160,31 @@ export function SceneScreen() {
     <SceneLayout
       story={
         <StoryPanel>
-          {walkDone ? (
-            <NarrativeKaraoke
-              key={state.currentSceneId ?? undefined}
-              paragraphs={sceneParagraphs}
-              onComplete={handleKaraokeComplete}
-            />
-          ) : (
-            <p className="narrative text-retro-muted opacity-60 italic">
-              Podróż do: {beforeStop?.label ?? locationLabel}…
-            </p>
-          )}
+          <div key={state.currentSceneId ?? undefined} className="animate-enter">
+            {walkDone ? (
+              <NarrativeKaraoke
+                paragraphs={sceneParagraphs}
+                onComplete={handleKaraokeComplete}
+              />
+            ) : (
+              <p className="narrative text-retro-muted opacity-60 italic">
+                Podróż do: {beforeStop?.label ?? locationLabel}…
+              </p>
+            )}
+          </div>
         </StoryPanel>
       }
       location={<LocationPanel shot={locationShot} label={locationLabel} onBack={() => dispatch({ type: 'RESTART' })} />}
       choices={
         walkDone ? (
-          <ChoicesPanel
-            options={scene.options}
-            fields={state.gameFields}
-            onSelect={handleSelect}
-            locked={choicesLocked}
-          />
+          <div key={state.currentSceneId ?? undefined} className="animate-enter h-full">
+            <ChoicesPanel
+              options={scene.options}
+              fields={state.gameFields}
+              onSelect={handleSelect}
+              locked={choicesLocked}
+            />
+          </div>
         ) : (
           <div className="w-full h-full border-t-2 border-retro-border-strong bg-retro-surface" />
         )
