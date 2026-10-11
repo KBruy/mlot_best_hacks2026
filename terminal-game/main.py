@@ -575,13 +575,15 @@ def main(argv=None, input_fn=input, output_fn=print):
                         help="przy --trasa: przerwa między odczytami GPS (domyślnie 1 s, 0 = od razu)")
     parser.add_argument("--mapa", action="store_true",
                         help="pokazuje spacer na żywo w Street View i na mapie Google w przeglądarce")
-    parser.add_argument("--port", type=int, default=8765, help="port strony z mapą (domyślnie 8765)")
+    parser.add_argument("--story", type=Path, default=STORY_PATH, metavar="PLIK",
+                        help="plik historii (domyślnie story.json)")
+    parser.add_argument("--port", type=int, default=8877, help="port strony z mapą (domyślnie 8877)")
     args = parser.parse_args(argv)
 
-    story = load_story()
+    story = load_story(args.story)
     problems = validate_story(story)
     if problems:
-        raise SystemExit("Błąd w story.json:\n" + "\n".join(problems))
+        raise SystemExit(f"Błąd w {args.story.name}:\n" + "\n".join(problems))
     if args.no_gps:
         gps = lambda target: None
     elif args.demo:

@@ -69,7 +69,7 @@ uv run python main.py --gps 51.0980,17.0365   # własna pozycja startowa (tu: da
 uv run python main.py --no-gps   # brak zgody na lokalizację
 ```
 
-`--mapa` uruchamia lokalną stronę (http://127.0.0.1:8765/, port zmienisz przez
+`--mapa` uruchamia lokalną stronę (http://127.0.0.1:8877/, port zmienisz przez
 `--port`) i otwiera ją w przeglądarce. Strona pokazuje **Google Street View** (osadzony
 bez klucza API) i w rogu małą mapę satelitarną, które co chwilę pytają grę o pozycję:
 - w drodze widać najbliższą sprawdzoną panoramę z ulicy, zwróconą w kierunku marszu,

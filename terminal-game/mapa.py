@@ -105,7 +105,7 @@ def bearing_deg(lat1, lon1, lat2, lon2):
 class LiveMap:
     """Przechowuje ostatnią pozycję i widok, i serwuje stronę ze Street View."""
 
-    def __init__(self, port=8765):
+    def __init__(self, port=8877):
         self._lock = threading.Lock()
         self._state = {"lat": None, "lon": None, "note": "", "title": "", "view": None}
         live = self
