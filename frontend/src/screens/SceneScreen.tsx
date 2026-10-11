@@ -72,6 +72,20 @@ export function SceneScreen() {
     dispatch({ type: 'SELECT_OPTION', payload: option })
   }, [dispatch])
 
+  const skipWalk = useCallback(() => {
+    if (!isDemoWalk || walkDone) return
+    setWalk({ sceneId: state.currentSceneId ?? '', frame: anchors?.length ?? 0 })
+  }, [isDemoWalk, walkDone, state.currentSceneId, anchors?.length])
+
+  useEffect(() => {
+    if (!isDemoWalk || walkDone) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.code === 'Space') { e.preventDefault(); skipWalk() }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [isDemoWalk, walkDone, skipWalk])
+
   useEffect(() => {
     if (!scene || choicesLocked) return
     const handleKey = (e: KeyboardEvent) => {
@@ -107,23 +121,31 @@ export function SceneScreen() {
     <SceneLayout
       story={
         <StoryPanel>
-          {walkDone && (
+          {walkDone ? (
             <NarrativeKaraoke
               key={state.currentSceneId ?? undefined}
               paragraphs={sceneParagraphs}
               onComplete={handleKaraokeComplete}
             />
+          ) : (
+            <p className="narrative text-retro-muted opacity-60 italic">
+              Podróż do: {beforeStop?.label ?? locationLabel}…
+            </p>
           )}
         </StoryPanel>
       }
       location={<LocationPanel shot={locationShot} label={locationLabel} />}
       choices={
-        <ChoicesPanel
-          options={scene.options}
-          fields={state.gameFields}
-          onSelect={handleSelect}
-          locked={choicesLocked}
-        />
+        walkDone ? (
+          <ChoicesPanel
+            options={scene.options}
+            fields={state.gameFields}
+            onSelect={handleSelect}
+            locked={choicesLocked}
+          />
+        ) : (
+          <div className="w-full h-full border-t-2 border-retro-border-strong bg-retro-surface" />
+        )
       }
     />
   )

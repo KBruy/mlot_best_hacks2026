@@ -43,12 +43,12 @@
   },
   "stops": {
     "wieze": {
-      "label": "Pod wieżami",
+      "label": "Kościół Marii Magdaleny",
       "lat": 51.109666,
       "lon": 17.034503,
       "radius_m": 30,
       "walk": "Obejdź kościół i stań od zachodu, na ulicy Szewskiej, naprzeciw dwóch wież. To najwyżej minuta spacerem.",
-      "arrive": "Jesteś pod wieżami. Zatrzymaj się na chwilę."
+      "arrive": "Stoisz pod wieżami kościoła Marii Magdaleny. Zatrzymaj się na chwilę."
     },
     "rynek": {
       "label": "Rynek, pod pręgierzem",
