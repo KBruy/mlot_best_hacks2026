@@ -80,20 +80,24 @@ export function SceneScreen() {
     return { lat: ancLat, lon: ancLon, heading, pitch: 0 }
   })()
 
-  // Static shot for non-walk scenes: last stop's fixed view, or nearest anchor to demo_start
+  // Static shot for non-walk scenes: last stop's fixed view, or nearest anchor to the start
   const staticShot: StreetViewShot | null = (() => {
     if (!state.story) return null
     if (state.lastStop) {
       return state.story.streetview?.stops[state.lastStop] ?? null
     }
     if (!allAnchors?.length) return null
+    const { center, unlock_radius_m } = state.story.location
+    const gps = state.gpsPosition
+    // GPS only on site: from far away (e.g. testing from home) the nearest anchor is a
+    // random point of the route, so without GPS on site start at the beginning of the route.
+    const onSite = !!gps && haversineDistance(gps.lat, gps.lon, center[0], center[1]) <= unlock_radius_m
     const pos: [number, number] | null = state.demoMode && state.story.demo_start
       ? [state.story.demo_start[0], state.story.demo_start[1]]
-      : state.gpsPosition ? [state.gpsPosition.lat, state.gpsPosition.lon] : null
+      : gps && onSite ? [gps.lat, gps.lon] : state.story.route?.start ?? state.story.demo_start ?? null
     if (!pos) return null
     const idx = nearestAnchorIdx(allAnchors, pos[0], pos[1])
     const [ancLat, ancLon] = allAnchors[idx]
-    const center = state.story.location.center
     return { lat: ancLat, lon: ancLon, heading: bearingDeg(ancLat, ancLon, center[0], center[1]), pitch: 0 }
   })()
 
