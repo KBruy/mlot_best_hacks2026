@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { StartLayout } from '../components/StartLayout'
-import { StoryList } from '../components/StoryList'
+import { StartPanel } from '../components/StartPanel'
 import { LegendMap } from '../components/LegendMap'
 import { StartBottomBar } from '../components/StartBottomBar'
 import type { StorySummary } from '../game/types'
@@ -22,7 +22,7 @@ export function StartScreen({ summaries, onStart }: Props) {
   return (
     <StartLayout
       list={
-        <StoryList
+        <StartPanel
           summaries={summaries}
           selectedId={selectedId}
           onSelect={handleSelect}
