@@ -17,8 +17,12 @@ export function useGeolocation() {
           payload: { lat: pos.coords.latitude, lon: pos.coords.longitude },
         })
       },
-      () => {
-        dispatch({ type: 'GPS_DENIED' })
+      (err) => {
+        // Only permanently deny when the user explicitly refused — timeouts and
+        // "position unavailable" are transient; watchPosition will keep retrying.
+        if (err.code === GeolocationPositionError.PERMISSION_DENIED) {
+          dispatch({ type: 'GPS_DENIED' })
+        }
       },
       { enableHighAccuracy: true, maximumAge: 5000 },
     )

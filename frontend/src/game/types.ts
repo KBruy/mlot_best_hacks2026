@@ -145,7 +145,7 @@ export interface StorySummary {
 // ── Game state ────────────────────────────────────────────────────────────────
 
 
-export type Screen = 'loading' | 'error' | 'start' | 'scene' | 'arrive' | 'consequence' | 'ending'
+export type Screen = 'loading' | 'error' | 'start' | 'walk_to_start' | 'scene' | 'arrive' | 'consequence' | 'ending'
 
 export interface GpsPosition {
   lat: number

@@ -5,6 +5,8 @@ export type GameAction =
   | { type: 'SUMMARIES_LOADED' }
   | { type: 'STORY_ERROR'; payload: string }
   | { type: 'START_STORY'; payload: Story }
+  | { type: 'BEGIN_GAME' }
+  | { type: 'BEGIN_DEMO' }
   | { type: 'SELECT_OPTION'; payload: Option }
   | { type: 'ADVANCE_SCENE' }
   | { type: 'DISMISS_ARRIVAL' }
@@ -49,23 +51,65 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'START_STORY': {
       const story = action.payload
-      const effectivePos = state.gpsPosition
-        ?? (state.demoMode && story.demo_start
+      if (state.demoMode) {
+        const pos = story.demo_start
           ? { lat: story.demo_start[0], lon: story.demo_start[1] }
-          : null)
-      const widok = effectivePos
-        ? resolveWidok(effectivePos.lat, effectivePos.lon, story)
+          : state.gpsPosition
+        const widok = pos ? resolveWidok(pos.lat, pos.lon, story) : story.location.default_view
+        return {
+          ...initialState,
+          screen: 'scene',
+          story,
+          currentSceneId: story.start,
+          gameFields: { widok },
+          demoMode: true,
+          muted: state.muted,
+          gpsPosition: state.gpsPosition,
+          gpsGranted: state.gpsGranted,
+        }
+      }
+      const widok = state.gpsPosition
+        ? resolveWidok(state.gpsPosition.lat, state.gpsPosition.lon, story)
         : story.location.default_view
       return {
         ...initialState,
-        screen: 'scene',
+        screen: 'walk_to_start',
         story,
-        currentSceneId: story.start,
+        currentSceneId: null,
         gameFields: { widok },
-        demoMode: state.demoMode,
+        demoMode: false,
         muted: state.muted,
         gpsPosition: state.gpsPosition,
         gpsGranted: state.gpsGranted,
+      }
+    }
+
+    case 'BEGIN_GAME': {
+      if (!state.story) return state
+      const widok = state.gpsPosition
+        ? resolveWidok(state.gpsPosition.lat, state.gpsPosition.lon, state.story)
+        : state.story.location.default_view
+      return {
+        ...state,
+        screen: 'scene',
+        currentSceneId: state.story.start,
+        gameFields: { ...state.gameFields, widok },
+      }
+    }
+
+    case 'BEGIN_DEMO': {
+      if (!state.story) return state
+      const story = state.story
+      const pos = story.demo_start
+        ? { lat: story.demo_start[0], lon: story.demo_start[1] }
+        : state.gpsPosition
+      const widok = pos ? resolveWidok(pos.lat, pos.lon, story) : story.location.default_view
+      return {
+        ...state,
+        screen: 'scene',
+        currentSceneId: story.start,
+        demoMode: true,
+        gameFields: { ...state.gameFields, widok },
       }
     }
 

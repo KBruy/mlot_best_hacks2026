@@ -41,6 +41,7 @@ export function StreetViewEmbed({ point, title, className = '' }: Props) {
     if (!shownUrlRef.current) {
       back.src = url
       back.style.opacity = '1'
+      back.style.pointerEvents = 'auto'
       frontRef.current = backIdx
       shownUrlRef.current = url
       return

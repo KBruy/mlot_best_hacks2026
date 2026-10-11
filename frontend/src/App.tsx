@@ -6,6 +6,7 @@ import { LoadingScreen } from './screens/LoadingScreen'
 import { ErrorScreen } from './screens/ErrorScreen'
 import { StartScreen } from './screens/StartScreen'
 import { SceneScreen } from './screens/SceneScreen'
+import { WalkToStartScreen } from './screens/WalkToStartScreen'
 import { ArriveScreen } from './screens/ArriveScreen'
 import { ConsequenceScreen } from './screens/ConsequenceScreen'
 import { EndingScreen } from './screens/EndingScreen'
@@ -45,6 +46,7 @@ function GameRouter() {
   if (state.screen === 'loading') return <LoadingScreen />
   if (state.screen === 'error') return <ErrorScreen />
   if (state.screen === 'start') return <StartScreen summaries={summaries} onStart={handleStart} />
+  if (state.screen === 'walk_to_start') return <WalkToStartScreen />
   if (state.screen === 'scene') return <SceneScreen />
   if (state.screen === 'arrive') return <ArriveScreen />
   if (state.screen === 'consequence') return <ConsequenceScreen />

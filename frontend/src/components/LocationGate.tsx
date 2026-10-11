@@ -96,6 +96,7 @@ export function LocationGate({ stop, shot, anchors, skippable, distanceM, onSkip
     if (!shownUrlRef.current) {
       back.src = currentUrl
       back.style.opacity = '1'
+      back.style.pointerEvents = 'auto'
       frontRef.current = backIdx
       shownUrlRef.current = currentUrl
       return

@@ -97,7 +97,8 @@ export function SceneScreen() {
     return { lat: ancLat, lon: ancLon, heading: bearingDeg(ancLat, ancLon, center[0], center[1]), pitch: 0 }
   })()
 
-  const locationShot: StreetViewShot | null = isDemoWalk ? walkShot : staticShot
+  // GPS mode: when at a stop (blocked=false), prefer the fixed stop shot over the GPS-derived one
+  const locationShot: StreetViewShot | null = isDemoWalk ? walkShot : (beforeShot ?? staticShot)
   const locationLabel = beforeStop?.label ?? UI.scene.panelLocation
 
   const karaokeComplete = completedSceneId === state.currentSceneId
