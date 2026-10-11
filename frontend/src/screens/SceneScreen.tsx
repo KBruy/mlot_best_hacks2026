@@ -86,6 +86,9 @@ export function SceneScreen() {
     if (state.lastStop) {
       return state.story.streetview?.stops[state.lastStop] ?? null
     }
+    if (state.story.streetview?.start) {
+      return state.story.streetview.start
+    }
     if (!allAnchors?.length) return null
     const pos: [number, number] | null = state.demoMode && state.story.demo_start
       ? [state.story.demo_start[0], state.story.demo_start[1]]

@@ -17,6 +17,7 @@ function nearestAnchorIdx(anchors: [number, number][], lat: number, lon: number)
 }
 
 function destinationShot(story: Story): StreetViewShot | null {
+  if (story.streetview?.start) return story.streetview.start
   const anchors = story.streetview?.anchors
   if (!anchors?.length) return null
   const [clat, clon] = story.location.center
