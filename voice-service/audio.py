@@ -11,6 +11,31 @@ def _frame_db(x: torch.Tensor, sr: int) -> torch.Tensor:
     return 20 * torch.log10(rms + 1e-6)
 
 
+def _speech_end(valley: torch.Tensor, max_blip_s: float = 0.12, min_gap_s: float = 0.3) -> int:
+    """Ramka konca mowy z pominieciem koncowych trzaskow.
+
+    Po wypowiedzi model potrafi wygenerowac cichy szum z krotkimi trzaskami (pojedyncze
+    glosne ramki). Ostatni trzask nie moze byc uznany za koniec mowy, bo wtedy caly szum
+    przed nim zostaje. Mowa konczy sie na ostatnim glosnym odcinku dluzszym niz max_blip_s,
+    jesli po nim jest przerwa >= min_gap_s, a dalej juz tylko krotkie odcinki.
+    """
+    end = valley.numel()
+    runs, start = [], None
+    for i, quiet_frame in enumerate(valley.tolist() + [True]):
+        if not quiet_frame and start is None:
+            start = i
+        elif quiet_frame and start is not None:
+            runs.append((start, i))
+            start = None
+    blip = int(max_blip_s / FRAME_S)
+    speech = [r for r in runs if r[1] - r[0] > blip]
+    if not speech or speech[-1] == runs[-1]:
+        return end
+    last_end = speech[-1][1]
+    next_start = runs[runs.index(speech[-1]) + 1][0]
+    return last_end if (next_start - last_end) * FRAME_S >= min_gap_s else end
+
+
 def trim_tail(
     wav: torch.Tensor,
     sr: int,
@@ -31,7 +56,9 @@ def trim_tail(
     if db.numel() < 10:
         return wav
     valley = db < db.max() - 30
-    end = db.numel()
+    frames = db.numel()
+    end = _speech_end(valley)  # dalej analizujemy tylko mowe, bez koncowych trzaskow
+    db, valley = db[:end], valley[:end]
 
     # poczatek ogona = pierwsza ramka po ostatniej dolinie (jesli doliny sa)
     non_valley = (~valley).nonzero().flatten()
@@ -51,7 +78,7 @@ def trim_tail(
     cut = voiced_end
     while cut > 0 and valley[cut - 1]:
         cut -= 1
-    cut = min(end, cut + int(pad_s / FRAME_S)) * int(FRAME_S * sr)
+    cut = min(frames, cut + int(pad_s / FRAME_S)) * int(FRAME_S * sr)
     out = wav[..., :cut].clone()
     fade = min(int(fade_s * sr), out.shape[-1])
     out[..., -fade:] *= torch.linspace(1.0, 0.0, fade, device=out.device)
