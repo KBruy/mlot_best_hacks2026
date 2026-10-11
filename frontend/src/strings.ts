@@ -18,7 +18,13 @@ export const UI = {
   demo: {
     on: 'Tryb demo: włączony',
     off: 'Tryb demo: wyłączony',
-    // TODO: po otrzymaniu kontraktu danych — podpiąć tu Street View pierwszej lokalizacji legendy
+    gpsWarning: 'GPS niedostępny',
+  },
+
+  gps: {
+    granted: 'GPS: aktywny',
+    denied: 'GPS: brak dostępu',
+    unknown: 'GPS: oczekiwanie…',
   },
 
   loading: {

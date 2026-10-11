@@ -38,7 +38,7 @@ export function StartScreen({ summaries, onStart }: Props) {
       }
       bottomBar={
         <StartBottomBar
-          disabled={selectedId === null}
+          selectedId={selectedId}
           onStart={() => { if (selectedId) onStart(selectedId) }}
         />
       }

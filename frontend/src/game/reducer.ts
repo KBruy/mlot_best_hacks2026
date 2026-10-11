@@ -10,6 +10,7 @@ export type GameAction =
   | { type: 'RESTART' }
   | { type: 'RETRY_FETCH' }
   | { type: 'GPS_UPDATE'; payload: GpsPosition }
+  | { type: 'GPS_DENIED' }
   | { type: 'TOGGLE_DEMO_MODE' }
 
 export const initialState: GameState = {
@@ -22,6 +23,7 @@ export const initialState: GameState = {
   choiceLocked: false,
   errorMessage: null,
   gpsPosition: null,
+  gpsGranted: null,
   demoMode: false,
 }
 
@@ -53,6 +55,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         gameFields: { widok },
         demoMode: state.demoMode,
         gpsPosition: state.gpsPosition,
+        gpsGranted: state.gpsGranted,
       }
     }
 
@@ -98,18 +101,22 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         story: state.story,
         demoMode: state.demoMode,
         gpsPosition: state.gpsPosition,
+        gpsGranted: state.gpsGranted,
       }
 
     case 'RETRY_FETCH':
-      return { ...initialState, demoMode: state.demoMode }
+      return { ...initialState, demoMode: state.demoMode, gpsGranted: state.gpsGranted }
 
     case 'GPS_UPDATE': {
       const newFields = { ...state.gameFields }
       if (state.story) {
         newFields.widok = resolveWidok(action.payload.lat, action.payload.lon, state.story)
       }
-      return { ...state, gpsPosition: action.payload, gameFields: newFields }
+      return { ...state, gpsPosition: action.payload, gpsGranted: true, gameFields: newFields }
     }
+
+    case 'GPS_DENIED':
+      return { ...state, gpsGranted: false }
 
     case 'TOGGLE_DEMO_MODE':
       return { ...state, demoMode: !state.demoMode }

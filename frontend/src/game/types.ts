@@ -164,5 +164,6 @@ export interface GameState {
   choiceLocked: boolean
   errorMessage: string | null
   gpsPosition: GpsPosition | null
+  gpsGranted: boolean | null
   demoMode: boolean
 }
