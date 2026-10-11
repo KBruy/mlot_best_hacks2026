@@ -57,6 +57,21 @@
   }
 }
 
+/* ── Animacje wejścia ── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-enter {
+  animation: fade-in-up 0.35s ease-out both;
+}
+.animate-enter-1 { animation: fade-in-up 0.35s ease-out 80ms both; }
+.animate-enter-2 { animation: fade-in-up 0.35s ease-out 180ms both; }
+.animate-enter-3 { animation: fade-in-up 0.35s ease-out 280ms both; }
+.animate-enter-4 { animation: fade-in-up 0.35s ease-out 380ms both; }
+.animate-enter-5 { animation: fade-in-up 0.35s ease-out 480ms both; }
+
 /* ── Piny legend na mapie Leaflet ── */
 .map-pin {
   width: 18px;

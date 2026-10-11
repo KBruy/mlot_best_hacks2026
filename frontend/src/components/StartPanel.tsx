@@ -13,13 +13,13 @@ export function StartPanel({ summaries, selectedId, onSelect }: Props) {
   return (
     <div className="h-full flex flex-col bg-retro-surface">
       <div className="flex-1 flex flex-col overflow-y-auto border-b-2 border-retro-border-strong">
-        <div className="px-6 pt-6 pb-5 border-b-2 border-retro-border-strong">
+        <div className="animate-enter px-6 pt-6 pb-5 border-b-2 border-retro-border-strong">
           <h1 className="font-mono text-retro-secondary text-xl font-bold leading-tight text-center">
             {UI.appTitle}
           </h1>
         </div>
-        <PanelHeader label={UI.start.aboutLabel} />
-        <div className="flex flex-col gap-2 px-6 pt-5 pb-4">
+        <div className="animate-enter-1"><PanelHeader label={UI.start.aboutLabel} /></div>
+        <div className="animate-enter-2 flex flex-col gap-2 px-6 pt-5 pb-4">
           <p className="font-mono text-retro-secondary text-sm font-semibold tracking-wide">
             {UI.start.welcomeHeadline}
           </p>
@@ -37,7 +37,7 @@ export function StartPanel({ summaries, selectedId, onSelect }: Props) {
           </p>
         </div>
       </div>
-      <div className="shrink-0" style={{ height: '52%' }}>
+      <div className="animate-enter-3 shrink-0" style={{ height: '52%' }}>
         <StoryList
           summaries={summaries}
           selectedId={selectedId}
