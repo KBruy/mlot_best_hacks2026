@@ -9,7 +9,6 @@ import { ChoicesPanel } from '../components/ChoicesPanel'
 import { LocationGate } from '../components/LocationGate'
 import { GameLayout } from '../components/GameLayout'
 import { NarrativeKaraoke } from '../components/NarrativeKaraoke'
-import { HintText } from '../components/HintText'
 import { UI } from '../strings'
 import type { Option } from '../game/types'
 
@@ -21,7 +20,7 @@ export function SceneScreen() {
   const { blocked, distanceM } = useLocationGate(scene)
 
   const karaokeComplete = completedSceneId === state.currentSceneId
-  const choicesLocked = !karaokeComplete || state.choiceLocked
+  const choicesLocked = !karaokeComplete || state.choiceLocked || blocked
 
   const handleKaraokeComplete = useCallback(() => {
     setCompletedSceneId(state.currentSceneId)
@@ -51,13 +50,10 @@ export function SceneScreen() {
   const locationShot = beforeShot ?? state.story?.streetview?.finale ?? null
   const locationLabel = beforeStop?.label ?? UI.scene.panelLocation
 
-  if (blocked && beforeStop && beforeShot) {
+  if (blocked && beforeStop) {
     return (
       <GameLayout>
         <div className="w-full max-w-xl">
-          <HintText className="mb-4">
-            {UI.scene.decisionHint(state.decisionCount + 1, UI.scene.totalDecisions)}
-          </HintText>
           <LocationGate stop={beforeStop} shot={beforeShot} distanceM={distanceM} />
         </div>
       </GameLayout>
@@ -68,9 +64,6 @@ export function SceneScreen() {
     <SceneLayout
       story={
         <StoryPanel>
-          <HintText className="mb-4">
-            {UI.scene.decisionHint(state.decisionCount + 1, UI.scene.totalDecisions)}
-          </HintText>
           <NarrativeKaraoke
             key={state.currentSceneId ?? undefined}
             text={sceneText}

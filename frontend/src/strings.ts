@@ -51,6 +51,8 @@ export const UI = {
 
   ending: {
     hint: 'Koniec legendy',
+    continueButton: 'Dalej',
     restartButton: 'Zagraj ponownie',
+    scoreLabel: 'Twój wynik',
   },
 } as const

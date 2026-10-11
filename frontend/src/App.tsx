@@ -6,6 +6,7 @@ import { LoadingScreen } from './screens/LoadingScreen'
 import { ErrorScreen } from './screens/ErrorScreen'
 import { StartScreen } from './screens/StartScreen'
 import { SceneScreen } from './screens/SceneScreen'
+import { ArriveScreen } from './screens/ArriveScreen'
 import { ConsequenceScreen } from './screens/ConsequenceScreen'
 import { EndingScreen } from './screens/EndingScreen'
 import { MapScreen } from './screens/MapScreen'
@@ -45,6 +46,7 @@ function GameRouter() {
   if (state.screen === 'error') return <ErrorScreen />
   if (state.screen === 'start') return <StartScreen summaries={summaries} onStart={handleStart} />
   if (state.screen === 'scene') return <SceneScreen />
+  if (state.screen === 'arrive') return <ArriveScreen />
   if (state.screen === 'consequence') return <ConsequenceScreen />
   if (state.screen === 'ending') return <EndingScreen />
 
