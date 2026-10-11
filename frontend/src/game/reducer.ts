@@ -10,6 +10,7 @@ export type GameAction =
   | { type: 'SELECT_OPTION'; payload: Option }
   | { type: 'ADVANCE_SCENE' }
   | { type: 'DISMISS_ARRIVAL' }
+  | { type: 'MANUAL_ARRIVE' }
   | { type: 'RESTART' }
   | { type: 'RETRY_FETCH' }
   | { type: 'GPS_UPDATE'; payload: GpsPosition }
@@ -193,6 +194,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'DISMISS_ARRIVAL':
       return { ...state, screen: 'scene' }
+
+    case 'MANUAL_ARRIVE':
+      return { ...state, screen: 'arrive' }
 
     case 'GPS_DENIED':
       return { ...state, gpsGranted: false }

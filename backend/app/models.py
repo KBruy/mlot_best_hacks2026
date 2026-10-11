@@ -112,6 +112,7 @@ class StreetView(_Model):
     anchors: list[LatLon]
     stops: dict[str, StreetViewShot] = Field(description="Klucz to id przystanku.")
     finale: StreetViewShot
+    start: StreetViewShot | None = Field(None, description="Ujęcie startowe (przed pierwszym przystankiem). Jeśli brak, frontend oblicza z demo_start/GPS.")
 
 
 class SimPoint(_Model):
