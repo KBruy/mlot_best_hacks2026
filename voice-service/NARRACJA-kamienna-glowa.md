@@ -31,7 +31,7 @@ Wyniki: WAV w `voice-service/outputs/kamienna-glowa/`, MP3 i znaczniki czasu sł
   Wtrącenia typu „grzmi pryncypał” czyta narrator.
 - Fragmenty skryptu składają się dokładnie na słowa tekstu z legendy (bez myślników dialogowych), więc napisy i nagranie się zgadzają.
 - Legenda powtarza niektóre akapity pod różnymi plikami (np. „Córkę zamyka pod strażą…” w `mistrz-o*-2`, pożar w `odmowa-o1-*`, `ofiara-o1-*` i `rozmowa-o1-*`). Identyczne kwestie trafiają do cache, więc generują się raz.
-- Razem **95 plików**, w tym 11 z dialogiem (kilka głosów w jednym pliku).
+- Razem **94 pliki**, w tym 11 z dialogiem (kilka głosów w jednym pliku).
 - Bardzo krótkie kwestie warto odsłuchać, bo model bywa na nich niestabilny: „Do wiosny.” (`szlak-o2-1`), „mówi cicho.” (`ofiara-1`), „pyta chłodno.” (`rozmowa-2`), „Wrócę bogaty.” (`przysiega-o1-1`).
 
 ## Skrypty
@@ -52,12 +52,6 @@ Wyniki: WAV w `voice-service/outputs/kamienna-glowa/`, MP3 i znaczniki czasu sł
 
 ```text
 [Krystian, narrator] Wrocławianie od wieków opowiadają, czyja to twarz i dlaczego nie może się stamtąd ruszyć.
-```
-
-### `intro-3.mp3`
-
-```text
-[Krystian, narrator] Wpisz numer i Enter, a q kończy grę.
 ```
 
 ### `warsztat-1.mp3`
@@ -81,7 +75,7 @@ Wyniki: WAV w `voice-service/outputs/kamienna-glowa/`, MP3 i znaczniki czasu sł
 ### `warsztat-o2-1.mp3`
 
 ```text
-[Krystian, narrator] Zbierasz się na odwagę i stajesz przed mistrzem. Serce wali ci tak, że ledwie słyszysz własne słówa.
+[Krystian, narrator] Zbierasz się na odwagę i stajesz przed mistrzem. Serce wali ci tak, że ledwie słyszysz własne słowa.
 ```
 
 ### `warsztat-o3-1.mp3`
@@ -299,7 +293,7 @@ Wyniki: WAV w `voice-service/outputs/kamienna-glowa/`, MP3 i znaczniki czasu sł
 ### `przysiega-o3-2.mp3`
 
 ```text
-[Krystian, narrator] Odchodzisz z Wrocławia w milczeniu – nie masz ani uncji złota, ani jasnego celu, a twoim jedynym majątkiem jest ukryta w kieszeni chustka
+[Krystian, narrator] Odchodzisz z Wrocławia w milczeniu – nie masz ani uncji złota, ani jasnego celu, a twoim jedynym majątkiem jest ukryta w kieszeni chustka.
 ```
 
 ### `szlak-1.mp3`
@@ -311,7 +305,7 @@ Wyniki: WAV w `voice-service/outputs/kamienna-glowa/`, MP3 i znaczniki czasu sł
 ### `szlak-2.mp3`
 
 ```text
-[Krystian, narrator] Wtedy właśnie na twojej drodze staje banda zbójców. Nie masz przy sobie absolutnie niczego, czym mógłbyś okupić swoje życie. Twój los wisi na włosku: mogą cię zabić na miejscu albo przyjąć do swojej watahy
+[Krystian, narrator] Wtedy właśnie na twojej drodze staje banda zbójców. Nie masz przy sobie absolutnie niczego, czym mógłbyś okupić swoje życie. Twój los wisi na włosku: mogą cię zabić na miejscu albo przyjąć do swojej watahy.
 ```
 
 ### `szlak-o1-1.mp3`
@@ -497,7 +491,7 @@ Wyniki: WAV w `voice-service/outputs/kamienna-glowa/`, MP3 i znaczniki czasu sł
 ### `rozmowa-1.mp3`
 
 ```text
-[Krystian, narrator] Z domu wychodzi ona. Jest widocznie starsza, ale od razu poznaje twoje spojrzenie, kiedy wyciągasz z kieszeni starą, wyhaftowaną chustkę. Przez krótką chwilę znów dostrzegasz w niej tamtą dziewczynę sprzed lat
+[Krystian, narrator] Z domu wychodzi ona. Jest widocznie starsza, ale od razu poznaje twoje spojrzenie, kiedy wyciągasz z kieszeni starą, wyhaftowaną chustkę. Przez krótką chwilę znów dostrzegasz w niej tamtą dziewczynę sprzed lat.
 ```
 
 ### `rozmowa-2.mp3`

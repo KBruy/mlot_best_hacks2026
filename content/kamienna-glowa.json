@@ -684,10 +684,6 @@
       {
         "text": "Wrocławianie od wieków opowiadają, czyja to twarz i dlaczego nie może się stamtąd ruszyć.",
         "audio_url": "/audio/kamienna-glowa/intro-2.mp3"
-      },
-      {
-        "text": "Wpisz numer i Enter, a q kończy grę.",
-        "audio_url": "/audio/kamienna-glowa/intro-3.mp3"
       }
     ]
   },
@@ -730,7 +726,7 @@
           "next": "mistrz",
           "result": [
             {
-              "text": "Zbierasz się na odwagę i stajesz przed mistrzem. Serce wali ci tak, że ledwie słyszysz własne słówa.",
+              "text": "Zbierasz się na odwagę i stajesz przed mistrzem. Serce wali ci tak, że ledwie słyszysz własne słowa.",
               "audio_url": "/audio/kamienna-glowa/warsztat-o2-1.mp3"
             }
           ]
@@ -1052,7 +1048,7 @@
               "audio_url": "/audio/kamienna-glowa/przysiega-o3-1.mp3"
             },
             {
-              "text": "Odchodzisz z Wrocławia w milczeniu – nie masz ani uncji złota, ani jasnego celu, a twoim jedynym majątkiem jest ukryta w kieszeni chustka",
+              "text": "Odchodzisz z Wrocławia w milczeniu – nie masz ani uncji złota, ani jasnego celu, a twoim jedynym majątkiem jest ukryta w kieszeni chustka.",
               "audio_url": "/audio/kamienna-glowa/przysiega-o3-2.mp3"
             }
           ]
@@ -1074,7 +1070,7 @@
           "audio_url": "/audio/kamienna-glowa/szlak-1.mp3"
         },
         {
-          "text": "Wtedy właśnie na twojej drodze staje banda zbójców. Nie masz przy sobie absolutnie niczego, czym mógłbyś okupić swoje życie. Twój los wisi na włosku: mogą cię zabić na miejscu albo przyjąć do swojej watahy",
+          "text": "Wtedy właśnie na twojej drodze staje banda zbójców. Nie masz przy sobie absolutnie niczego, czym mógłbyś okupić swoje życie. Twój los wisi na włosku: mogą cię zabić na miejscu albo przyjąć do swojej watahy.",
           "audio_url": "/audio/kamienna-glowa/szlak-2.mp3"
         }
       ],
@@ -1366,7 +1362,7 @@
       "title": "Wieczór w ogrodzie",
       "scene": [
         {
-          "text": "Z domu wychodzi ona. Jest widocznie starsza, ale od razu poznaje twoje spojrzenie, kiedy wyciągasz z kieszeni starą, wyhaftowaną chustkę. Przez krótką chwilę znów dostrzegasz w niej tamtą dziewczynę sprzed lat",
+          "text": "Z domu wychodzi ona. Jest widocznie starsza, ale od razu poznaje twoje spojrzenie, kiedy wyciągasz z kieszeni starą, wyhaftowaną chustkę. Przez krótką chwilę znów dostrzegasz w niej tamtą dziewczynę sprzed lat.",
           "audio_url": "/audio/kamienna-glowa/rozmowa-1.mp3"
         },
         {
