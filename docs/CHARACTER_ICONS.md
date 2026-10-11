@@ -84,3 +84,15 @@ Kolumna „Scena” podaje id sceny z JSON. Jeśli poza dotyczy konkretnej opcji
 | `kuzynka-plotka.png` | `dom`: skutek opcji „Zostać i pomóc matce” (`sciezka: intryga`); `plotka` |
 | `tesciowa-wylicza.png` | `bal`: skutek opcji „Zgodzić się” (`odpowiedz: zgoda`) |
 | `straznik-przy-bramie.png` | `czeladnik`: skutek opcji „Uciec nocą z czeladnikiem” (`odpowiedz: ucieczka`) |
+
+## Tła
+
+Pliki leżą w `assets/tla/` jako PNG 1920x1072 (16:9). Środek dołu każdego tła jest pusty, bo tam stoi postać; na telefonie tło przycina się po bokach.
+
+| Plik | Scena |
+|---|---|
+| `tlo-izba.png` | `dom`, `bal`, `wyrok` |
+| `tlo-warsztat.png` | `czeladnik` |
+| `tlo-rynek-dzien.png` | `plotka` |
+| `tlo-mostek.png` | `mostek`; zakończenia `wolna`, `rok`, `zamiana` |
+| `tlo-rynek-noc.png` | `starzec`, `zyczenie`, `kradziez`, `uklad`; zakończenia `moc`, `ucieczka`, `podstep` |
