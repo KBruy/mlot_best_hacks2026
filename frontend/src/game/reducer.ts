@@ -29,6 +29,7 @@ export const initialState: GameState = {
   gpsGranted: null,
   demoMode: false,
   muted: false,
+  lastStop: null,
 }
 
 function resolveWidok(lat: number, lon: number, story: Story): string {
@@ -82,6 +83,8 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'ADVANCE_SCENE': {
       if (!state.pendingOption || !state.story) return state
+      const currentScene = state.currentSceneId ? state.story.scenes[state.currentSceneId] : null
+      const lastStop = currentScene?.before ?? state.lastStop
       const nextId = state.pendingOption.next
       if (nextId === null) {
         const endingKey = state.story.ending_by
@@ -89,6 +92,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           .join('|')
         return {
           ...state,
+          lastStop,
           screen: 'ending',
           currentSceneId: endingKey,
           pendingOption: null,
@@ -97,6 +101,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       }
       return {
         ...state,
+        lastStop,
         screen: 'scene',
         currentSceneId: nextId,
         pendingOption: null,

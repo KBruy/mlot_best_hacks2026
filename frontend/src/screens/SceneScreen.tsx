@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useGame } from '../game/useGame'
 import { useLocationGate } from '../map/useLocationGate'
 import { resolveParagraphs } from '../game/textUtils'
-import { bearingDeg } from '../map/distance'
+import { bearingDeg, haversineDistance } from '../map/distance'
 import { SceneLayout } from '../components/SceneLayout'
 import { StoryPanel } from '../components/StoryPanel'
 import { LocationPanel } from '../components/LocationPanel'
@@ -13,6 +13,16 @@ import { NarrativeKaraoke } from '../components/NarrativeKaraoke'
 import { UI } from '../strings'
 import type { Option, StreetViewShot } from '../game/types'
 
+function nearestAnchorIdx(anchors: [number, number][], lat: number, lon: number): number {
+  let best = 0
+  let bestDist = Infinity
+  for (let i = 0; i < anchors.length; i++) {
+    const d = haversineDistance(lat, lon, anchors[i][0], anchors[i][1])
+    if (d < bestDist) { bestDist = d; best = i }
+  }
+  return best
+}
+
 export function SceneScreen() {
   const { state, dispatch } = useGame()
   const [completedSceneId, setCompletedSceneId] = useState<string | null>(null)
@@ -20,11 +30,24 @@ export function SceneScreen() {
   const scene = state.currentSceneId ? state.story?.scenes[state.currentSceneId] ?? null : null
   const { blocked, distanceM } = useLocationGate(scene)
 
-  const anchors = state.story?.streetview?.anchors
+  const allAnchors = state.story?.streetview?.anchors ?? null
   const beforeStop = scene?.before ? state.story?.stops[scene.before] ?? null : null
   const beforeShot = scene?.before ? state.story?.streetview?.stops[scene.before] ?? null : null
 
-  const isDemoWalk = state.demoMode && !!scene?.before && !!anchors?.length
+  const isDemoWalk = state.demoMode && !!scene?.before && !!allAnchors?.length
+
+  // Segment anchors: only the portion of the route relevant to the current stop
+  const segmentAnchors = useMemo<[number, number][] | null>(() => {
+    if (!isDemoWalk || !allAnchors || !beforeStop) return null
+    const prevStop = state.lastStop ? state.story?.stops[state.lastStop] : null
+    const endIdx = nearestAnchorIdx(allAnchors, beforeStop.lat, beforeStop.lon)
+    // First walk (no lastStop): always start from anchor 0 — demo_start sits at the
+    // destination, so nearest-anchor logic would collapse the segment to a single frame.
+    const startIdx = prevStop
+      ? nearestAnchorIdx(allAnchors, prevStop.lat, prevStop.lon)
+      : 0
+    return allAnchors.slice(startIdx, endIdx + 1)
+  }, [isDemoWalk, allAnchors, beforeStop, state.lastStop, state.story])
 
   // Demo walk: track { sceneId, frame } — frame advances via interval callback (async)
   const [walk, setWalk] = useState<{ sceneId: string; frame: number } | null>(null)
@@ -41,24 +64,40 @@ export function SceneScreen() {
   }, [state.currentSceneId, isDemoWalk])
 
   const walkFrame = walk?.sceneId === state.currentSceneId ? walk.frame : 0
-  const walkDone = !isDemoWalk || walkFrame >= (anchors?.length ?? 0)
+  const walkDone = !isDemoWalk || walkFrame >= (segmentAnchors?.length ?? 0)
 
-  // Street View shot for the location panel
+  // Street View shot during demo walk — heading toward next anchor, last anchor toward stop
   const walkShot: StreetViewShot | null = (() => {
-    if (!isDemoWalk) return beforeShot ?? state.story?.streetview?.finale ?? null
-    if (!anchors || walkFrame >= anchors.length) return beforeShot ?? null
-    const [ancLat, ancLon] = anchors[walkFrame]
-    return {
-      lat: ancLat,
-      lon: ancLon,
-      heading: beforeStop
-        ? bearingDeg(ancLat, ancLon, beforeStop.lat, beforeStop.lon)
-        : 0,
-      pitch: 0,
+    if (!isDemoWalk || !segmentAnchors) return null
+    if (walkFrame >= segmentAnchors.length) return beforeShot ?? null
+    const [ancLat, ancLon] = segmentAnchors[walkFrame]
+    let heading = 0
+    if (walkFrame + 1 < segmentAnchors.length) {
+      heading = bearingDeg(ancLat, ancLon, segmentAnchors[walkFrame + 1][0], segmentAnchors[walkFrame + 1][1])
+    } else if (beforeStop) {
+      heading = bearingDeg(ancLat, ancLon, beforeStop.lat, beforeStop.lon)
     }
+    return { lat: ancLat, lon: ancLon, heading, pitch: 0 }
   })()
 
-  const locationShot = walkShot ?? state.story?.streetview?.finale ?? null
+  // Static shot for non-walk scenes: last stop's fixed view, or nearest anchor to demo_start
+  const staticShot: StreetViewShot | null = (() => {
+    if (!state.story) return null
+    if (state.lastStop) {
+      return state.story.streetview?.stops[state.lastStop] ?? null
+    }
+    if (!allAnchors?.length) return null
+    const pos: [number, number] | null = state.demoMode && state.story.demo_start
+      ? [state.story.demo_start[0], state.story.demo_start[1]]
+      : state.gpsPosition ? [state.gpsPosition.lat, state.gpsPosition.lon] : null
+    if (!pos) return null
+    const idx = nearestAnchorIdx(allAnchors, pos[0], pos[1])
+    const [ancLat, ancLon] = allAnchors[idx]
+    const center = state.story.location.center
+    return { lat: ancLat, lon: ancLon, heading: bearingDeg(ancLat, ancLon, center[0], center[1]), pitch: 0 }
+  })()
+
+  const locationShot: StreetViewShot | null = isDemoWalk ? walkShot : staticShot
   const locationLabel = beforeStop?.label ?? UI.scene.panelLocation
 
   const karaokeComplete = completedSceneId === state.currentSceneId
@@ -74,8 +113,8 @@ export function SceneScreen() {
 
   const skipWalk = useCallback(() => {
     if (!isDemoWalk || walkDone) return
-    setWalk({ sceneId: state.currentSceneId ?? '', frame: anchors?.length ?? 0 })
-  }, [isDemoWalk, walkDone, state.currentSceneId, anchors?.length])
+    setWalk({ sceneId: state.currentSceneId ?? '', frame: segmentAnchors?.length ?? 0 })
+  }, [isDemoWalk, walkDone, state.currentSceneId, segmentAnchors?.length])
 
   useEffect(() => {
     if (!isDemoWalk || walkDone) return
@@ -107,7 +146,7 @@ export function SceneScreen() {
           <LocationGate
             stop={beforeStop}
             shot={beforeShot}
-            anchors={anchors}
+            anchors={allAnchors}
             distanceM={distanceM}
           />
         </div>
@@ -134,7 +173,7 @@ export function SceneScreen() {
           )}
         </StoryPanel>
       }
-      location={<LocationPanel shot={locationShot} label={locationLabel} />}
+      location={<LocationPanel shot={locationShot} label={locationLabel} onBack={() => dispatch({ type: 'RESTART' })} />}
       choices={
         walkDone ? (
           <ChoicesPanel

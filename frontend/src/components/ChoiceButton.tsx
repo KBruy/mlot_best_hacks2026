@@ -11,7 +11,7 @@ export function ChoiceButton({ children, disabled = false, onClick, shortcut }: 
   return (
     <PixelButton
       tone="gold"
-      className="w-full text-left"
+      className="w-full text-left !h-auto min-h-10 py-2 items-start"
       disabled={disabled}
       onClick={onClick}
       aria-label={shortcut !== undefined ? `Opcja ${shortcut}: ${String(children)}` : undefined}
