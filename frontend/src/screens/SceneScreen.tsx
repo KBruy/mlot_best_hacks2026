@@ -134,7 +134,7 @@ export function SceneScreen() {
           )}
         </StoryPanel>
       }
-      location={<LocationPanel shot={locationShot} label={locationLabel} />}
+      location={<LocationPanel shot={locationShot} label={locationLabel} onBack={() => dispatch({ type: 'RESTART' })} />}
       choices={
         walkDone ? (
           <ChoicesPanel
